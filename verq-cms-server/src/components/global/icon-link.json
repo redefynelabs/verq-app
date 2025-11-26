@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_global_icon_links",
+  "info": {
+    "displayName": "IconLink"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "link": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

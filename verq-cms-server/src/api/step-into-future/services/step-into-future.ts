@@ -1,0 +1,7 @@
+/**
+ * step-into-future service
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreService('api::step-into-future.step-into-future');

@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "email_forms",
+  "info": {
+    "singularName": "email-form",
+    "pluralName": "email-forms",
+    "displayName": "Email Form"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Email": {
+      "type": "email"
+    }
+  }
+}

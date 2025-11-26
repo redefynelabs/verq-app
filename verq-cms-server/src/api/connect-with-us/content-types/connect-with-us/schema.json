@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "connect_with_uses",
+  "info": {
+    "singularName": "connect-with-us",
+    "pluralName": "connect-with-uses",
+    "displayName": "ConnectWithUs"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "SocialLinks": {
+      "type": "component",
+      "component": "global.icon-link",
+      "repeatable": true
+    }
+  }
+}

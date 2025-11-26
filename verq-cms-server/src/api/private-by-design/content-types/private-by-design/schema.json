@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "private_by_designs",
+  "info": {
+    "singularName": "private-by-design",
+    "pluralName": "private-by-designs",
+    "displayName": "PrivateByDesign"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Points": {
+      "type": "component",
+      "component": "shared.points",
+      "repeatable": true
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "step_into_futures",
+  "info": {
+    "singularName": "step-into-future",
+    "pluralName": "step-into-futures",
+    "displayName": "StepIntoFuture"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "Points": {
+      "type": "component",
+      "component": "shared.title-desc-group",
+      "repeatable": true
+    },
+    "Video": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

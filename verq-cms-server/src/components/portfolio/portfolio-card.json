@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_portfolio_portfolio_cards",
+  "info": {
+    "displayName": "PortfolioCard"
+  },
+  "options": {},
+  "attributes": {
+    "WorkImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

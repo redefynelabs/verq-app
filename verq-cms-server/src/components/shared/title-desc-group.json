@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_title_desc_groups",
+  "info": {
+    "displayName": "TitleDescGroup"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

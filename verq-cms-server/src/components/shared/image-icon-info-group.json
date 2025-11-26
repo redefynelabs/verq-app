@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_image_icon_info_groups",
+  "info": {
+    "displayName": "ImageIconInfoGroup"
+  },
+  "options": {},
+  "attributes": {
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "desc": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}
