@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --background: #101010;
+  --foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-family-inter: var(--font-inter);
+  --font-family-orpix: var(--font-orpix);
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-orpix);
+}
+
+
+.inter {
+  font-family: var(--font-inter);
+}
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+
+}
