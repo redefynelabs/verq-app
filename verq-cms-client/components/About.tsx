@@ -121,7 +121,7 @@ const About = ({ data }: AboutProps) => {
                 </div>
 
 
-                <div className="absolute hidden lg:flex flex-row justify-between w-full 2xl:max-w-7xl xl:max-w-6xl left-1/2 -translate-x-1/2 2xl:top-90 xl:top-60 gap-10">
+                <div className="absolute hidden lg:flex flex-row justify-between w-full 2xl:max-w-7xl xl:max-w-6xl left-1/2 -translate-x-1/2 2xl:top-90 xl:top-60 gap-10 z-20">
 
                     {/* ABOUT Column */}
                     <h1 className="flex flex-col gap-3 text-[16px] text-[#FF3D00] inter leading-none">

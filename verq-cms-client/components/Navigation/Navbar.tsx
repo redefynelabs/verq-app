@@ -13,6 +13,16 @@ const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
 
   const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const startScramble = () => {
     if (!linkRef.current) return;
 
@@ -85,6 +95,7 @@ const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
       style={{ color: "#C8C8C8" }}
       onMouseEnter={startScramble}
       onMouseLeave={reset}
+      onClick={handleClick}
     >
       {text}
     </Link>
@@ -154,6 +165,13 @@ const Navbar = () => {
         {/* Contact Button */}
         <Link
           href="#contact"
+          onClick={(e) => {
+            e.preventDefault();
+            const targetElement = document.getElementById('contact');
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }}
           className="
             bg-[#FF3D00] text-black rounded-full hover:bg-[#FF3D00]/90 transition-all duration-300
             w-full lg:w-auto text-center

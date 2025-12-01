@@ -34,3 +34,10 @@ html {
   -ms-overflow-style: none; /* IE and Edge */
 
 }
+
+
+
+#fluid {
+  pointer-events: none; /* Important: let mouse pass through */
+  mix-blend-mode: overlay; /* or screen, or normal — try overlay for premium glass */
+}
