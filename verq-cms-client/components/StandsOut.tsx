@@ -29,10 +29,10 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
   }, [])
   return (
     <ContainerLayout>
-      <div ref={sectionRef} className="flex flex-col md:flex-row md:min-h-screen h-screen  -z-100 gap-0">
+      <div ref={sectionRef} className="flex flex-col lg:flex-row  h-screen -z-100 gap-0">
 
         {/* LEFT: Full Height Video */}
-        <div className="w-full md:w-[40%] h-[50vh] md:h-full relative overflow-hidden rounded-xl md:rounded-[24px]">
+        <div className="w-full lg:w-[40%] h-[40vh] lg:h-full relative overflow-hidden rounded-xl md:rounded-[24px]">
           <video
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay
@@ -47,12 +47,12 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
         </div>
 
         {/* RIGHT: Content Section */}
-        <div className="bg-[#FFDED3] w-full md:w-[60%] flex flex-col items-start justify-between min-h-[60vh] md:h-full rounded-2xl md:rounded-[24px] px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-10">
+        <div className="bg-[#FFDED3] w-full lg:w-[60%] flex flex-col items-start justify-between lg:min-h-[60vh] lg:h-full rounded-2xl md:rounded-[24px] px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-10">
           <div>
-            <h1 className="text-[#FF3D00] text-4xl sm:text-5xl md:text-6xl lg:text-[88px] text-center tracking-tight leading-none">
+            <h1 className="text-[#FF3D00] text-4xl sm:text-5xl md:text-6xl lg:text-[88px] md:text-center text-start tracking-tight leading-none">
               {data.title}
             </h1>
-            <p className="text-base sm:text-lg md:text-[23px] inter text-black max-w-2xl mt-1 md:mt-6">
+            <p className="text-[13px] sm:text-lg md:text-[23px] inter text-black max-w-2xl mt-1 md:mt-6">
               {data.desc}
             </p>
           </div>
@@ -62,7 +62,7 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
               <div key={index} className="flex flex-col justify-between min-h-[50px] md:h-[200px] xl:h-[250px] 2xl:h-[400px] border-l border-black/30 pl-4">
                 <div>
                   <div className="w-2 h-2 rounded-full bg-[#E90000] mb-3" />
-                  <h1 className="text-black text-[15px] xl:text-[17px] xl:leading-[19px] 2xl:text-[35px] leading-[17px] 2xl:leading-[37px] font-medium uppercase"  >
+                  <h1 className="text-black text-[15px] xl:text-[17px] xl:leading-[19px] 2xl:text-[25px] leading-[17px] 2xl:leading-[37px] font-medium uppercase"  >
                     {item.title}
                   </h1>
                 </div>

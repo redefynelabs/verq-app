@@ -32,7 +32,7 @@ const Design = ({ data }: { data: any }) => {
     { top: '18%', right: '5%' },
     { top: '50%', left: '2%' },
     { top: '62%', right: '8%' },
-    { top: '75%', left: '10%' },
+    { top: '65%', left: '33%' },
   ];
 
   // Desktop positions (768px – 1535px)
@@ -50,7 +50,7 @@ const Design = ({ data }: { data: any }) => {
     { top: '29%', right: '20%' },
     { top: '50%', left: '7%' },
     { top: '68%', right: '39%' },
-    { top: '58%', right: '18%' },
+    { top: '52%', right: '8%' },
   ];
 
   // Choose the correct array based on current screen size
@@ -112,13 +112,13 @@ const Design = ({ data }: { data: any }) => {
           {points.map((point: any, index: number) => (
             <div
               key={point.id}
-              className="absolute p-4 sm:p-5 md:p-6 border rounded-full w-[140px] h-[200px] sm:w-[160px] sm:h-[240px] md:w-[198px] md:h-[300px] text-[#FF3D00] flex items-center justify-center"
+              className="absolute p-4 sm:p-5 md:p-6 border rounded-full w-[100px] h-[170px] sm:w-[160px] sm:h-[240px] md:w-[198px] md:h-[300px] text-[#FF3D00] flex items-center justify-center"
               style={{
                 ...positions[index % positions.length],
                 ...getParallaxStyle(index),
               }}
             >
-              <p className="text-xs sm:text-sm md:text-base leading-relaxed text-start">
+              <p className="text-[10px] sm:text-sm md:text-base leading-relaxed text-start">
                 {point.desc}
               </p>
             </div>

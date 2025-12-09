@@ -55,7 +55,8 @@ const Team = ({ data }: { data: TeamData }) => {
     }, [])
 
     return (
-        <ContainerLayout>
+        <div className='bg-[#101010] rounded-t-[46px] sm:rounded-t-[28px] md:rounded-t-[39px] 2xl:rounded-t-[50px]'>
+<ContainerLayout>
             <div id='teams' ref={containerRef} className='bg-[#FF3D00] flex flex-col lg:flex-row min-h-screen lg:h-screen rounded-[20px] sm:rounded-[28px] md:rounded-[36px] px-4 sm:px-6 lg:px-10 py-8 lg:py-0 relative overflow-hidden'>
                 <div className='flex flex-col items-center justify-center z-10 mb-8 lg:mb-0'>
                     <h1 className='text-[24px] sm:text-[32px] lg:text-[48px]'>^^^/'////------^^^^///</h1>
@@ -98,6 +99,8 @@ const Team = ({ data }: { data: TeamData }) => {
                 </div>
             </div>
         </ContainerLayout>
+        </div>
+        
     )
 }
 

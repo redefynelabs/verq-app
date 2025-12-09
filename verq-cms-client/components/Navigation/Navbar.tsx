@@ -3,15 +3,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { gsap } from "gsap";
 import { NAV_LINKS } from "@/constants/Nav";
+import { useScrambleText } from "@/hooks/useScrambleText";
 
 const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
-  const linkRef = useRef<HTMLAnchorElement>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
-
-  const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const { elementRef, startScramble, resetScramble } = useScrambleText(text);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -23,78 +21,36 @@ const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
     }
   };
 
-  const startScramble = () => {
-    if (!linkRef.current) return;
-
-    // Kill any previous animation
-    if (timelineRef.current) timelineRef.current.kill();
-
-    const tl = gsap.timeline();
-    timelineRef.current = tl;
-
-    let iteration = 0;
-
-    tl.to(linkRef.current, {
-      duration: 0.9, // Total scramble time: ~1 second
-      ease: "none",
-      onUpdate: function () {
-        const progress = this.progress();
-        iteration = Math.floor(progress * 15); // Faster reveal
-
-        const scrambled = text
-          .split("")
-          .map((char, i) => {
-            if (i < iteration) return char;
-            return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-          })
-          .join("");
-
-        if (linkRef.current) {
-          linkRef.current.textContent = scrambled;
-        }
-      },
-      onComplete: () => {
-        if (linkRef.current) {
-          linkRef.current.textContent = text;
-          linkRef.current.style.color = "#ffffff";
-        }
-      },
-    });
-
-    // Smooth color transition
-    gsap.to(linkRef.current, {
-      color: "#ffffff",
-      duration: 0.3,
-      ease: "power2.out",
-    });
+  const handleMouseEnter = () => {
+    startScramble();
+    if (elementRef.current) {
+      gsap.to(elementRef.current, {
+        color: "#ffffff",
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    }
   };
 
-  const reset = () => {
-    if (timelineRef.current) {
-      timelineRef.current.kill();
-      timelineRef.current = null;
+  const handleMouseLeave = () => {
+    resetScramble();
+    if (elementRef.current) {
+      gsap.to(elementRef.current, {
+        color: "#C8C8C8",
+        duration: 0.9,
+        ease: "power2.out",
+      });
     }
-
-    gsap.to(linkRef.current, {
-      color: "#C8C8C8",
-      duration: 0.9,
-      ease: "power2.out",
-      onComplete: () => {
-        if (linkRef.current) {
-          linkRef.current.textContent = text;
-        }
-      },
-    });
   };
 
   return (
     <Link
       href={href}
-      ref={linkRef}
+      ref={elementRef as React.RefObject<HTMLAnchorElement>}
       className="text-lg sm:text-xl lg:text-[20px] xl:text-[22px] font-medium tracking-wider inline-block"
       style={{ color: "#C8C8C8" }}
-      onMouseEnter={startScramble}
-      onMouseLeave={reset}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
       {text}
@@ -104,65 +60,7 @@ const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const contactRef = useRef<HTMLAnchorElement>(null);
-  const contactTimelineRef = useRef<gsap.core.Timeline | null>(null);
-
-  const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const contactText = "CONTACT";
-
-  const startContactScramble = () => {
-    if (!contactRef.current) return;
-
-    if (contactTimelineRef.current) contactTimelineRef.current.kill();
-
-    const tl = gsap.timeline();
-    contactTimelineRef.current = tl;
-
-    let iteration = 0;
-
-    tl.to(contactRef.current, {
-      duration: 0.9,
-      ease: "none",
-      onUpdate: function () {
-        const progress = this.progress();
-        iteration = Math.floor(progress * 15);
-
-        const scrambled = contactText
-          .split("")
-          .map((char, i) => {
-            if (i < iteration) return char;
-            return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-          })
-          .join("");
-
-        if (contactRef.current) {
-          contactRef.current.textContent = scrambled;
-        }
-      },
-      onComplete: () => {
-        if (contactRef.current) {
-          contactRef.current.textContent = contactText;
-        }
-      },
-    });
-  };
-
-  const resetContact = () => {
-    if (contactTimelineRef.current) {
-      contactTimelineRef.current.kill();
-      contactTimelineRef.current = null;
-    }
-
-    gsap.to(contactRef.current, {
-      duration: 0.9,
-      ease: "power2.out",
-      onComplete: () => {
-        if (contactRef.current) {
-          contactRef.current.textContent = contactText;
-        }
-      },
-    });
-  };
+  const { elementRef: contactRef, startScramble: startContactScramble, resetScramble: resetContact } = useScrambleText("CONTACT");
 
   return (
     <div className="flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] gap-[7px] lg:gap-0">
@@ -223,7 +121,7 @@ const Navbar = () => {
 
         {/* Contact Button */}
         <Link
-          ref={contactRef}
+          ref={contactRef as React.RefObject<HTMLAnchorElement>}
           href="#contact"
           onClick={(e) => {
             e.preventDefault();

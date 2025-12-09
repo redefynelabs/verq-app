@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 import LenisProvider from "@/wrapper/ScrollWrapper";
 import { inter, orpix } from "@/fonts";
 import Navbar from "@/components/Navigation/Navbar";
@@ -29,7 +30,12 @@ export default async function RootLayout({
           {children}
          
         </LenisProvider>
-
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+          }}
+        />
       </body>
     </html>
   );

@@ -91,7 +91,7 @@ const About = ({ data }: AboutProps) => {
             <div
                 id="about"
                 ref={sectionRef}
-                className="About-section relative z-10 flex flex-col items-center justify-center lg:h-[190vh] xl:h-[190vh] 2xl:h-[150vh] min-h-screen py-10 lg:py-0 gap-1 px-5 lg:px-0 rounded-xl overflow-hidden"
+                className="About-section relative z-10 flex flex-col items-center justify-center lg:h-[190vh] xl:h-[190vh] 2xl:h-[190vh] min-h-screen py-10 lg:py-0 gap-1 px-5 lg:px-0 rounded-xl overflow-hidden"
             >
                 {/* Decorative Circle - Perfectly smooth scaling */}
                 <div
@@ -120,7 +120,7 @@ const About = ({ data }: AboutProps) => {
                 </div>
 
                 {/* PARALLAX CONTENT - Isolated trigger */}
-                <div className="parallax-content relative z-10 flex lg:flex-row flex-col items-center 2xl:gap-50 xl:gap-1 gap-10 mt-10 lg:mt-60 max-w-7xl mx-auto w-full">
+                <div className="parallax-content relative z-10 flex lg:flex-row flex-col items-center 2xl:gap-50 xl:gap-1 gap-10 mt-30 lg:mt-60 max-w-7xl mx-auto w-full">
                     {/* Block 1 */}
                     {data.GroupedImageIcon[0] && (
                         <div ref={block1Ref} className="flex-1 flex flex-col gap-5 will-change-transform">
