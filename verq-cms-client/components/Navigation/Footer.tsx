@@ -11,7 +11,7 @@ const Footer = ({ data }: FooterProps) => {
     const bgImageUrl = `url(${data.bgImage})`;
     
     return (
-        <ContainerLayout className='pt-10 md:pt-20 pb-10'>
+        <ContainerLayout className='py-10 z-999'>
             <div 
                 id='contact'
                 style={{ backgroundImage: bgImageUrl }} 

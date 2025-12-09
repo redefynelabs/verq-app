@@ -39,18 +39,18 @@ const Design = ({ data }: { data: any }) => {
   const desktopPositions = [
     { top: '5%', left: '15%' },
     { top: '15%', right: '15%' },
-    { top: '55%', left: '1%' },
+    { top: '55%', left: '2%' },
     { top: '65%', right: '38%' },
-    { top: '52%', right: '5%' },
+    { top: '52%', right: '2%' },
   ];
 
   // NEW: 2xl positions (1536px+)
   const twoXlPositions = [
     { top: '12%', left: '18%' },
     { top: '29%', right: '20%' },
-    { top: '50%', left: '7%' },
+    { top: '50%', left: '1.5%' },
     { top: '68%', right: '39%' },
-    { top: '52%', right: '8%' },
+    { top: '52%', right: '2%' },
   ];
 
   // Choose the correct array based on current screen size
@@ -94,7 +94,7 @@ const Design = ({ data }: { data: any }) => {
         ref={containerRef}
         className="relative flex flex-col items-center justify-center gap-4 md:gap-8 bg-[#101010] min-h-screen md:h-[130vh] py-12 md:py-20 px-4"
       >
-        <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[159px] xl:text-[159px] 2xl:text-[200px] text-center relative z-10">
+        <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[159px] xl:text-[159px] 2xl:text-[230px] text-center relative z-10">
           {title}
         </h1>
 

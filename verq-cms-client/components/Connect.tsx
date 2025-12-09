@@ -66,8 +66,8 @@ const Connect = ({ data: connectData }: ConnectProps) => {
     });
 
     return (
-        <ContainerLayout>
-            <section className="text-white pt-12 md:pt-20 relative z-20">
+        <ContainerLayout className="bg-[#101010]">
+            <section id="connect" className="text-white pt-5 md:pt-10 relative z-100 pl-20 ">
                 <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 lg:gap-0">
                     {/* Left — Title */}
                     <div className="flex-1 text-left w-full lg:w-auto">

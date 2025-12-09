@@ -9,6 +9,7 @@ import { HeroData } from "@/service/fetchHero";
 import { submitEmail } from "@/service/submitEmail";
 import ContainerLayout from "@/containerLayout/ContainerLayout";
 import { HiBolt } from "react-icons/hi2";
+import { useScrambleText } from "@/hooks/useScrambleText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +22,7 @@ export default function Hero({ data }: HeroProps) {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { elementRef: buttonTextRef, startScramble, resetScramble } = useScrambleText(data.buttonText);
 
   useEffect(() => {
     const title = titleRef.current;
@@ -166,9 +168,14 @@ export default function Hero({ data }: HeroProps) {
             <button 
               type="submit"
               disabled={isSubmitting}
+              onMouseEnter={startScramble}
+              onMouseLeave={resetScramble}
               className='bg-[#FF3D00] text-black md:px-5 px-5 md:py-3 py-2 rounded-full font-medium flex items-center md:gap-2 gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed'
             >
-              {isSubmitting ? "Submitting..." : data.buttonText} <HiBolt className="text-xl" />
+              <span ref={buttonTextRef as React.RefObject<HTMLSpanElement>}>
+                {isSubmitting ? "Submitting..." : data.buttonText}
+              </span>
+              <HiBolt className="text-xl" />
             </button>
           </form>
         </div>

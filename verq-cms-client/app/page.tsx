@@ -37,18 +37,18 @@ export default async function Home() {
   const footerData = await fetchFooter();
 
   return (
-    <div className=""> 
+    <div className="">
       <Hero data={heroData} />
-      <About data={aboutData} /> 
-      <StandsOut data={standsOutData} /> 
-      <JoinWaitlist data={joinWaitlistData} /> 
-      <Design data={designData} /> 
-      <Portfoilo data={portfolioData} /> 
-      <Future data={futureData} /> 
-      <Team data={teamData} /> 
-      <Code />
-      <TimeWaits data={timeWaitsData} /> 
-      <div className="bg-[#101010]">
+      <About data={aboutData} />
+      <StandsOut data={standsOutData} />
+      <JoinWaitlist data={joinWaitlistData} />
+      <Design data={designData} />
+      <Portfoilo data={portfolioData} />
+      <Future data={futureData} />
+      <div className="bg-[#101010] rounded-t-[55px] relative z-999">
+        <Team data={teamData} />
+        <Code />
+        <TimeWaits data={timeWaitsData} />
         <Connect data={connectData} />
         <Footer data={footerData} />
       </div>

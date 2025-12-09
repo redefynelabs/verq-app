@@ -66,7 +66,7 @@ const Portfolio = ({ data }: { data: PortfolioData | null }) => {
     <ContainerLayout>
       <div id='works' className="min-h-screen flex flex-col bg-[#101010] py-6 md:py-12 w-full">
         {/* Title + Description */}
-        <div className="pb-6 md:pb-12 flex flex-col lg:flex-row items-start md:items-center justify-between lg:px-30 w-full gap-6">
+        <div className="pb-6 md:pb-12 flex flex-col lg:flex-row items-start md:items-center justify-between lg:px-8 w-full gap-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[88px]  text-[#FFDED3] leading-tight">
             {title}
           </h1>
@@ -74,7 +74,7 @@ const Portfolio = ({ data }: { data: PortfolioData | null }) => {
         </div>
 
         {/* Works Grid */}
-        <div className="xl:px-30 2xl:px-30 lg:px-30   ">
+        <div className="xl:px-8 2xl:px-8 lg:px-8   ">
           {Works.map((work) => {
             // Always take first 5 images (or less if not enough)
             const images = work.WorkImages.slice(0, 5);

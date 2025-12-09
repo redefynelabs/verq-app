@@ -76,7 +76,7 @@ const TimeWaits = ({ data }: TimeWaitsProps) => {
     };
 
     return (
-        <div className=" bg-[#101010] ">
+        <div id='times' className=" bg-[#101010] z-100">
             <ContainerLayout>
                 <div
                     className='relative md:h-screen h-[50vh] bg-cover  rounded-[36px] bg-center bg-no-repeat flex flex-col items-start px-8 justify-between overflow-hidden'

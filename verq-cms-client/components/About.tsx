@@ -91,7 +91,7 @@ const About = ({ data }: AboutProps) => {
             <div
                 id="about"
                 ref={sectionRef}
-                className="About-section relative z-10 flex flex-col items-center justify-center lg:h-[190vh] xl:h-[190vh] 2xl:h-[190vh] min-h-screen py-10 lg:py-0 gap-1 px-5 lg:px-0 rounded-xl overflow-hidden"
+                className="About-section relative z-10 flex flex-col items-center justify-center min-h-screen pt-10 lg:pt-30 gap-1 px-5 lg:px-0 rounded-xl overflow-hidden"
             >
                 {/* Decorative Circle - Perfectly smooth scaling */}
                 <div

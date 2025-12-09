@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FutureData } from '@/service/fetchFuture'
+import { useScrambleText } from '@/hooks/useScrambleText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -14,6 +15,14 @@ type FutureProps = {
 
 const Future = ({ data: futureData }: FutureProps) => {
     const sectionRef = useRef<HTMLDivElement>(null)
+    const { elementRef: buttonTextRef, startScramble, resetScramble } = useScrambleText(futureData.button)
+
+    const handleScrollToSection = () => {
+        const targetSection = document.getElementById('times');
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
 
     useEffect(() => {
         if (!sectionRef.current) return
@@ -33,30 +42,41 @@ const Future = ({ data: futureData }: FutureProps) => {
     }, [])
 
     return (
-        <ContainerLayout className=''>
-            <div ref={sectionRef} className='px-4 sm:px-6 md:px-8 lg:px-10 relative -z-50 bg-[#101010]'>
+        <ContainerLayout className='bg-[#101010] relative'>
+            <div ref={sectionRef} className='px-4 sm:px-6 md:px-8 lg:px-10 relative'>
                 {/* Video Background */}
                 <video
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className='absolute inset-0 w-full h-full object-cover rounded-[20px] sm:rounded-[28px] md:rounded-[36px] -z-10'
+                    className='absolute inset-0 w-full h-full object-cover rounded-[20px] sm:rounded-[28px] md:rounded-[36px] pointer-events-none'
+                    style={{ zIndex: 0 }}
                 >
                     <source src={futureData.Video || "/verq.mp4"} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
 
-                <div className='flex flex-col items-start h-screen justify-between w-full py-4 sm:py-5 gap-6 sm:gap-8 md:gap-0'>
+                <div className='relative flex flex-col items-start h-screen justify-between w-full py-4 sm:py-5 gap-6 sm:gap-8 md:gap-0' style={{ zIndex: 1 }}>
                     <div className='flex flex-col lg:flex-row items-start lg:items-center justify-between w-full gap-6 sm:gap-8 lg:gap-4'>
                         <h1 className='text-[#FF3D00] text-[36px] sm:text-[48px] md:text-[64px] lg:text-[88px] leading-[1.1] sm:leading-[1.1] md:leading-[88px] tracking-tight max-w-full lg:max-w-lg'>
                             {futureData.title}
                         </h1>
                         <div className='flex flex-col gap-3 sm:gap-4 md:gap-2 w-full lg:w-auto'>
-                            <p className='inter max-w-full lg:max-w-xl text-[#7D7474] text-[14px] sm:text-[16px] md:text-[18px] lg:text-[21px]'>
+                            <p className='inter max-w-full lg:max-w-xl text-[#7D7474] text-[14px] sm:text-[16px] md:text-[18px] lg:text-[21px] pointer-events-none'>
                                 {futureData.desc}
                             </p>
-                            <button className='bg-[#FF3D00] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] uppercase text-black rounded-full px-6 sm:px-7 md:px-8 py-2 w-fit'>Sign up</button>
+                            <button
+                                onClick={handleScrollToSection}
+                                onMouseEnter={startScramble}
+                                onMouseLeave={resetScramble}
+                                className='relative cursor-pointer bg-[#FF3D00] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] uppercase text-black rounded-full px-6 sm:px-7 md:px-8 py-2 w-fit transition-all duration-300 hover:scale-105 pointer-events-auto'
+                                style={{ zIndex: 10 }}
+                            >
+                                <span ref={buttonTextRef as React.RefObject<HTMLSpanElement>}>
+                                    {futureData.button}
+                                </span>
+                            </button>
                         </div>
                     </div>
 
@@ -69,11 +89,8 @@ const Future = ({ data: futureData }: FutureProps) => {
                         ))}
                     </div>
                 </div>
-
             </div>
-
         </ContainerLayout>
-
     )
 }
 

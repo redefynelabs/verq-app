@@ -2,6 +2,7 @@ export interface FuturePoint {
   id: number;
   title: string;
   desc: string;
+
 }
 
 export interface FutureData {
@@ -9,6 +10,7 @@ export interface FutureData {
   desc: string;
   Points: FuturePoint[];
   Video: string | null;
+  button: string
 }
 
 export const fetchFuture = async (): Promise<FutureData> => {
@@ -26,5 +28,6 @@ export const fetchFuture = async (): Promise<FutureData> => {
     desc: data.desc || "",
     Points: data.Points || [],
     Video: data.Video || null,
+    button: data.ButtonText || "Join Waitlist"
   };
 };

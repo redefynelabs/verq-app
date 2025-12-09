@@ -1,10 +1,16 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { gsap } from 'gsap';
 
 export const useScrambleText = (text: string) => {
   const elementRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
-  const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*";
+
+  useEffect(() => {
+    if (elementRef.current) {
+      elementRef.current.textContent = text;
+    }
+  }, [text]);
 
   const startScramble = useCallback(() => {
     if (!elementRef.current || !text) return;
@@ -17,16 +23,16 @@ export const useScrambleText = (text: string) => {
     let iteration = 0;
 
     tl.to(elementRef.current, {
-      duration: 0.9,
+      duration: 0.6,
       ease: "none",
       onUpdate: function () {
         const progress = this.progress();
-        iteration = Math.floor(progress * 15);
+        iteration = Math.floor(progress * text.length);
 
         const scrambled = text
           .split("")
           .map((char: string, i: number) => {
-            if (i < iteration) return char;
+            if (i < iteration) return text[i];
             if (char === ' ') return ' ';
             return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
           })
@@ -42,7 +48,7 @@ export const useScrambleText = (text: string) => {
         }
       },
     });
-  }, [text]);
+  }, [text, scrambleChars]);
 
   const resetScramble = useCallback(() => {
     if (timelineRef.current) {
@@ -50,15 +56,9 @@ export const useScrambleText = (text: string) => {
       timelineRef.current = null;
     }
 
-    gsap.to(elementRef.current, {
-      duration: 0.9,
-      ease: "power2.out",
-      onComplete: () => {
-        if (elementRef.current) {
-          elementRef.current.textContent = text;
-        }
-      },
-    });
+    if (elementRef.current) {
+      elementRef.current.textContent = text;
+    }
   }, [text]);
 
   return {
