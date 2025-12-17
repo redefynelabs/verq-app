@@ -28,11 +28,11 @@ const Design = ({ data }: { data: any }) => {
 
   // Mobile positions (< 768px)
   const mobilePositions = [
-    { top: '8%', left: '5%' },
-    { top: '18%', right: '5%' },
-    { top: '50%', left: '2%' },
-    { top: '62%', right: '8%' },
-    { top: '65%', left: '33%' },
+    { top: '13%', left: '5%' },
+    { top: '33%', right: '5%' },
+    { top: '44.5%', left: '5%' },
+    { top: '65%', right: '5%' },
+    { top: '77%', left: '5%' },
   ];
 
   // Desktop positions (768px – 1535px)
@@ -58,8 +58,8 @@ const Design = ({ data }: { data: any }) => {
     screenSize === 'mobile'
       ? mobilePositions
       : screenSize === '2xl'
-      ? twoXlPositions
-      : desktopPositions;
+        ? twoXlPositions
+        : desktopPositions;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,43 +90,90 @@ const Design = ({ data }: { data: any }) => {
 
   return (
     <ContainerLayout>
-      <div
-        ref={containerRef}
-        className="relative flex flex-col items-center justify-center gap-4 md:gap-8 bg-[#101010] min-h-screen md:h-[130vh] py-12 md:py-20 px-4"
-      >
-        <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[159px] xl:text-[159px] 2xl:text-[230px] text-center relative z-10">
-          {title}
-        </h1>
+      <div className='md:hidden block'>
+        <div
+          ref={containerRef}
+          className="relative flex flex-col items-center justify-start gap-4 md:gap-8 bg-[#101010] h-[230vh] py-20 px-4"
+        >
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[159px] xl:text-[159px] 2xl:text-[230px] text-center relative z-10">
+            {title}
+          </h1>
 
-        <div className="absolute top-80 2xl:top-120">
-          <Image
-            src="/design.png"
-            alt="icons"
-            width={40}
-            height={40}
-            className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
-          />
-        </div>
+          <div className="absolute top-10">
+            <Image
+              src="/design.png"
+              alt="icons"
+              width={40}
+              height={40}
+              className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
+            />
+          </div>
 
-        <div className="absolute inset-0 w-full h-full">
-          {points.map((point: any, index: number) => (
-            <div
-              key={point.id}
-              className="absolute p-4 sm:p-5 md:p-6 border rounded-full w-[100px] h-[170px] sm:w-[160px] sm:h-[240px] md:w-[198px] md:h-[300px] text-[#FF3D00] flex items-center justify-center"
-              style={{
-                ...positions[index % positions.length],
-                ...getParallaxStyle(index),
-              }}
-            >
-              <p className="text-[10px] sm:text-sm md:text-base leading-relaxed text-start">
-                {point.desc}
-              </p>
-            </div>
-          ))}
+          <div className="absolute inset-0 w-full h-full">
+            {points.map((point: any, index: number) => (
+              <div
+                key={point.id}
+                className="absolute p-4 sm:p-5 md:p-6 border rounded-full w-[200px] h-[300px] text-[#FF3D00] flex items-center justify-center"
+                style={{
+                  ...positions[index % positions.length],
+                  ...getParallaxStyle(index),
+                }}
+              >
+                <p className="text-[16px] leading-relaxed text-start">
+                  {point.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+
         </div>
       </div>
+
+
+
+      <div className='md:block hidden'>
+        <div
+          ref={containerRef}
+          className="relative flex flex-col items-center justify-center gap-4 md:gap-8 bg-[#101010] min-h-screen md:h-[130vh] py-12 md:py-20 px-4"
+        >
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[159px] xl:text-[159px] 2xl:text-[230px] text-center relative z-10">
+            {title}
+          </h1>
+
+          <div className="absolute top-80 2xl:top-120">
+            <Image
+              src="/design.png"
+              alt="icons"
+              width={40}
+              height={40}
+              className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
+            />
+          </div>
+
+          <div className="absolute inset-0 w-full h-full">
+            {points.map((point: any, index: number) => (
+              <div
+                key={point.id}
+                className="absolute p-4 sm:p-5 md:p-6 border rounded-full w-[100px] h-[170px] sm:w-[160px] sm:h-[240px] md:w-[198px] md:h-[300px] text-[#FF3D00] flex items-center justify-center"
+                style={{
+                  ...positions[index % positions.length],
+                  ...getParallaxStyle(index),
+                }}
+              >
+                <p className="text-[10px] sm:text-sm md:text-base leading-relaxed text-start">
+                  {point.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+
+        </div>
+      </div>
+
     </ContainerLayout>
   );
 };
 
-export default Design;
+export default Design; 

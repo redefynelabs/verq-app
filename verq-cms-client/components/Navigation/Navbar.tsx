@@ -15,7 +15,7 @@ const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
     const targetElement = document.getElementById(targetId);
-    
+
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -63,44 +63,45 @@ const Navbar = () => {
   const { elementRef: contactRef, startScramble: startContactScramble, resetScramble: resetContact } = useScrambleText("CONTACT");
 
   return (
-    <div className="flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] gap-[7px] lg:gap-0">
+    <div className="flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0">
       {/* Top Bar - Logo and Mobile Menu Toggle */}
       <div className="flex flex-row items-center justify-between w-full lg:w-auto">
         {/* Logo */}
-        <div className="rounded-[20px] px-3 sm:px-5 py-2 sm:py-3 border border-[#C8C8C8] flex items-center">
-          <Image 
-            src="/verq.png" 
-            alt="Verq" 
-            width={300} 
-            height={300} 
-            className="w-20 sm:w-24 lg:w-28 pt-1 sm:pt-2" 
+        <div className="md:rounded-[20px] rounded-2xl px-8 sm:px-5 py-4 sm:py-3 border border-[#C8C8C8] flex items-center">
+          <Image
+            src="/verq.png"
+            alt="Verq"
+            width={300}
+            height={300}
+            className="w-20 sm:w-24 lg:w-28 pt-1 sm:pt-2"
           />
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden rounded-[20px] px-4 py-4 border border-[#C8C8C8] flex items-center justify-center"
           aria-label="Toggle menu"
+          className="lg:hidden px-5 py-4 rounded-2xl  bg-[#FF3D00] flex items-center justify-center"
         >
-          <div className="flex flex-col gap-1.5 w-6">
-            <span
-              className={`h-0.5 bg-[#C8C8C8] transition-all duration-300 ${
-                isMenuOpen ? "rotate-45 translate-y-2" : ""
+          <div
+            className={`grid grid-cols-3 gap-1 transition-all duration-500 ${isMenuOpen ? " scale-110" : "rotate-0 scale-100"
               }`}
-            />
-            <span
-              className={`h-0.5 bg-[#C8C8C8] transition-all duration-300 ${
-                isMenuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`h-0.5 bg-[#C8C8C8] transition-all duration-300 ${
-                isMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            />
+          >
+            {[...Array(9)].map((_, i) => (
+              <span
+                key={i}
+                className={`w-2.5 h-2.5 rounded-full bg-black flex items-center justify-center transition-all duration-500 ${isMenuOpen ? "scale-110" : "scale-100"
+                  }`}
+              >
+                <span
+                  className={`w-[5px] h-[5px] rounded-full bg-[#FF3D00] transition-all duration-500 ${isMenuOpen ? "scale-105" : "scale-75 "
+                    }`}
+                />
+              </span>
+            ))}
           </div>
         </button>
+
       </div>
 
       {/* Nav Links - Desktop and Mobile */}

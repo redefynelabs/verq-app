@@ -32,7 +32,7 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
       <div ref={sectionRef} className="flex flex-col lg:flex-row  h-screen -z-100 gap-0">
 
         {/* LEFT: Full Height Video */}
-        <div className="w-full lg:w-[40%] h-[40vh] lg:h-full relative overflow-hidden rounded-xl md:rounded-[24px]">
+        <div className="w-full lg:w-[40%] h-[35vh] lg:h-full relative overflow-hidden rounded-xl md:rounded-[24px]">
           <video
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay
@@ -47,7 +47,7 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
         </div>
 
         {/* RIGHT: Content Section */}
-        <div className="bg-[#FFDED3] w-full lg:w-[60%] flex flex-col items-start justify-between lg:min-h-[60vh] lg:h-full rounded-2xl md:rounded-[24px] px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-10">
+        <div className="bg-[#FFDED3] w-full lg:w-[60%] flex flex-col items-start md:justify-between lg:min-h-[60vh] min-h-[65vh]  lg:h-full rounded-2xl md:rounded-[24px] px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-10">
           <div>
             <h1 className="text-[#FF3D00] text-4xl sm:text-5xl md:text-6xl lg:text-[88px] md:text-center text-start tracking-tight leading-none">
               {data.title}
@@ -57,7 +57,7 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-6 md:gap-x-8 mt-4 md:mt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-10 md:gap-x-8 mt-10 md:mt-0">
             {data.standingOutPoints.map((item, index) => (
               <div key={index} className="flex flex-col justify-between min-h-[50px] md:h-[200px] xl:h-[250px] 2xl:h-[400px] border-l border-black/30 pl-4">
                 <div>

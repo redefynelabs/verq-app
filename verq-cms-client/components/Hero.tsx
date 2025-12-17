@@ -131,7 +131,7 @@ export default function Hero({ data }: HeroProps) {
       </div> */}
 
         {/* Hero Content */}
-        <div className="relative z-20 h-full flex flex-col justify-end lg:pb-5 pb-30 px-4 lg:px-8">
+        <div className="relative z-20 h-full flex flex-col justify-end lg:pb-5 md:pb-30 pb-19 px-4 lg:px-8">
           <h1
             ref={titleRef}
             className="text-7xl md:text-8xl lg:text-[100px]  xl:text-[100px] 2xl:text-[120px] 2xl:leading-[95px] xl:leading-[75px] lg:leading-[80px] md:leading-[65px] leading-[55px] font-regular text-[#FFD0C1] tracking-tighter"
@@ -160,17 +160,31 @@ export default function Hero({ data }: HeroProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={data.inputPlaceholder}
                 disabled={isSubmitting}
-                className='w-full md:pl-12 pl-10 pr-6 md:py-3 py-2 bg-transparent border border-[#FFFFFF66] rounded-[16px] text-white placeholder:text-white/60 focus:outline-none focus:border-white/80 transition-colors disabled:opacity-50'
+                className='w-full md:pl-12 pl-10 md:pr-6 pr-[120px] md:py-3 py-2 bg-transparent border border-[#FFFFFF66] rounded-[16px] text-white placeholder:text-white/60 focus:outline-none focus:border-white/80 transition-colors disabled:opacity-50'
               />
+              
+              {/* Mobile button inside input */}
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                onMouseEnter={startScramble}
+                onMouseLeave={resetScramble}
+                className='md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-[#FF3D00] text-black px-3 py-2 rounded-full font-medium flex items-center gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed text-sm'
+              >
+                <span ref={buttonTextRef as React.RefObject<HTMLSpanElement>}>
+                  {isSubmitting ? "..." : data.buttonText}
+                </span>
+                <HiBolt className="text-base" />
+              </button>
             </div>
 
-            {/* START NOW button*/}
+            {/* Desktop button outside input */}
             <button 
               type="submit"
               disabled={isSubmitting}
               onMouseEnter={startScramble}
               onMouseLeave={resetScramble}
-              className='bg-[#FF3D00] text-black md:px-5 px-5 md:py-3 py-2 rounded-full font-medium flex items-center md:gap-2 gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed'
+              className='hidden md:flex bg-[#FF3D00] text-black md:px-5 px-5 md:py-3 py-2 rounded-full font-medium items-center md:gap-2 gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed'
             >
               <span ref={buttonTextRef as React.RefObject<HTMLSpanElement>}>
                 {isSubmitting ? "Submitting..." : data.buttonText}

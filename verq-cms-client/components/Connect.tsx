@@ -67,7 +67,7 @@ const Connect = ({ data: connectData }: ConnectProps) => {
 
     return (
         <ContainerLayout className="bg-[#101010]">
-            <section id="connect" className="text-white pt-5 md:pt-10 relative z-100 pl-20 ">
+            <section id="connect" className="text-white pt-5 md:pt-10 relative z-100 md:pl-20 ">
                 <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 lg:gap-0">
                     {/* Left — Title */}
                     <div className="flex-1 text-left w-full lg:w-auto">
@@ -79,7 +79,7 @@ const Connect = ({ data: connectData }: ConnectProps) => {
                     {/* Right — Grid */}
                     <div className="flex-1/5 w-full">
                         <div
-                            className="grid grid-cols-6 gap-1 md:gap-3 grid-rows-[repeat(3,minmax(80px,1fr))] sm:grid-rows-[repeat(3,minmax(120px,1fr))]"
+                            className="grid grid-cols-6 gap-1 md:gap-3 grid-rows-[repeat(3,minmax(110px,1fr))] sm:grid-rows-[repeat(3,minmax(120px,1fr))]"
                         >
                             {sortedLinks.map((socialLink) => {
                                 const gridConfig = iconMap[socialLink.icon.name] || { colSpan: 1, rowSpan: 1, order: 999 };

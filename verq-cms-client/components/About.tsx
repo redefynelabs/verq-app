@@ -18,10 +18,15 @@ const About = ({ data }: AboutProps) => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const circleRef = useRef<HTMLDivElement>(null);
 
-    // Parallax blocks
+    // Parallax blocks - Desktop
     const block1Ref = useRef<HTMLDivElement>(null);
     const block2Ref = useRef<HTMLDivElement>(null);
     const block3Ref = useRef<HTMLDivElement>(null);
+    
+    // Parallax blocks - Mobile (separate refs to avoid conflicts)
+    const mobileBlock1Ref = useRef<HTMLDivElement>(null);
+    const mobileBlock2Ref = useRef<HTMLDivElement>(null);
+    const mobileBlock3Ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const section = sectionRef.current;
@@ -61,20 +66,49 @@ const About = ({ data }: AboutProps) => {
         const parallaxContainer = section.querySelector(".parallax-content") as HTMLElement;
 
         if (parallaxContainer) {
-            const blocks = [block1Ref, block2Ref, block3Ref];
+            // Desktop parallax blocks
+            const desktopBlocks = [
+                { ref: block1Ref, speed: -30 },
+                { ref: block2Ref, speed: -50 },
+                { ref: block3Ref, speed: -70 }
+            ];
 
-            blocks.forEach((ref, i) => {
+            // Mobile parallax blocks
+            const mobileBlocks = [
+                { ref: mobileBlock1Ref, speed: -20 },
+                { ref: mobileBlock2Ref, speed: -40 },
+                { ref: mobileBlock3Ref, speed: -60 }
+            ];
+
+            // Apply parallax to desktop blocks
+            desktopBlocks.forEach(({ ref, speed }) => {
                 if (!ref.current) return;
 
                 gsap.to(ref.current, {
-                    yPercent: -45 - i * 20,
+                    yPercent: speed,
                     ease: "none",
                     scrollTrigger: {
                         trigger: parallaxContainer,
                         start: "top bottom",
                         end: "bottom top",
-                        scrub: 1.4,
-                        // This is a SEPARATE ScrollTrigger → no interference!
+                        scrub: 1.2,
+                        invalidateOnRefresh: true,
+                    },
+                });
+            });
+
+            // Apply parallax to mobile blocks
+            mobileBlocks.forEach(({ ref, speed }) => {
+                if (!ref.current) return;
+
+                gsap.to(ref.current, {
+                    yPercent: speed,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: parallaxContainer,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.2,
                         invalidateOnRefresh: true,
                     },
                 });
@@ -120,33 +154,37 @@ const About = ({ data }: AboutProps) => {
                 </div>
 
                 {/* PARALLAX CONTENT - Isolated trigger */}
-                <div className="parallax-content relative z-10 flex lg:flex-row flex-col items-center 2xl:gap-50 xl:gap-1 gap-10 mt-30 lg:mt-60 max-w-7xl mx-auto w-full">
-                    {/* Block 1 */}
-                    {data.GroupedImageIcon[0] && (
-                        <div ref={block1Ref} className="flex-1 flex flex-col gap-5 will-change-transform">
-                            <div className="relative overflow-hidden w-full lg:w-90 xl:w-90 2xl:w-[490px] h-[250px] lg:h-[550px] xl:h-[550px] 2xl:h-[650px] rounded-t-full mx-auto">
-                                <Image
-                                    src={data.GroupedImageIcon[0].Image.url}
-                                    alt={data.GroupedImageIcon[0].Image.alternativeText}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                            <div className="flex flex-row gap-3 items-center justify-center">
-                                <div className="p-4 bg-[#FFD0C1] rounded-full">
-                                    <Image src='/Icons/pen.png' alt='pen' width={25} height={25} />
+                <div className="parallax-content relative z-10 flex lg:flex-row flex-col items-center 2xl:gap-50 xl:gap-1 gap-10 mt-10 lg:mt-60 max-w-7xl mx-auto w-full">
+                    {/* Desktop Layout - Original Order */}
+                    <div className="hidden lg:flex flex-1 flex-col gap-5">
+                        {/* Block 1 - Desktop */}
+                        {data.GroupedImageIcon[0] && (
+                            <div ref={block1Ref} className="flex flex-col gap-5 will-change-transform transform-gpu">
+                                <div className="relative overflow-hidden w-90 xl:w-90 2xl:w-[490px] h-[550px] xl:h-[550px] 2xl:h-[650px] rounded-t-full mx-auto">
+                                    <Image
+                                        src={data.GroupedImageIcon[0].Image.url}
+                                        alt={data.GroupedImageIcon[0].Image.alternativeText}
+                                        fill
+                                        className="object-cover"
+                                    />
                                 </div>
-                                <p className="text-[#C8C8C8] text-[12px] lg:text-[15px] inter max-w-xs leading-[15px] lg:leading-[16px] mx-auto lg:mx-0">
-                                    {data.GroupedImageIcon[0].desc}
-                                </p>
+                                <div className="flex flex-row gap-3 items-center justify-center">
+                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
+                                        <Image src='/Icons/pen.png' alt='pen' width={25} height={25} />
+                                    </div>
+                                    <p className="text-[#C8C8C8] text-[15px] inter max-w-xs leading-[16px] mx-0">
+                                        {data.GroupedImageIcon[0].desc}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
 
                     <div className="flex-1 flex flex-col md:gap-40 gap-5">
+                        {/* Desktop Block 2 */}
                         {data.GroupedImageIcon[1] && (
-                            <div ref={block2Ref} className="flex flex-col items-center gap-5 will-change-transform">
-                                <div className="relative overflow-hidden w-[150px] h-[150px] xl:w-55 xl:h-55 2xl:w-70 2xl:h-70 rounded-full mx-auto lg:mx-0">
+                            <div ref={block2Ref} className="hidden lg:flex flex-col items-center gap-5 will-change-transform transform-gpu">
+                                <div className="relative overflow-hidden w-[300px] h-[300px] xl:w-55 xl:h-55 2xl:w-70 2xl:h-70 rounded-full mx-auto lg:mx-0">
                                     <Image
                                         src={data.GroupedImageIcon[1].Image.url}
                                         alt={data.GroupedImageIcon[1].Image.alternativeText}
@@ -158,16 +196,17 @@ const About = ({ data }: AboutProps) => {
                                     <div className="p-4 bg-[#FFD0C1] rounded-full">
                                         <Image src='/Icons/settings.png' alt='settings' width={25} height={25} />
                                     </div>
-                                    <p className="text-[#C8C8C8] text-[12px] lg:text-[15px] inter max-w-sm leading-[15px] lg:leading-[16px]">
+                                    <p className="text-[#C8C8C8] text-[15px] inter max-w-sm leading-[16px]">
                                         {data.GroupedImageIcon[1].desc}
                                     </p>
                                 </div>
                             </div>
                         )}
 
+                        {/* Desktop Block 3 */}
                         {data.GroupedImageIcon[2] && (
-                            <div ref={block3Ref} className="flex flex-col items-center gap-5 mt-5 lg:mt-10 will-change-transform">
-                                <div className="relative overflow-hidden w-full max-w-[300px] lg:max-w-none xl:max-w-md 2xl:max-w-none h-[130px] lg:h-[180px] xl:h-[180px] 2xl:h-[230px] rounded-full mx-auto lg:mx-0">
+                            <div ref={block3Ref} className="hidden lg:flex flex-col items-center gap-5 mt-5 lg:mt-10 will-change-transform transform-gpu">
+                                <div className="relative overflow-hidden w-full max-w-none xl:max-w-md 2xl:max-w-none h-[180px] xl:h-[180px] 2xl:h-[230px] rounded-full mx-0">
                                     <Image
                                         src={data.GroupedImageIcon[2].Image.url}
                                         alt={data.GroupedImageIcon[2].Image.alternativeText}
@@ -179,7 +218,76 @@ const About = ({ data }: AboutProps) => {
                                     <div className="p-4 bg-[#FFD0C1] rounded-full">
                                         <Image src='/Icons/stopwatch.png' alt='stopwatch' width={20} height={20} />
                                     </div>
-                                    <p className="text-[#C8C8C8] text-[12px] lg:text-[15px] inter max-w-sm leading-[15px] lg:leading-[16px]">
+                                    <p className="text-[#C8C8C8] text-[15px] inter max-w-sm leading-[16px]">
+                                        {data.GroupedImageIcon[2].desc}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Mobile Layout - Reordered: Index 1, Index 0, Index 2 */}
+                    <div className="flex lg:hidden flex-col gap-20 w-full">
+                        {/* Mobile Block 1 (Index 1 first) */}
+                        {data.GroupedImageIcon[1] && (
+                            <div ref={mobileBlock1Ref} className="flex flex-col items-center gap-5 will-change-transform transform-gpu">
+                                <div className="relative overflow-hidden w-[300px] h-[300px] rounded-full mx-auto">
+                                    <Image
+                                        src={data.GroupedImageIcon[1].Image.url}
+                                        alt={data.GroupedImageIcon[1].Image.alternativeText}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                                <div className="flex flex-row gap-3 items-center justify-center">
+                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
+                                        <Image src='/Icons/settings.png' alt='settings' width={25} height={25} />
+                                    </div>
+                                    <p className="text-[#C8C8C8] text-[12px] inter max-w-sm leading-[15px]">
+                                        {data.GroupedImageIcon[1].desc}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Mobile Block 2 (Index 0 second) */}
+                        {data.GroupedImageIcon[0] && (
+                            <div ref={mobileBlock2Ref} className="flex flex-col gap-5 will-change-transform transform-gpu">
+                                <div className="relative overflow-hidden w-full h-[350px] rounded-t-full mx-auto">
+                                    <Image
+                                        src={data.GroupedImageIcon[0].Image.url}
+                                        alt={data.GroupedImageIcon[0].Image.alternativeText}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                                <div className="flex flex-row gap-3 items-center justify-center">
+                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
+                                        <Image src='/Icons/pen.png' alt='pen' width={25} height={25} />
+                                    </div>
+                                    <p className="text-[#C8C8C8] text-[12px] inter max-w-xs leading-[15px] mx-auto">
+                                        {data.GroupedImageIcon[0].desc}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Mobile Block 3 (Index 2 third) */}
+                        {data.GroupedImageIcon[2] && (
+                            <div ref={mobileBlock3Ref} className="flex flex-col items-center gap-5 will-change-transform transform-gpu">
+                                <div className="relative overflow-hidden w-full h-[180px] rounded-full mx-auto">
+                                    <Image
+                                        src={data.GroupedImageIcon[2].Image.url}
+                                        alt={data.GroupedImageIcon[2].Image.alternativeText}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                                <div className="flex flex-row gap-3 items-center justify-center">
+                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
+                                        <Image src='/Icons/stopwatch.png' alt='stopwatch' width={20} height={20} />
+                                    </div>
+                                    <p className="text-[#C8C8C8] text-[12px] inter max-w-sm leading-[15px]">
                                         {data.GroupedImageIcon[2].desc}
                                     </p>
                                 </div>
