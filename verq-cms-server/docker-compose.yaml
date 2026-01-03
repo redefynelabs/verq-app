@@ -1,6 +1,6 @@
 services:
   strapi:
-    image: strapi/strapi:latest
+    build: .
     container_name: verq_strapi
     restart: unless-stopped
     ports:
@@ -8,4 +8,4 @@ services:
     env_file:
       - .env
     volumes:
-      - ./data:/srv/app
+      - ./data:/app/.tmp
