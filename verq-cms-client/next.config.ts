@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Keep all your existing config
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "http",
@@ -15,7 +16,9 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
       },
     ],
+    
   },
+
 
   // THIS IS THE FIX — Replace webpack with turbopack rules
   turbopack: {
