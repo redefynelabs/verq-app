@@ -1,0 +1,11 @@
+services:
+  strapi:
+    image: strapi/strapi:latest
+    container_name: verq_strapi
+    restart: unless-stopped
+    ports:
+      - "1337:1337"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/srv/app
