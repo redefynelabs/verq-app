@@ -1,10 +1,8 @@
-// app/page.tsx
-
+// components/HomeSections.tsx
 import About from "@/components/About";
 import Code from "@/components/Code";
 import Connect from "@/components/Connect";
 import Future from "@/components/Future";
-import Hero from "@/components/Hero";
 import TimeWaits from "@/components/TimeWaits";
 import Footer from "@/components/Navigation/Footer";
 import Team from "@/components/Team";
@@ -23,20 +21,13 @@ import { fetchStandsOut } from "@/service/fetchStandsOut";
 import { fetchJoinWaitlist } from "@/service/fetchJoinWaitlist";
 import { fetchDesign } from "@/service/fetchDesign";
 import { fetchPortfolio } from "@/service/fetchPortfolio";
-import { fetchHero } from "@/service/fetchHero";
 
-/**
- * 🔥 FULLY STATIC PAGE
- * - Built once
- * - Served instantly
- * - No loaders
- * - No streaming
- */
-export const dynamic = "force-static";
-
-export default async function Home() {
+export default async function HomeSections() {
+  /**
+   * 🚀 Parallel + cached fetches
+   * No UI blocking
+   */
   const [
-    heroData,
     aboutData,
     timeWaitsData,
     connectData,
@@ -48,7 +39,6 @@ export default async function Home() {
     portfolioData,
     footerData,
   ] = await Promise.all([
-    fetchHero(),
     fetchAbout(),
     fetchTimeWaits(),
     fetchConnect(),
@@ -62,8 +52,7 @@ export default async function Home() {
   ]);
 
   return (
-    <div>
-      <Hero data={heroData} />
+    <>
       <About data={aboutData} />
       <StandsOut data={standsOutData} />
       <JoinWaitlist data={joinWaitlistData} />
@@ -78,6 +67,6 @@ export default async function Home() {
         <Connect data={connectData} />
         <Footer data={footerData} />
       </div>
-    </div>
+    </>
   );
 }

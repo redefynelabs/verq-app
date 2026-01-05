@@ -32,9 +32,7 @@ const Footer = ({ data }: FooterProps) => {
 
             <div className='flex flex-col md:flex-row justify-between w-full inter pt-10 md:pt-20 gap-4 md:gap-0 text-sm md:text-base'>
                 <div className='text-center md:text-left'>{data.copyRight}</div>
-                <div className='text-center md:text-left'>
-                    Developed By <Link href='https://redefyne.in/' target='_blank' rel='noopener noreferrer' className='hover:text-[#FFD0C1] transition-colors duration-300 underline-offset-4 hover:underline'>ReDefyne Labs</Link>
-                </div>
+                
                 <div className='flex gap-4 justify-center md:justify-start'>
                     {data.pagesLinks?.map((item, index) => (
                         <Link key={index} href={item.href} className='hover:text-[#FFD0C1] transition-colors duration-300'>

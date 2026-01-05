@@ -22,7 +22,11 @@ export default function Hero({ data }: HeroProps) {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { elementRef: buttonTextRef, startScramble, resetScramble } = useScrambleText(data.buttonText);
+  const {
+    elementRef: buttonTextRef,
+    startScramble,
+    resetScramble,
+  } = useScrambleText(data.buttonText);
 
   useEffect(() => {
     const title = titleRef.current;
@@ -62,19 +66,19 @@ export default function Hero({ data }: HeroProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email || !email.includes('@')) {
+
+    if (!email || !email.includes("@")) {
       toast.error("Please enter a valid email", {
         style: {
-          background: '#1a1a1a',
-          color: '#fff',
-          border: '1px solid #FF3D00',
-          borderRadius: '16px',
-          padding: '16px',
+          background: "#1a1a1a",
+          color: "#fff",
+          border: "1px solid #FF3D00",
+          borderRadius: "16px",
+          padding: "16px",
         },
         iconTheme: {
-          primary: '#FF3D00',
-          secondary: '#fff',
+          primary: "#FF3D00",
+          secondary: "#fff",
         },
       });
       return;
@@ -86,30 +90,30 @@ export default function Hero({ data }: HeroProps) {
       await submitEmail(email);
       toast.success("Successfully joined the waitlist!", {
         style: {
-          background: '#1a1a1a',
-          color: '#fff',
-          border: '1px solid #4ade80',
-          borderRadius: '16px',
-          padding: '16px',
+          background: "#1a1a1a",
+          color: "#fff",
+          border: "1px solid #4ade80",
+          borderRadius: "16px",
+          padding: "16px",
         },
         iconTheme: {
-          primary: '#4ade80',
-          secondary: '#fff',
+          primary: "#4ade80",
+          secondary: "#fff",
         },
       });
       setEmail("");
     } catch (error) {
       toast.error("Failed to submit. Please try again.", {
         style: {
-          background: '#1a1a1a',
-          color: '#fff',
-          border: '1px solid #FF3D00',
-          borderRadius: '16px',
-          padding: '16px',
+          background: "#1a1a1a",
+          color: "#fff",
+          border: "1px solid #FF3D00",
+          borderRadius: "16px",
+          padding: "16px",
         },
         iconTheme: {
-          primary: '#FF3D00',
-          secondary: '#fff',
+          primary: "#FF3D00",
+          secondary: "#fff",
         },
       });
       console.error("Error submitting email:", error);
@@ -118,17 +122,30 @@ export default function Hero({ data }: HeroProps) {
     }
   };
 
-
   return (
     <ContainerLayout>
-      <section id="#home" className="relative h-[90vh] w-full overflow-hidden rounded-[20px] bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${data.bgImage}')` }}>
-        {/* <div className=" absolute inset-0">
-        <Spline
-          scene="https://prod.spline.design/MuJgsRQ16calAF6a/scene.splinecode"
-          className="scale-[1.4] md:scale-[0.6] lg:scale-[0.8] !w-full !h-full origin-center"
-          style={{ transform: "scale(1.6)" }} // Extra boost for impact
-        />
-      </div> */}
+      <section
+        id="#home"
+        className="relative h-[90vh] w-full overflow-hidden rounded-[20px] bg-cover bg-center bg-no-repeat"
+        
+      >
+        {/* ---------------- VIDEO BACKGROUND ---------------- */}
+        {data.bgImage ? (
+          <video
+            className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+            src={data.bgImage}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+        ) : (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('${data.bgImage}')` }}
+          />
+        )}
 
         {/* Hero Content */}
         <div className="relative z-20 h-full flex flex-col justify-end lg:pb-5 md:pb-30 pb-19 px-4 lg:px-8">
@@ -136,9 +153,9 @@ export default function Hero({ data }: HeroProps) {
             ref={titleRef}
             className="text-7xl md:text-8xl lg:text-[100px]  xl:text-[100px] 2xl:text-[120px] 2xl:leading-[95px] xl:leading-[75px] lg:leading-[80px] md:leading-[65px] leading-[55px] font-regular text-[#FFD0C1] tracking-tighter"
           >
-            {data.title.split(' ').slice(0, 1).join(' ')}
+            {data.title.split(" ").slice(0, 1).join(" ")}
             <br />
-            {data.title.split(' ').slice(1).join(' ')}
+            {data.title.split(" ").slice(1).join(" ")}
           </h1>
 
           <p
@@ -148,9 +165,10 @@ export default function Hero({ data }: HeroProps) {
             {data.subtitle}
           </p>
 
-
-          <form onSubmit={handleSubmit} className='absolute md:bottom-7 bottom-5 md:right-10 right-5 left-5 flex flex-col sm:flex-row gap-1 sm:gap-3 md:items-center items-start md:w-[670px] md:left-auto'>
-
+          <form
+            onSubmit={handleSubmit}
+            className="absolute md:bottom-7 bottom-5 md:right-10 right-5 left-5 flex flex-col sm:flex-row gap-1 sm:gap-3 md:items-center items-start md:w-[670px] md:left-auto"
+          >
             {/* Input with red dot inside */}
             <div className="relative flex-1 w-full">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#FF3D00] rounded-full z-10" />
@@ -160,16 +178,16 @@ export default function Hero({ data }: HeroProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={data.inputPlaceholder}
                 disabled={isSubmitting}
-                className='w-full md:pl-12 pl-10 md:pr-6 pr-[120px] md:py-3 py-2 bg-transparent border border-[#FFFFFF66] rounded-[16px] text-white placeholder:text-white/60 focus:outline-none focus:border-white/80 transition-colors disabled:opacity-50'
+                className="w-full md:pl-12 pl-10 md:pr-6 pr-[120px] md:py-3 py-2 bg-transparent border border-[#FFFFFF66] rounded-[16px] text-white placeholder:text-white/60 focus:outline-none focus:border-white/80 transition-colors disabled:opacity-50"
               />
-              
+
               {/* Mobile button inside input */}
-              <button 
+              <button
                 type="submit"
                 disabled={isSubmitting}
                 onMouseEnter={startScramble}
                 onMouseLeave={resetScramble}
-                className='md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-[#FF3D00] text-black px-3 py-2 rounded-full font-medium flex items-center gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed text-sm'
+                className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-[#FF3D00] text-black px-3 py-2 rounded-full font-medium flex items-center gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed text-sm"
               >
                 <span ref={buttonTextRef as React.RefObject<HTMLSpanElement>}>
                   {isSubmitting ? "..." : data.buttonText}
@@ -179,12 +197,12 @@ export default function Hero({ data }: HeroProps) {
             </div>
 
             {/* Desktop button outside input */}
-            <button 
+            <button
               type="submit"
               disabled={isSubmitting}
               onMouseEnter={startScramble}
               onMouseLeave={resetScramble}
-              className='hidden md:flex bg-[#FF3D00] text-black md:px-5 px-5 md:py-3 py-2 rounded-full font-medium items-center md:gap-2 gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed'
+              className="hidden md:flex bg-[#FF3D00] text-black md:px-5 px-5 md:py-3 py-2 rounded-full font-medium items-center md:gap-2 gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span ref={buttonTextRef as React.RefObject<HTMLSpanElement>}>
                 {isSubmitting ? "Submitting..." : data.buttonText}
@@ -193,9 +211,7 @@ export default function Hero({ data }: HeroProps) {
             </button>
           </form>
         </div>
-
       </section>
     </ContainerLayout>
-
   );
 }
