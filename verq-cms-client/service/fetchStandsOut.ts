@@ -11,7 +11,9 @@ export interface StandsOutData {
 }
 
 export const fetchStandsOut = async (): Promise<StandsOutData> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/how-we-stand-out?populate=*`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/how-we-stand-out?populate=*`, {
+    next: { revalidate: 60 }, // revalidate every 60s
+  });
   
   if (!response.ok) {
     throw new Error(`Failed to fetch stands out data: ${response.status}`);

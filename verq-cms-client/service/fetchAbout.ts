@@ -1,5 +1,3 @@
-
-
 export interface AboutImage {
   id: number;
   documentId: string;
@@ -32,7 +30,9 @@ export const fetchAbout = async (): Promise<AboutData | null> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/about?populate[GroupedImageIcon][populate]=*`,
-
+      {
+        next: { revalidate: 60 }, // revalidate every 60s
+      }
     );
 
     if (!response.ok) {

@@ -11,7 +11,9 @@ export interface FooterData {
 }
 
 export const fetchFooter = async (): Promise<FooterData> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/footer?populate=*`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/footer?populate=*`, {
+    next: { revalidate: 60 }, // revalidate every 60s
+  });
   
   if (!response.ok) {
     throw new Error(`Failed to fetch footer data: ${response.status}`);

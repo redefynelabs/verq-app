@@ -24,7 +24,7 @@ export const fetchJoinWaitlist = async (): Promise<JoinWaitlistData | null> => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/service?populate=*`,
       {
-        cache: "no-store",
+        next: { revalidate: 60 }, // revalidate every 60s
       }
     );
 

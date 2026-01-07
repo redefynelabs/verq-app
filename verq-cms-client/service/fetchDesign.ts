@@ -1,8 +1,8 @@
 export const fetchDesign = async () => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/private-by-design?populate=*`, {
-            cache: 'no-store'
-        });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/private-by-design?populate=*`,  {
+    next: { revalidate: 60 }, // revalidate every 60s
+  });
 
         if (!response.ok) {
             throw new Error('Failed to fetch design data');

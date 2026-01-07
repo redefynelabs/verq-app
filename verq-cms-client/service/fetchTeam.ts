@@ -13,7 +13,9 @@ export interface TeamData {
 }
 
 export const fetchTeam = async (): Promise<TeamData> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/team?populate[TeamCard][populate]=*`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/team?populate[TeamCard][populate]=*`, {
+    next: { revalidate: 60 }, // revalidate every 60s
+  });
   
   if (!response.ok) {
     throw new Error(`Failed to fetch team data: ${response.status}`);

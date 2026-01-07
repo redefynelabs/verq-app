@@ -14,7 +14,9 @@ export interface ConnectData {
 }
 
 export const fetchConnect = async (): Promise<ConnectData> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/connect-with-us?populate[SocialLinks][populate]=*`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/connect-with-us?populate[SocialLinks][populate]=*`, {
+    next: { revalidate: 60 }, // revalidate every 60s
+  });
   
   if (!response.ok) {
     throw new Error(`Failed to fetch connect data: ${response.status}`);

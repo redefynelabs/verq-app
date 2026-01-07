@@ -32,7 +32,7 @@ import { fetchHero } from "@/service/fetchHero";
  * - No loaders
  * - No streaming
  */
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
 
 export default async function Home() {
   const [
