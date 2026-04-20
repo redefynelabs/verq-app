@@ -73,7 +73,6 @@ export default async function Home() {
       <Design data={designData} />
       <Portfoilo data={portfolioData} />
       <Future data={futureData} />
-
       <div className="bg-[#101010] rounded-t-[55px] relative z-50">
         <Team data={teamData} />
         <Code />
