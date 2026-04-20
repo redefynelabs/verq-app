@@ -1,7 +1,7 @@
 export const fetchDesign = async () => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/private-by-design?populate=*`,  {
-    next: { revalidate: 60 }, // revalidate every 60s
+    cache: 'no-store',
   });
 
         if (!response.ok) {

@@ -14,7 +14,7 @@ export interface TeamData {
 
 export const fetchTeam = async (): Promise<TeamData> => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/team?populate[TeamCard][populate]=*`, {
-    next: { revalidate: 60 }, // revalidate every 60s
+    cache: 'no-store',
   });
   
   if (!response.ok) {

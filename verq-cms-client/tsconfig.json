@@ -23,7 +23,7 @@
     }
   },
   "include": [
-    "verq-cms-client/next-env.d.ts",
+    "./next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",

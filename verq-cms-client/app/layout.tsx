@@ -23,13 +23,13 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} ${orpix.variable} antialiased`}
       >
-        <LenisProvider>
+        {/* <LenisProvider> */}
           <RipplePlane />
    
           <Navbar />
           {children}
          
-        </LenisProvider>
+        {/* </LenisProvider> */}
         <Toaster 
           position="top-right"
           toastOptions={{

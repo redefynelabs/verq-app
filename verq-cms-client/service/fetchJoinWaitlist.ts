@@ -7,10 +7,18 @@ export interface ServiceVideo {
   url: string;
 }
 
+export interface ServiceMedia {
+  id: number;
+  url: string;
+  mime: string;
+  alternativeText: string;
+}
+
 export interface ServiceItem {
   id: number;
   title: string;
   desc: string;
+  media: ServiceMedia | null;
 }
 
 export interface JoinWaitlistData {
@@ -22,9 +30,9 @@ export interface JoinWaitlistData {
 export const fetchJoinWaitlist = async (): Promise<JoinWaitlistData | null> => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/service?populate=*`,
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/service?populate[ServicesList][populate]=*`,
       {
-        next: { revalidate: 60 }, // revalidate every 60s
+        cache: 'no-store',
       }
     );
 

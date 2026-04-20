@@ -1,6 +1,6 @@
 "use client"
 import ContainerLayout from '@/containerLayout/ContainerLayout';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { StandsOutData } from '@/service/fetchStandsOut';
@@ -59,8 +59,8 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-5 md:gap-x-8 mt-10 md:mt-0">
             {data.standingOutPoints.map((item, index) => (
-              <>
-               <div key={index} className="flex flex-col justify-between min-h-[50px] md:h-[200px] xl:h-[250px] 2xl:h-[400px] border-l border-black/30 pl-4">
+              <React.Fragment key={index}>
+               <div className="flex flex-col justify-between min-h-[50px] md:h-[200px] xl:h-[250px] 2xl:h-[400px] border-l border-black/30 pl-4">
                 <div>
                   <div className="w-2 h-2 rounded-full bg-[#E90000] mb-3" />
                   <h1 className="text-black text-[15px] xl:text-[17px] xl:leading-[19px] 2xl:text-[25px] leading-[17px] 2xl:leading-[37px] font-medium uppercase"  >
@@ -73,8 +73,8 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
                   <hr className='text-black/30 md:hidden block mt-5' />
               </div>
                
-              </>
-             
+              </React.Fragment>
+
             ))}
           </div>
         </div>

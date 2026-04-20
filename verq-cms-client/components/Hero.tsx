@@ -20,6 +20,7 @@ interface HeroProps {
 export default function Hero({ data }: HeroProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const {
@@ -62,6 +63,14 @@ export default function Hero({ data }: HeroProps) {
     });
 
     return () => ctx.revert();
+  }, []);
+
+  // iOS Safari needs webkit-playsinline + explicit play()
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.setAttribute('webkit-playsinline', 'true');
+    video.play().catch(() => {});
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -132,13 +141,14 @@ export default function Hero({ data }: HeroProps) {
         {/* ---------------- VIDEO BACKGROUND ---------------- */}
         {data.bgImage ? (
           <video
+            ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
             src={data.bgImage}
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
           />
         ) : (
           <div

@@ -7,7 +7,7 @@ export interface TimeWaitsData {
 
 export const fetchTimeWaits = async (): Promise<TimeWaitsData> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/cta?populate=*`,  {
-    next: { revalidate: 60 }, // revalidate every 60s
+    cache: 'no-store',
   });
 
   if (!res.ok) {

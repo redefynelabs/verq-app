@@ -121,7 +121,7 @@ const About = ({ data }: AboutProps) => {
     }, [data]);
 
     return (
-        <ContainerLayout>
+        <ContainerLayout isMobileFullScreen={true} className=" px-0!">
             <div
                 id="about"
                 ref={sectionRef}

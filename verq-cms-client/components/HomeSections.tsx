@@ -8,7 +8,7 @@ import Footer from "@/components/Navigation/Footer";
 import Team from "@/components/Team";
 import Portfoilo from "@/components/Portfoilo";
 import StandsOut from "@/components/StandsOut";
-import JoinWaitlist from "@/components/JoinWaitlist";
+import JoinWaitlist from "@/components/Services";
 import Design from "@/components/Design";
 
 import { fetchAbout } from "@/service/fetchAbout";

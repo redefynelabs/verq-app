@@ -128,6 +128,7 @@ export interface SharedTitleDescGroup extends Struct.ComponentSchema {
   };
   attributes: {
     desc: Schema.Attribute.Text;
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
   };
 }

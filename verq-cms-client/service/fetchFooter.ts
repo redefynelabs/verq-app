@@ -12,7 +12,7 @@ export interface FooterData {
 
 export const fetchFooter = async (): Promise<FooterData> => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/footer?populate=*`, {
-    next: { revalidate: 60 }, // revalidate every 60s
+    cache: 'no-store',
   });
   
   if (!response.ok) {

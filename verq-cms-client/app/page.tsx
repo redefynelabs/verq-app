@@ -10,7 +10,7 @@ import Footer from "@/components/Navigation/Footer";
 import Team from "@/components/Team";
 import Portfoilo from "@/components/Portfoilo";
 import StandsOut from "@/components/StandsOut";
-import JoinWaitlist from "@/components/JoinWaitlist";
+import Services from "@/components/Services";
 import Design from "@/components/Design";
 
 import { fetchAbout } from "@/service/fetchAbout";
@@ -24,15 +24,10 @@ import { fetchJoinWaitlist } from "@/service/fetchJoinWaitlist";
 import { fetchDesign } from "@/service/fetchDesign";
 import { fetchPortfolio } from "@/service/fetchPortfolio";
 import { fetchHero } from "@/service/fetchHero";
+import { Clients } from "@/components/Clients";
 
-/**
- * 🔥 FULLY STATIC PAGE
- * - Built once
- * - Served instantly
- * - No loaders
- * - No streaming
- */
-// export const dynamic = "force-static";
+// Always SSR — fresh data on every request, fetches run in parallel
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const [
@@ -61,12 +56,27 @@ export default async function Home() {
     fetchFooter(),
   ]);
 
+  console.log('Fetched all data:', {
+    heroData,
+    aboutData,
+    timeWaitsData,
+    connectData,
+    futureData,
+    teamData,
+    standsOutData,
+    joinWaitlistData,
+    designData,
+    portfolioData,
+    footerData,
+  }); 
+
   return (
     <div>
       <Hero data={heroData} />
       <About data={aboutData} />
       <StandsOut data={standsOutData} />
-      <JoinWaitlist data={joinWaitlistData} />
+      <Services data={joinWaitlistData} />
+      <Clients />
       <Design data={designData} />
       <Portfoilo data={portfolioData} />
       <Future data={futureData} />

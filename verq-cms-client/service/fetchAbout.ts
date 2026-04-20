@@ -31,7 +31,7 @@ export const fetchAbout = async (): Promise<AboutData | null> => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/about?populate[GroupedImageIcon][populate]=*`,
       {
-        next: { revalidate: 60 }, // revalidate every 60s
+        cache: 'no-store',
       }
     );
 

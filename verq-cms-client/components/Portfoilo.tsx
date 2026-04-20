@@ -115,21 +115,32 @@ const Portfolio = ({ data }: { data: PortfolioData | null }) => {
                     ))}
                 </div>
 
-                {/* Mobile: simple vertical stack */}
-                <div className="md:hidden flex flex-col gap-4">
-                  {images.map((image) => {
+                {/* Mobile: responsive 2-col grid */}
+                <div className="md:hidden grid grid-cols-2 gap-2 mt-4">
+                  {/* First image — full width, taller */}
+                  {images[0] && (
+                    <div className="col-span-2 relative h-48 sm:h-64 rounded-lg overflow-hidden">
+                      <Image
+                        src={getImageUrl(images[0])}
+                        alt={images[0].alternativeText || work.title}
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                        unoptimized={getImageUrl(images[0]).includes('localhost') || getImageUrl(images[0]).includes('cloudinary')}
+                      />
+                    </div>
+                  )}
+                  {/* Remaining images — 2 per row */}
+                  {images.slice(1).map((image) => {
                     const url = getImageUrl(image);
                     return (
-                      <div
-                        key={image.id}
-                        className="relative h-64 sm:h-80 rounded-lg overflow-hidden"
-                      >
+                      <div key={image.id} className="relative h-36 sm:h-48 rounded-lg overflow-hidden">
                         <Image
                           src={url}
                           alt={image.alternativeText || work.title}
                           fill
                           className="object-cover"
-                          sizes="100vw"
+                          sizes="50vw"
                           unoptimized={url.includes('localhost') || url.includes('cloudinary')}
                         />
                       </div>

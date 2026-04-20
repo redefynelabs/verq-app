@@ -15,7 +15,7 @@ export interface FutureData {
 
 export const fetchFuture = async (): Promise<FutureData> => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/step-into-future?populate=*`, {
-    next: { revalidate: 60 }, // revalidate every 60s
+    cache: 'no-store',
   });
   
   if (!response.ok) {
