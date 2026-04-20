@@ -17,7 +17,6 @@ import { fetchAbout } from "@/service/fetchAbout";
 import { fetchTimeWaits } from "@/service/fetchTimeWaits";
 import { fetchConnect } from "@/service/fetchConnect";
 import { fetchFuture } from "@/service/fetchFuture";
-import { fetchFooter } from "@/service/fetchFooter";
 import { fetchTeam } from "@/service/fetchTeam";
 import { fetchStandsOut } from "@/service/fetchStandsOut";
 import { fetchJoinWaitlist } from "@/service/fetchJoinWaitlist";
@@ -25,9 +24,6 @@ import { fetchDesign } from "@/service/fetchDesign";
 import { fetchPortfolio } from "@/service/fetchPortfolio";
 import { fetchHero } from "@/service/fetchHero";
 import { Clients } from "@/components/Clients";
-
-// Always SSR — fresh data on every request, fetches run in parallel
-export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const [
@@ -41,7 +37,6 @@ export default async function Home() {
     joinWaitlistData,
     designData,
     portfolioData,
-    footerData,
   ] = await Promise.all([
     fetchHero(),
     fetchAbout(),
@@ -53,7 +48,6 @@ export default async function Home() {
     fetchJoinWaitlist(),
     fetchDesign(),
     fetchPortfolio(),
-    fetchFooter(),
   ]);
 
   console.log('Fetched all data:', {
@@ -67,8 +61,7 @@ export default async function Home() {
     joinWaitlistData,
     designData,
     portfolioData,
-    footerData,
-  }); 
+  });
 
   return (
     <div>
@@ -86,7 +79,6 @@ export default async function Home() {
         <Code />
         <TimeWaits data={timeWaitsData} />
         <Connect data={connectData} />
-        <Footer data={footerData} />
       </div>
     </div>
   );

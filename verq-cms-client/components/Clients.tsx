@@ -44,14 +44,14 @@ const CircleLogo = React.memo(({ item }: { item: LogoItem }) => {
 
 CircleLogo.displayName = 'CircleLogo';
 
-export function Clients() {
+export function Clients({ className }: { className?: string }) {
   // Use useCallback to ensure the function reference stays the same
   const renderLogoItem = useCallback((item: LogoItem, key: React.Key) => (
     <CircleLogo key={key} item={item} />
   ), []);
 
   return (
-    <section className="bg-[#101010] py-16 min-h-[80dvh] flex flex-col justify-center gap-8 overflow-hidden">
+    <section className={`bg-[#101010] py-16 min-h-[80dvh] flex flex-col justify-center gap-8 overflow-hidden${className ? ` ${className}` : ''}`}>
       {/* Row 1 */}
       <LogoLoop
         logos={CLIENT_LOGOS}

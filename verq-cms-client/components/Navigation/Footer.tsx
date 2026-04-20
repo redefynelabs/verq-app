@@ -1,12 +1,20 @@
 import ContainerLayout from '@/containerLayout/ContainerLayout';
-import { FooterData } from '@/service/fetchFooter';
 import Link from 'next/link';
 import { BsLinkedin, BsTwitterX } from "react-icons/bs";
 import { RiInstagramFill } from "react-icons/ri";
 
-interface FooterProps {
-    data: FooterData;
-}
+const contents = [
+    { name: "Email",   href: "#" },
+    { name: "FAQ",     href: "#" },
+    { name: "Contact", href: "#" },
+];
+
+const pagesLinks = [
+    { name: "Terms",   href: "#" },
+    { name: "Privacy", href: "#" },
+];
+
+const bgImage = "https://res.cloudinary.com/dkuievjm4/image/upload/v1764182495/445654f4ef05e15e5fc108df85c455db465ec653_a763bb8736.jpg";
 
 const socialLinks = [
     { name: "X",         href: "https://x.com/verqapp",                    icon: <BsTwitterX className="w-8 h-8 md:w-10 md:h-10" /> },
@@ -14,7 +22,7 @@ const socialLinks = [
     { name: "LinkedIn",  href: "https://www.linkedin.com/company/verqapp/", icon: <BsLinkedin className="w-8 h-8 md:w-10 md:h-10" /> },
 ];
 
-const Footer = ({ data }: FooterProps) => {
+const Footer = () => {
     const year = new Date().getFullYear();
 
     return (
@@ -24,14 +32,13 @@ const Footer = ({ data }: FooterProps) => {
             {/* Hero banner with overlay + quick links */}
             <div
                 id='contact'
-                style={{ backgroundImage: `url(${data.bgImage})` }}
+                style={{ backgroundImage: `url(${bgImage})` }}
                 className='relative w-full h-[200px] md:h-[289px] bg-cover bg-center bg-no-repeat rounded-3xl md:rounded-[36px] flex flex-col justify-end overflow-hidden'
             >
-                {/* Dark overlay */}
                 <div className='absolute inset-0 bg-black/40 rounded-3xl md:rounded-[36px]' />
 
                 <div className='relative z-10 flex flex-row justify-between px-4 md:px-10 py-3 md:py-5 overflow-x-auto'>
-                    {data.contents?.map((item, index) => (
+                    {contents.map((item, index) => (
                         <Link
                             key={index}
                             href={item.href}
@@ -43,7 +50,7 @@ const Footer = ({ data }: FooterProps) => {
                 </div>
             </div>
 
-            {/* Social icons — your design */}
+            {/* Social icons */}
             <div className='grid grid-cols-3 gap-2 justify-end mt-6 md:mt-10 w-full md:w-auto self-end'>
                 {socialLinks.map((link) => (
                     <Link
@@ -59,17 +66,14 @@ const Footer = ({ data }: FooterProps) => {
                 ))}
             </div>
 
-           
-
-            {/* Bottom bar: copyright | page links */}
+            {/* Bottom bar */}
             <div className='flex flex-col md:flex-row items-center justify-between w-full inter pt-4 gap-4 md:gap-0 text-sm md:text-base text-white px-6'>
-
                 <p className='text-white/70 text-center md:text-left'>
                     © {year} Verq. All rights reserved.
                 </p>
 
                 <div className='flex gap-4 items-center text-white/70'>
-                    {data.pagesLinks?.map((item, index) => (
+                    {pagesLinks.map((item, index) => (
                         <Link
                             key={index}
                             href={item.href}
@@ -79,14 +83,12 @@ const Footer = ({ data }: FooterProps) => {
                         </Link>
                     ))}
                 </div>
-
             </div>
 
         </ContainerLayout>
 
-        {/* Big Verq image — full screen width, 80% visible */}
-        <div className='w-screen relative left-1/2 -translate-x-1/2 overflow-hidden mt-6 md:mt-10'
-        >
+        {/* Big Verq image */}
+        <div className='w-screen relative left-1/2 -translate-x-1/2 overflow-hidden mt-6 md:mt-10'>
             <img
                 src='/footer-text.png'
                 alt='Verq'

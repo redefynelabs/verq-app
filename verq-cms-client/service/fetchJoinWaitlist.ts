@@ -32,7 +32,7 @@ export const fetchJoinWaitlist = async (): Promise<JoinWaitlistData | null> => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/service?populate[ServicesList][populate]=*`,
       {
-        cache: 'no-store',
+        next: { revalidate: 3600 },
       }
     );
 

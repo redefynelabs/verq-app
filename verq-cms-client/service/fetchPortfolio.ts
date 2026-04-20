@@ -3,7 +3,7 @@ export const fetchPortfolio = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/portfolio?populate[Works][populate]=*`,
       {
-        cache: 'no-store',
+        next: { revalidate: 3600 },
       }
     );
 

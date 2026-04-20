@@ -8,7 +8,7 @@ export interface HeroData {
 
 export const fetchHero = async (): Promise<HeroData> => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/hero?populate=*`, {
-    cache: 'no-store',
+    next: { revalidate: 3600 },
   });
   
   if (!response.ok) {

@@ -20,6 +20,10 @@ const ScrambleLink = ({
   const { elementRef, startScramble, resetScramble } = useScrambleText(text);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!href.startsWith("#")) {
+      onClose?.();
+      return;
+    }
     e.preventDefault();
     onClose?.();
     const targetId = href.replace("#", "");

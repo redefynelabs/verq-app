@@ -15,7 +15,6 @@ import { fetchAbout } from "@/service/fetchAbout";
 import { fetchTimeWaits } from "@/service/fetchTimeWaits";
 import { fetchConnect } from "@/service/fetchConnect";
 import { fetchFuture } from "@/service/fetchFuture";
-import { fetchFooter } from "@/service/fetchFooter";
 import { fetchTeam } from "@/service/fetchTeam";
 import { fetchStandsOut } from "@/service/fetchStandsOut";
 import { fetchJoinWaitlist } from "@/service/fetchJoinWaitlist";
@@ -37,7 +36,6 @@ export default async function HomeSections() {
     joinWaitlistData,
     designData,
     portfolioData,
-    footerData,
   ] = await Promise.all([
     fetchAbout(),
     fetchTimeWaits(),
@@ -48,7 +46,6 @@ export default async function HomeSections() {
     fetchJoinWaitlist(),
     fetchDesign(),
     fetchPortfolio(),
-    fetchFooter(),
   ]);
 
   return (
@@ -65,7 +62,7 @@ export default async function HomeSections() {
         <Code />
         <TimeWaits data={timeWaitsData} />
         <Connect data={connectData} />
-        <Footer data={footerData} />
+        <Footer />
       </div>
     </>
   );

@@ -15,7 +15,7 @@ export interface ConnectData {
 
 export const fetchConnect = async (): Promise<ConnectData> => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/connect-with-us?populate[SocialLinks][populate]=*`, {
-    cache: 'no-store',
+    next: { revalidate: 3600 },
   });
   
   if (!response.ok) {

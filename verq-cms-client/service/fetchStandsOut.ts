@@ -12,7 +12,7 @@ export interface StandsOutData {
 
 export const fetchStandsOut = async (): Promise<StandsOutData> => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/how-we-stand-out?populate=*`, {
-    cache: 'no-store',
+    next: { revalidate: 3600 },
   });
   
   if (!response.ok) {

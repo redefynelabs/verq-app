@@ -5,6 +5,7 @@ import LenisProvider from "@/wrapper/ScrollWrapper";
 import { inter, orpix } from "@/fonts";
 import Navbar from "@/components/Navigation/Navbar";
 import RipplePlane from "@/components/Reusable/FluidCursor";
+import Footer from "@/components/Navigation/Footer";
 
 
 
@@ -28,6 +29,7 @@ export default async function RootLayout({
    
           <Navbar />
           {children}
+          <Footer />
          
         {/* </LenisProvider> */}
         <Toaster 
