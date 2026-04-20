@@ -26,14 +26,19 @@ const Footer = () => {
     const year = new Date().getFullYear();
 
     return (
-        <>
+        <div className='bg-[#101010]'>
         <ContainerLayout className='pt-10 z-999'>
 
             {/* Hero banner with overlay + quick links */}
             <div
                 id='contact'
-                style={{ backgroundImage: `url(${bgImage})` }}
-                className='relative w-full h-[200px] md:h-[289px] bg-cover bg-center bg-no-repeat rounded-3xl md:rounded-[36px] flex flex-col justify-end overflow-hidden'
+                style={{
+                    backgroundImage: `url(${bgImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+                className='relative w-full h-[200px] md:h-[289px] rounded-3xl md:rounded-[36px] flex flex-col justify-end overflow-hidden'
             >
                 <div className='absolute inset-0 bg-black/40 rounded-3xl md:rounded-[36px]' />
 
@@ -96,7 +101,7 @@ const Footer = () => {
                 draggable={false}
             />
         </div>
-        </>
+        </div>
     );
 };
 
