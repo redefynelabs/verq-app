@@ -16,7 +16,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const nextWork = works[nextIndex];
 
   return (
-    <div className="bg-[#101010] text-white overflow-hidden  pt-[20%] md:pt-[6%]">
+    <div className="bg-[#101010] text-white overflow-hidden ">
       <ProjectScroll
         work={work}
         nextWork={{ title: nextWork.title, slug: nextWork.slug }}

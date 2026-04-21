@@ -146,7 +146,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
           {slides.map((slide, i) => {
 
             if (slide.type === 'intro') return (
-              <div key={i} className="w-screen h-screen shrink-0 flex flex-col md:flex-row items-center bg-[#101010] px-6 md:px-16 lg:px-24 gap-6 md:gap-16 pt-6 md:pt-0">
+              <div key={i} className="w-screen h-screen shrink-0 flex flex-col md:flex-row items-center bg-[#101010] px-6 md:px-16 lg:px-24 gap-6 md:gap-16 pt-6">
                 <div className="flex flex-col justify-center gap-4 md:gap-6 w-full md:w-[35%] shrink-0">
                   <span className="text-white/20 text-xs tracking-widest uppercase font-mono">
                     {String(i + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
@@ -175,7 +175,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
             );
 
             if (slide.type === 'content') return (
-              <div key={i} className="w-screen h-screen shrink-0 flex flex-col items-start justify-center bg-[#101010] px-6 md:px-16 lg:px-28">
+              <div key={i} className="w-screen h-screen shrink-0 flex flex-col items-start justify-center bg-[#101010] px-6 md:px-16 lg:px-28 pt-6">
                 <span className="text-white/20 text-xs tracking-widest uppercase font-mono mb-6 md:mb-8">
                   {String(i + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
                 </span>
@@ -184,7 +184,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
             );
 
             if (slide.type === 'image') return (
-              <div key={i} className="w-screen h-screen shrink-0 flex items-center bg-[#101010] px-4 md:px-12">
+              <div key={i} className="w-screen h-screen shrink-0 flex items-center bg-[#101010] px-4 md:px-12 pt-6">
                 <div className="w-full h-[60vh] md:h-[80vh] rounded-2xl md:rounded-3xl overflow-hidden relative" style={{ backgroundColor: work.accent }}>
                   <img src={slide.src} alt={`${work.title} — ${i}`} className="w-full h-full object-cover" />
                   <span className="absolute bottom-4 right-4 md:bottom-6 md:right-6 text-white/30 text-xs tracking-widest uppercase font-mono">
