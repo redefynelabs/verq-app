@@ -30,7 +30,7 @@ const Footer = () => {
         <ContainerLayout className='pt-10 z-999'>
 
             {/* Hero banner with overlay + quick links */}
-            <div
+            {/* <div
                 id='contact'
                 style={{
                     backgroundImage: `url(${bgImage})`,
@@ -53,10 +53,10 @@ const Footer = () => {
                         </Link>
                     ))}
                 </div>
-            </div>
+            </div> */}
 
             {/* Social icons */}
-            <div className='grid grid-cols-3 gap-2 justify-end mt-6 md:mt-10 w-full md:w-auto self-end'>
+            {/* <div className='grid grid-cols-3 gap-2 justify-end mt-6 md:mt-10 w-full md:w-auto self-end'>
                 {socialLinks.map((link) => (
                     <Link
                         key={link.name}
@@ -69,7 +69,7 @@ const Footer = () => {
                         {link.icon}
                     </Link>
                 ))}
-            </div>
+            </div> */}
 
             {/* Bottom bar */}
             <div className='flex flex-col md:flex-row items-center justify-between w-full inter pt-4 gap-4 md:gap-0 text-sm md:text-base text-white px-6'>

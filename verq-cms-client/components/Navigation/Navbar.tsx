@@ -145,11 +145,11 @@ const Navbar = () => {
   const allLinks = [...NAV_LINKS, { href: "#contact", name: "CONTACT", isContact: true }];
 
   return (
-    <div className="relative flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0">
+    <div className="fixed top-0 left-0 right-0 z-[999] flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0">
       {/* Top Bar */}
       <div className="flex flex-row items-center justify-between w-full lg:w-auto">
         {/* Logo */}
-        <div className="md:rounded-[20px] rounded-2xl px-5 py-3 border border-[#C8C8C8] flex items-center">
+        <div className="md:rounded-[20px] rounded-2xl px-5 py-3 border border-[#C8C8C8] flex items-center backdrop-blur-2xl bg-white/[0.04]" style={{ WebkitBackdropFilter: 'blur(32px)', backdropFilter: 'blur(32px)' }}>
           <Image
             src="/verq.png"
             alt="Verq"
@@ -180,7 +180,7 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Nav */}
-      <div className="hidden lg:flex border border-[#C8C8C8] rounded-[20px] w-full items-center justify-end px-4 xl:px-8 gap-4 xl:gap-8 2xl:gap-12">
+      <div className="hidden lg:flex border border-[#C8C8C8] rounded-[20px] w-full items-center justify-end px-4 xl:px-8 gap-4 xl:gap-8 2xl:gap-12 backdrop-blur-2xl bg-white/[0.04]" style={{ WebkitBackdropFilter: 'blur(32px)', backdropFilter: 'blur(32px)' }}>
         {NAV_LINKS.map((item, index) => (
           <ScrambleLink key={index} text={item.name} href={item.href} />
         ))}

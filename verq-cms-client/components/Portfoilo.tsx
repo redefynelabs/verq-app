@@ -2,6 +2,11 @@
 
 import ContainerLayout from '@/containerLayout/ContainerLayout';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface WorkImage {
   id: number;
@@ -31,6 +36,50 @@ interface PortfolioData {
 }
 
 const Portfolio = ({ data }: { data: PortfolioData | null }) => {
+  useEffect(() => {
+    const wrappers = document.querySelectorAll<HTMLElement>('.parallax-img-wrapper');
+
+    wrappers.forEach((wrapper) => {
+      const img = wrapper.querySelector('img');
+      if (!img) return;
+
+      // Set initial scale via GSAP so it owns all transforms
+      gsap.set(img, { scale: 1.2 });
+
+      // Parallax on scroll
+      gsap.fromTo(
+        img,
+        { yPercent: -10 },
+        {
+          yPercent: 10,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        }
+      );
+
+      // Hover — GSAP owns scale so it composes with yPercent correctly
+      const onEnter = () => gsap.to(img, { scale: 1.32, duration: 0.6, ease: 'power2.out' });
+      const onLeave = () => gsap.to(img, { scale: 1.2,  duration: 0.6, ease: 'power2.out' });
+
+      wrapper.addEventListener('mouseenter', onEnter);
+      wrapper.addEventListener('mouseleave', onLeave);
+
+      return () => {
+        wrapper.removeEventListener('mouseenter', onEnter);
+        wrapper.removeEventListener('mouseleave', onLeave);
+      };
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
   if (!data) return null;
 
   const { title, desc, Works } = data;
@@ -91,13 +140,13 @@ const Portfolio = ({ data }: { data: PortfolioData | null }) => {
                     return (
                       <div
                         key={image.id}
-                        className={`${imageGridClasses[idx]} relative rounded-lg overflow-hidden`}
+                        className={`${imageGridClasses[idx]} parallax-img-wrapper relative rounded-lg overflow-hidden cursor-pointer`}
                       >
                         <Image
                           src={url}
                           alt={image.alternativeText || work.title}
                           fill
-                          className="object-cover"
+                          className="object-cover will-change-transform"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           unoptimized={url.includes('localhost') || url.includes('cloudinary')}
                         />

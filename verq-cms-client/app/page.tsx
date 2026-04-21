@@ -1,10 +1,9 @@
 // app/page.tsx
-
 import About from "@/components/About";
 import Code from "@/components/Code";
 import Connect from "@/components/Connect";
 import Future from "@/components/Future";
-import Hero from "@/components/Hero";
+import HomeHero from "@/components/HomeHero";
 import TimeWaits from "@/components/TimeWaits";
 import Footer from "@/components/Navigation/Footer";
 import Team from "@/components/Team";
@@ -24,6 +23,8 @@ import { fetchDesign } from "@/service/fetchDesign";
 import { fetchPortfolio } from "@/service/fetchPortfolio";
 import { fetchHero } from "@/service/fetchHero";
 import { Clients } from "@/components/Clients";
+import FAQ from "@/components/FAQ";
+import Form from "@/components/Reusable/Form";
 
 export default async function Home() {
   const [
@@ -64,8 +65,8 @@ export default async function Home() {
   });
 
   return (
-    <div>
-      <Hero data={heroData} />
+    <div className=" pt-[20%] md:pt-[6%]">
+      <HomeHero data={heroData} />
       <About data={aboutData} />
       <StandsOut data={standsOutData} />
       <Services data={joinWaitlistData} />
@@ -76,7 +77,9 @@ export default async function Home() {
       <div className="bg-[#101010] rounded-t-[55px] relative z-50">
         <Team data={teamData} />
         <Code />
-        <TimeWaits data={timeWaitsData} />
+        {/* <TimeWaits data={timeWaitsData} /> */}
+        <Form />
+        <FAQ />
         <Connect data={connectData} />
       </div>
     </div>

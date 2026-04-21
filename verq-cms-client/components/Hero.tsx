@@ -10,7 +10,6 @@ import { submitEmail } from "@/service/submitEmail";
 import ContainerLayout from "@/containerLayout/ContainerLayout";
 import { HiBolt } from "react-icons/hi2";
 import { useScrambleText } from "@/hooks/useScrambleText";
-
 gsap.registerPlugin(ScrollTrigger);
 
 interface HeroProps {
@@ -20,7 +19,6 @@ interface HeroProps {
 export default function Hero({ data }: HeroProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const {
@@ -65,13 +63,6 @@ export default function Hero({ data }: HeroProps) {
     return () => ctx.revert();
   }, []);
 
-  // iOS Safari needs webkit-playsinline + explicit play()
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.setAttribute('webkit-playsinline', 'true');
-    video.play().catch(() => {});
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,14 +125,12 @@ export default function Hero({ data }: HeroProps) {
   return (
     <ContainerLayout>
       <section
-        id="#home"
-        className="relative h-[90vh] w-full overflow-hidden rounded-[20px] bg-cover bg-center bg-no-repeat"
-        
+        id="home"
+        className="relative h-[90vh] w-full overflow-hidden rounded-[20px] bg-[#101010]"
       >
-        {/* ---------------- VIDEO BACKGROUND ---------------- */}
-        {data.bgImage ? (
+        {/* Video background */}
+        {data.bgImage && (
           <video
-            ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
             src={data.bgImage}
             autoPlay
@@ -149,11 +138,6 @@ export default function Hero({ data }: HeroProps) {
             loop
             playsInline
             preload="metadata"
-          />
-        ) : (
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('${data.bgImage}')` }}
           />
         )}
 

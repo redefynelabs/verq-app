@@ -5,7 +5,7 @@ import LenisProvider from "@/wrapper/ScrollWrapper";
 import { inter, orpix } from "@/fonts";
 import Navbar from "@/components/Navigation/Navbar";
 import RipplePlane from "@/components/Reusable/FluidCursor";
-import Footer from "@/components/Navigation/Footer";
+import ConditionalFooter from "@/components/Navigation/ConditionalFooter";
 
 export const metadata: Metadata = {
   title: "Verq",
@@ -24,10 +24,10 @@ export default async function RootLayout({
         <RipplePlane />
 
         <Navbar />
+        <div >
         {children}
-        <div className="bg-[#101010] relative z-50">
-          <Footer />
         </div>
+        <ConditionalFooter />
 
         {/* </LenisProvider> */}
         <Toaster

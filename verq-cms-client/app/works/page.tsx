@@ -1,9 +1,18 @@
-import React from 'react'
+import Connect from "@/components/Connect";
+import Form from "@/components/Reusable/Form";
+import WorkList from "@/components/Works/WorkList";
+import { WorksHero } from "@/components/Works/WorksHero";
+import { fetchConnect } from "@/service/fetchConnect";
 
-const page = () => {
+export default async function WorksPage() {
+  const [connectData] = await Promise.all([fetchConnect()]);
+
   return (
-    <div>page</div>
-  )
+    <div className="bg-[#101010] pt-[20%] md:pt-[6%]">
+      <WorksHero />
+      <WorkList />
+      <Form />
+      <Connect data={connectData} />
+    </div>
+  );
 }
-
-export default page

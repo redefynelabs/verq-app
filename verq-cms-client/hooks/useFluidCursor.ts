@@ -9,15 +9,15 @@ const useFluidCursor = () => {
     SIM_RESOLUTION: 128,
     DYE_RESOLUTION: 1440,
     CAPTURE_RESOLUTION: 512,
-    DENSITY_DISSIPATION: 3.5,
-    VELOCITY_DISSIPATION: 2,
-    PRESSURE: 0.1,
+    DENSITY_DISSIPATION: 1.8,
+    VELOCITY_DISSIPATION: 2.35,
+    PRESSURE: 0.15,
     PRESSURE_ITERATIONS: 20,
-    CURL: 3,
-    SPLAT_RADIUS: 0.2,
-    SPLAT_FORCE: 6000,
+    CURL: 18,
+    SPLAT_RADIUS: 0.15,
+    SPLAT_FORCE: 5000,
     SHADING: true,
-    COLOR_UPDATE_SPEED: 10,
+    COLOR_UPDATE_SPEED: 3,
     PAUSED: false,
     BACK_COLOR: { r: 0.5, g: 0, b: 0 },
     TRANSPARENT: true,
@@ -1251,7 +1251,9 @@ const useFluidCursor = () => {
   }
 
   function generateColor() {
-    let c = HSVtoRGB(Math.random(), 1.0, 1.0);
+    // Lock hue to 0°–36° — covers #FF3D00 primary through warm orange shades
+    const hue = Math.random() * 0.1;
+    let c = HSVtoRGB(hue, 1.0, 1.0);
     c.r *= 0.15;
     c.g *= 0.15;
     c.b *= 0.15;
