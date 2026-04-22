@@ -1,35 +1,35 @@
-# ===============================
-# Build stage
-# ===============================
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Enable pnpm
+RUN corepack enable
+
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
 
-# Install deps
-COPY package.json ./
-RUN npm install
+# Copy only lock + package
+COPY package.json pnpm-lock.yaml ./
 
-# Copy source
+# Install deps using pnpm
+RUN pnpm install --frozen-lockfile
+
+# Copy rest (node_modules ignored via .dockerignore)
 COPY . .
 
-# Build Strapi admin
-RUN npm run build
+# Build Strapi
+RUN pnpm build
 
 
-# ===============================
-# Runtime stage
-# ===============================
 FROM node:20-alpine
 
 WORKDIR /app
+
+RUN corepack enable
+
 ENV NODE_ENV=production
 
-# Copy built app
 COPY --from=builder /app /app
 
 EXPOSE 1337
 
-CMD ["npm", "start"]
+CMD ["pnpm", "start"]
