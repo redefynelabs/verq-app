@@ -6,13 +6,13 @@ import { useEffect, useRef } from 'react';
 
 const SPEEDS = [30, -40, 50, -35, 45];
 
-// Percentage-based — work at all widths since container is full-width
+// 3 on top, 2 on bottom
 const positions = [
-  { top: '8%',  left: '5%'   },
-  { top: '18%', right: '5%'  },
-  { top: '55%', left: '2%'   },
-  { top: '64%', right: '32%' },
-  { top: '52%', right: '2%'  },
+  { top: '6%',    left: '3%'   },   // top-left
+  { top: '4%',    left: '38%'  },   // top-center
+  { top: '6%',    right: '3%'  },   // top-right
+  { bottom: '7%', left: '18%'  },   // bottom-left
+  { bottom: '7%', right: '18%' },   // bottom-right
 ];
 
 const Design = ({ data }: { data: any }) => {

@@ -38,7 +38,7 @@ const ScrambleLink = ({
   const handleMouseEnter = () => {
     startScramble();
     if (elementRef.current) {
-      gsap.to(elementRef.current, { color: "#ffffff", duration: 0.3, ease: "power2.out" });
+      gsap.to(elementRef.current, { color: "#ffffff", duration: 0.9, ease: "power2.out" });
     }
   };
 

@@ -131,8 +131,10 @@ export default function Showreel() {
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
             src="/showreel.mp4"
             muted
+            autoPlay
+            loop
             playsInline
-            preload="metadata"
+            preload="auto"
           />
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-5">

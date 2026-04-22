@@ -56,7 +56,7 @@ const Team = ({ data }: { data: TeamData }) => {
                         <h1 className='text-[22px] sm:text-[28px] lg:text-[38px] whitespace-nowrap mb-1'>
                             ^^^/'////------^^^^///
                         </h1>
-                        <h1 className='text-[52px] sm:text-[72px] md:text-[96px] lg:text-[10vw] xl:text-[120px] 2xl:text-[143px] leading-[95%] text-start'>
+                        <h1 className='text-[52px] sm:text-[72px] md:text-[96px] lg:text-[10vw] xl:text-[120px] 2xl:text-[143px] leading-[95%] text-start max-w-sm'>
                             {data.sectionTitle}
                         </h1>
                     </div>

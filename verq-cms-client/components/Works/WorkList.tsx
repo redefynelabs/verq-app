@@ -5,8 +5,8 @@ import ContainerLayout from '@/containerLayout/ContainerLayout'
 
 const WorkList = () => {
   return (
-    <ContainerLayout className="px-4! py-10">
-      <div className="flex flex-col gap-5">
+    <ContainerLayout className="px-8! py-10">
+      <div className="flex flex-col gap-10">
         {works.map((work, index) => (
           <WorkCard
             key={work.slug + index}

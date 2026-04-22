@@ -2,20 +2,21 @@
 
 import { useState } from 'react';
 import { HiBolt } from 'react-icons/hi2';
-import { BsTwitterX } from 'react-icons/bs';
+import { BsTwitterX, BsCalendar2Date } from 'react-icons/bs';
 import { RiInstagramFill } from 'react-icons/ri';
 import { BsLinkedin } from 'react-icons/bs';
 import Link from 'next/link';
 import ContainerLayout from '@/containerLayout/ContainerLayout';
 
 const socialLinks = [
+  { name: 'Calendly',  href: 'https://calendly.com/verqapp',              icon: <BsCalendar2Date className="w-5 h-5" /> },
   { name: 'X',         href: 'https://x.com/verqapp',                    icon: <BsTwitterX className="w-5 h-5" /> },
   { name: 'Instagram', href: 'https://www.instagram.com/verqapp/',        icon: <RiInstagramFill className="w-5 h-5" /> },
   { name: 'LinkedIn',  href: 'https://www.linkedin.com/company/verqapp/', icon: <BsLinkedin className="w-5 h-5" /> },
 ];
 
 const INPUT_BASE =
-  'w-full bg-white/[0.04] border border-white/10 rounded-2xl px-5 py-4 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/50 transition-colors duration-200 font-family-inter tracking-tighter leading-tighter';
+  'w-full  border-b border-white/10  px-5 py-4 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/50 transition-colors duration-200 font-family-inter tracking-tighter leading-tighter';
 
 export default function Form() {
   const [form, setForm] = useState({
@@ -41,7 +42,7 @@ export default function Form() {
   };
 
   return (
-    <ContainerLayout className=' px-10!'>
+    <ContainerLayout className=' px-10! py-10!'>
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[600px] font-family-inter tracking-tighter leading-tight">
 
@@ -57,30 +58,6 @@ export default function Form() {
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
 
-        {/* Bottom overlay — copy + socials */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-6">
-          <div>
-            <p className="text-white/40 text-xs tracking-widest uppercase mb-2">Get in touch</p>
-            <h3 className="text-3xl text-secondary tracking-tighter leading-tight">
-              Let's build<br />something great.
-            </h3>
-          </div>
-
-          <div className="flex gap-3">
-            {socialLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.name}
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:border-primary hover:text-primary transition-colors duration-200"
-              >
-                {link.icon}
-              </Link>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Right — form */}
@@ -104,24 +81,22 @@ export default function Form() {
             {/* <h3 className="text-2xl text-secondary tracking-tighter mb-2">Book a Call</h3> */}
 
             {/* Name + Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1  gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-white/30 text-xs tracking-widest uppercase">Name</label>
+                <label className="text-white text-xs tracking-widest uppercase">Name</label>
                 <input
                   type="text"
                   required
-                  placeholder="Joe Deepan"
                   value={form.name}
                   onChange={set('name')}
                   className={INPUT_BASE}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-white/30 text-xs tracking-widest uppercase">Email</label>
+                <label className="text-white text-xs tracking-widest uppercase">Email</label>
                 <input
                   type="email"
                   required
-                  placeholder="joe@verq.app"
                   value={form.email}
                   onChange={set('email')}
                   className={INPUT_BASE}
@@ -132,23 +107,21 @@ export default function Form() {
             {/* Contact + Website */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-white/30 text-xs tracking-widest uppercase">Contact Number</label>
+                <label className="text-white text-xs tracking-widest uppercase">Contact Number</label>
                 <input
                   type="tel"
                   required
-                  placeholder="+91 98765 43210"
                   value={form.contact}
                   onChange={set('contact')}
                   className={INPUT_BASE}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-white/30 text-xs tracking-widest uppercase">
+                <label className="text-white text-xs tracking-widest uppercase">
                   Website <span className="text-white/20 normal-case tracking-normal">(optional)</span>
                 </label>
                 <input
                   type="url"
-                  placeholder="https://yoursite.com"
                   value={form.website}
                   onChange={set('website')}
                   className={INPUT_BASE}
@@ -158,11 +131,10 @@ export default function Form() {
 
             {/* Message */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-white/30 text-xs tracking-widest uppercase">Message</label>
+              <label className="text-white text-xs tracking-widest uppercase">Message</label>
               <textarea
                 required
                 rows={4}
-                placeholder="Tell us about your project..."
                 value={form.message}
                 onChange={set('message')}
                 className={`${INPUT_BASE} resize-none`}
@@ -183,6 +155,21 @@ export default function Form() {
       </div>
 
     </div>
+
+     <div className='grid grid-cols-2 md:grid-cols-4 gap-2 justify-end mt-6 md:mt-10 w-full md:w-auto self-end'>
+                {socialLinks.map((link) => (
+                    <Link
+                        key={link.name}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.name}
+                        className='bg-primary text-black py-6 rounded-full px-2 md:px-3 flex items-center justify-center transition-colors duration-200'
+                    >
+                        {link.icon}
+                    </Link>
+                ))}
+            </div>
     </ContainerLayout>
   );
 }

@@ -6,9 +6,9 @@ export const WorksHero = () => {
         <div className=' flex items-center justify-start gap-4'>
             <h1 className=' text-[25dvw] md:text-[30dvw] text-secondary uppercase tracking-tighter leading-[1] '>Works</h1>
 
-            <div className=' pt-[10%]'>
+            <div className=' pt-[14%]'>
 
-            <img src="/arrow.png" alt="Works" className=' animate-spin w-[70px] md:w-[100px] h-[70px] md:h-[100px] ' />
+            <img src="/arrow.png" alt="Works" className=' animate-spin w-[100%] h-[100%]' />
             </div>
         </div>
     </div>
