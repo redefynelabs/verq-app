@@ -8,7 +8,7 @@ export default async function WorksPage() {
   const [connectData] = await Promise.all([fetchConnect()]);
 
   return (
-    <div className="bg-[#101010] pt-[20%] md:pt-[6%]">
+    <div className="bg-[#101010]">
       <WorksHero />
       <WorkList />
       <Form />

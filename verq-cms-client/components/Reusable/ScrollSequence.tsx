@@ -6,10 +6,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOTAL_FRAMES = 290;
+const TOTAL_FRAMES = 325;
 
 function framePath(i: number) {
-  return `/seq/frame_${String(i + 1).padStart(4, '0')}.png`;
+  return `/verq-seq/frame_${String(i + 1).padStart(4, '0')}.png`;
 }
 
 interface Props {
@@ -69,7 +69,7 @@ export default function ScrollSequence({
 
     const trigger = ScrollTrigger.create({
       trigger: triggerSelector,
-      start: 'top top+=10%',
+      start: 'top top+=5%',
       end: `+=${scrollDistance}`,
       pin: true,
       scrub: 0.5,

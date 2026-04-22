@@ -9,13 +9,13 @@ const useFluidCursor = () => {
     SIM_RESOLUTION: 128,
     DYE_RESOLUTION: 1440,
     CAPTURE_RESOLUTION: 512,
-    DENSITY_DISSIPATION: 1.8,
-    VELOCITY_DISSIPATION: 2.35,
+    DENSITY_DISSIPATION: 4.0,
+    VELOCITY_DISSIPATION: 3.5,
     PRESSURE: 0.15,
     PRESSURE_ITERATIONS: 20,
-    CURL: 18,
-    SPLAT_RADIUS: 0.15,
-    SPLAT_FORCE: 5000,
+    CURL: 8,
+    SPLAT_RADIUS: 0.08,
+    SPLAT_FORCE: 2000,
     SHADING: true,
     COLOR_UPDATE_SPEED: 3,
     PAUSED: false,
@@ -1090,9 +1090,9 @@ const useFluidCursor = () => {
 
   function clickSplat(pointer) {
     const color = generateColor();
-    color.r *= 10.0;
-    color.g *= 10.0;
-    color.b *= 10.0;
+    color.r *= 4.0;
+    color.g *= 4.0;
+    color.b *= 4.0;
     let dx = 10 * (Math.random() - 0.5);
     let dy = 30 * (Math.random() - 0.5);
     splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
@@ -1254,9 +1254,9 @@ const useFluidCursor = () => {
     // Lock hue to 0°–36° — covers #FF3D00 primary through warm orange shades
     const hue = Math.random() * 0.1;
     let c = HSVtoRGB(hue, 1.0, 1.0);
-    c.r *= 0.15;
-    c.g *= 0.15;
-    c.b *= 0.15;
+    c.r *= 0.07;
+    c.g *= 0.07;
+    c.b *= 0.07;
     return c;
   }
 

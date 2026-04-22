@@ -145,7 +145,7 @@ const Navbar = () => {
   const allLinks = [...NAV_LINKS, { href: "#contact", name: "CONTACT", isContact: true }];
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[999] flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0">
+    <div className="z-[999] flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0">
       {/* Top Bar */}
       <div className="flex flex-row items-center justify-between w-full lg:w-auto">
         {/* Logo */}

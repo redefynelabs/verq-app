@@ -6,7 +6,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ContainerLayout from '@/containerLayout/ContainerLayout';
 import { HeroData } from '@/service/fetchHero';
 import ScrollSequence from '@/components/Reusable/ScrollSequence';
+import HeroParticles from '@/components/Reusable/HeroParticles';
+import LogoParticles from '@/components/Reusable/LogoParticles';
 import { HiBolt } from 'react-icons/hi2';
+import VerqParticleLogo from './Reusable/VerqLogo';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,31 +18,37 @@ gsap.registerPlugin(ScrollTrigger);
 const FRAME_CONTENT = [
   {
     from: 0,
-    to: 70,
-    title: 'The Full Cycle Studio.',
+    to: 20,
+    title: '',
+    position: '',
+    titleStyle: '',
+  },
+  {
+    from: 21,
+    to: 110,
+    title: 'Form follows intelligence',
+    subtitle: "Research, design, and build under one roof.",
     position: 'bottom-10 md:bottom-16 left-5 md:left-12 items-start text-left max-w-2xl',
     titleStyle: 'text-primary uppercase text-4xl sm:text-5xl md:text-6xl lg:text-7xl',
   },
   {
-    from: 71,
-    to: 160,
+    from: 111,
+    to: 220,
     title: 'Research, design, and build',
     position: 'inset-0 items-center justify-center mx-auto text-center',
     titleStyle: 'text-white text-3xl sm:text-5xl md:text-6xl lg:text-8xl uppercase max-w-xl',
   },
   {
-    from: 161,
-    to: 270,
-    title: "united under one roof to ship",
-    subtitle: 'digital products faster.',
+    from: 221,
+    to: 300,
+    title: "united under one roof to ship digital products faster.",
     position: 'top-10 md:top-16 left-5 md:left-10 items-start text-start max-w-xs md:max-w-md',
     titleStyle: 'text-primary uppercase text-2xl sm:text-3xl md:text-4xl lg:text-5xl',
-    subtitleStyle: 'text-primary/50 text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase',
     wordReveal: true,
   },
   {
-    from: 271,
-    to: 290,
+    from: 301,
+    to: 325,
     title: "VIRTUAL EXPERIENCE +",
     position: 'inset-0 items-center text-center justify-center',
     titleStyle: 'text-[#515151] uppercase text-5xl sm:text-6xl md:text-8xl lg:text-9xl',
@@ -90,46 +99,33 @@ export default function HomeHero({ data }: { data: HeroData }) {
           onFrameChange={handleFrameChange}
         />
 
+        {/* Static brand-colored background particles */}
+        <HeroParticles frame={currentFrame} />
+        {/* Interactive VERQ logo particles */}
+        <VerqParticleLogo frame={currentFrame} />
+
+
         {/* Dark gradient overlay for text legibility */}
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
 
-        {/* Frame-driven content — position shifts per segment */}
+        {/* Frame-driven content — hidden for first 20 frames */}
         <div
           ref={contentRef}
           className={`absolute z-20 flex flex-col px-8 md:px-0 ${activeContent.position}`}
         >
-          {'wordReveal' in activeContent && activeContent.wordReveal ? (
-            <>
-              <h1 className={`mb-4 ${activeContent.titleStyle}`}>
-                <WordReveal
-                  text={activeContent.title}
-                  from={activeContent.from}
-                  to={activeContent.to}
-                  currentFrame={currentFrame}
-                />
-              </h1>
-              {activeContent.subtitle && (
-                <p className={activeContent.subtitleStyle}>
-                  <WordReveal
-                    text={activeContent.subtitle}
-                    from={activeContent.from}
-                    to={activeContent.to}
-                    currentFrame={currentFrame}
-                    offset={activeContent.title.split(' ').length}
-                    totalWords={activeContent.title.split(' ').length + activeContent.subtitle.split(' ').length}
-                  />
-                </p>
-              )}
-            </>
+          {activeContent.title === '' ? null : 'wordReveal' in activeContent && activeContent.wordReveal ? (
+            <h1 className={`mb-4 ${activeContent.titleStyle}`}>
+              <WordReveal
+                text={activeContent.title}
+                from={activeContent.from}
+                to={activeContent.to}
+                currentFrame={currentFrame}
+              />
+            </h1>
           ) : (
-            <>
-              <h1 className={`mb-4 ${activeContent.titleStyle}`}>
-                {activeContent.title}
-              </h1>
-              <p className={activeContent.subtitleStyle}>
-                {activeContent.subtitle}
-              </p>
-            </>
+            <h1 className={activeContent.titleStyle}>
+              {activeContent.title}
+            </h1>
           )}
         </div>
 
@@ -181,7 +177,7 @@ function WordReveal({
 }) {
   const words = text.split(' ');
   const total = totalWords ?? words.length;
-  const frameRange = to - from;
+  const frameRange = (to - from) * 0.75; // complete reveal at 75% of segment, hold fully revealed until end
   const framesPerWord = frameRange / total;
 
   return (

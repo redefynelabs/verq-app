@@ -65,7 +65,7 @@ export default async function Home() {
   });
 
   return (
-    <div className=" pt-[20%] md:pt-[6%]">
+    <div>
       <HomeHero data={heroData} />
       <About data={aboutData} />
       <StandsOut data={standsOutData} />

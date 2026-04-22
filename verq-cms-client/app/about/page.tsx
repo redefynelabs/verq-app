@@ -20,7 +20,7 @@ export default async function About() {
   const [connectData] = await Promise.all([fetchConnect()]);
 
   return (
-    <div className=" pt-[20%] md:pt-[6%]">
+    <div >
       <Hero data={heroData} />
       <HowWeWork />
       <Clients className=" min-h-0! py-0! mb-20" />
