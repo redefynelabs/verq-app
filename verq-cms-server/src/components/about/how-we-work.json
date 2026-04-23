@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_about_how_we_works",
+  "info": {
+    "displayName": "HowWeWork"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Points": {
+      "type": "component",
+      "component": "shared.title-desc-group",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

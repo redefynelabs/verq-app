@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_home_home_abouts",
+  "info": {
+    "displayName": "HomeAbout"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Desc": {
+      "type": "text"
+    },
+    "GroupImageIcon": {
+      "type": "component",
+      "component": "shared.image-icon-info-group",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

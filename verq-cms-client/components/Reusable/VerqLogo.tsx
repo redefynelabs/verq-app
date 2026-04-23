@@ -269,7 +269,6 @@ export default function VerqParticleLogo({
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect) return;
       s.mouse.x = e.touches[0].clientX - rect.left;
@@ -295,7 +294,7 @@ export default function VerqParticleLogo({
     canvas.addEventListener('mousemove', onMove);
     canvas.addEventListener('mouseleave', onLeave);
     canvas.addEventListener('click', onClick);
-    canvas.addEventListener('touchmove', onTouchMove, { passive: false });
+    canvas.addEventListener('touchmove', onTouchMove, { passive: true });
     canvas.addEventListener('touchstart', onTouchStart);
     canvas.addEventListener('wheel', onWheel);
     window.addEventListener('resize', onResize);

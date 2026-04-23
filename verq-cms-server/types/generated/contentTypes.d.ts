@@ -430,12 +430,12 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAboutAbout extends Struct.SingleTypeSchema {
-  collectionName: 'abouts';
+export interface ApiAboutPageAboutPage extends Struct.SingleTypeSchema {
+  collectionName: 'about_pages';
   info: {
-    displayName: 'About';
-    pluralName: 'abouts';
-    singularName: 'about';
+    displayName: 'AboutPage';
+    pluralName: 'about-pages';
+    singularName: 'about-page';
   };
   options: {
     draftAndPublish: true;
@@ -444,16 +444,17 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    desc: Schema.Attribute.Text;
-    GroupedImageIcon: Schema.Attribute.Component<
-      'shared.image-icon-info-group',
-      true
-    >;
+    FounderGrid: Schema.Attribute.Component<'about.founder-grid', false>;
+    Hero: Schema.Attribute.Component<'about.about-hero', false>;
+    HowWeWork: Schema.Attribute.Component<'about.how-we-work', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::about-page.about-page'
+    > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    Showreel: Schema.Attribute.Component<'about.showreel', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -489,32 +490,6 @@ export interface ApiConnectWithUsConnectWithUs extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiCtaCta extends Struct.SingleTypeSchema {
-  collectionName: 'ctas';
-  info: {
-    displayName: 'CTA';
-    pluralName: 'ctas';
-    singularName: 'cta';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    bgImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::cta.cta'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiEmailFormEmailForm extends Struct.CollectionTypeSchema {
   collectionName: 'email_forms';
   info: {
@@ -543,95 +518,38 @@ export interface ApiEmailFormEmailForm extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiFooterFooter extends Struct.SingleTypeSchema {
-  collectionName: 'footers';
+export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
+  collectionName: 'home_pages';
   info: {
-    displayName: 'Footer';
-    pluralName: 'footers';
-    singularName: 'footer';
+    displayName: 'HomePage';
+    pluralName: 'home-pages';
+    singularName: 'home-page';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    copyrightText: Schema.Attribute.String;
+    About: Schema.Attribute.Component<'home.home-about', false>;
+    Clients: Schema.Attribute.Component<'shared.clients', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    CTA: Schema.Attribute.Component<'home.cta', false>;
+    FAQs: Schema.Attribute.Component<'home.fa-qs', false>;
+    FloatingPoints: Schema.Attribute.Component<'home.floating-points', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::footer.footer'
+      'api::home-page.home-page'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    QuickLinks: Schema.Attribute.Component<'global.labeled-link', true>;
-    Terms: Schema.Attribute.Component<'global.labeled-link', true>;
+    Services: Schema.Attribute.Component<'home.service-list', false>;
+    Studio: Schema.Attribute.Component<'home.home-studio', false>;
+    Team: Schema.Attribute.Component<'home.team', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiHeroHero extends Struct.SingleTypeSchema {
-  collectionName: 'heroes';
-  info: {
-    displayName: 'Hero';
-    pluralName: 'heroes';
-    singularName: 'hero';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    bgImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    heroDesc: Schema.Attribute.Text;
-    heroTitle: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::hero.hero'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiHowWeStandOutHowWeStandOut extends Struct.SingleTypeSchema {
-  collectionName: 'how_we_stand_outs';
-  info: {
-    displayName: 'HowWeStandOut';
-    pluralName: 'how-we-stand-outs';
-    singularName: 'how-we-stand-out';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    desc: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::how-we-stand-out.how-we-stand-out'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    StandingOutPoints: Schema.Attribute.Component<
-      'shared.title-desc-group',
-      true
-    >;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Video: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
@@ -665,43 +583,12 @@ export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
-  collectionName: 'portfolios';
+export interface ApiWorkListWorkList extends Struct.SingleTypeSchema {
+  collectionName: 'work_lists';
   info: {
-    displayName: 'Portfolio';
-    pluralName: 'portfolios';
-    singularName: 'portfolio';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    desc: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::portfolio.portfolio'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Works: Schema.Attribute.Component<'portfolio.portfolio-card', true>;
-  };
-}
-
-export interface ApiPrivateByDesignPrivateByDesign
-  extends Struct.SingleTypeSchema {
-  collectionName: 'private_by_designs';
-  info: {
-    displayName: 'PrivateByDesign';
-    pluralName: 'private-by-designs';
-    singularName: 'private-by-design';
+    displayName: 'WorkList';
+    pluralName: 'work-lists';
+    singularName: 'work-list';
   };
   options: {
     draftAndPublish: true;
@@ -713,101 +600,14 @@ export interface ApiPrivateByDesignPrivateByDesign
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::private-by-design.private-by-design'
-    > &
-      Schema.Attribute.Private;
-    Points: Schema.Attribute.Component<'shared.points', true>;
-    publishedAt: Schema.Attribute.DateTime;
-    Title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiServiceService extends Struct.SingleTypeSchema {
-  collectionName: 'services';
-  info: {
-    displayName: 'Service';
-    pluralName: 'services';
-    singularName: 'service';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::service.service'
+      'api::work-list.work-list'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    ServicesList: Schema.Attribute.Component<'shared.title-desc-group', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiStepIntoFutureStepIntoFuture
-  extends Struct.SingleTypeSchema {
-  collectionName: 'step_into_futures';
-  info: {
-    displayName: 'StepIntoFuture';
-    pluralName: 'step-into-futures';
-    singularName: 'step-into-future';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    desc: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::step-into-future.step-into-future'
-    > &
-      Schema.Attribute.Private;
-    Points: Schema.Attribute.Component<'shared.title-desc-group', true>;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Video: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-  };
-}
-
-export interface ApiTeamTeam extends Struct.SingleTypeSchema {
-  collectionName: 'teams';
-  info: {
-    displayName: 'Team';
-    pluralName: 'teams';
-    singularName: 'team';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::team.team'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    sectionTitle: Schema.Attribute.String;
-    TeamCard: Schema.Attribute.Component<'team.team-card', true>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
+    Works: Schema.Attribute.Component<'work.works', true>;
   };
 }
 
@@ -1321,19 +1121,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::about.about': ApiAboutAbout;
+      'api::about-page.about-page': ApiAboutPageAboutPage;
       'api::connect-with-us.connect-with-us': ApiConnectWithUsConnectWithUs;
-      'api::cta.cta': ApiCtaCta;
       'api::email-form.email-form': ApiEmailFormEmailForm;
-      'api::footer.footer': ApiFooterFooter;
-      'api::hero.hero': ApiHeroHero;
-      'api::how-we-stand-out.how-we-stand-out': ApiHowWeStandOutHowWeStandOut;
+      'api::home-page.home-page': ApiHomePageHomePage;
       'api::navbar.navbar': ApiNavbarNavbar;
-      'api::portfolio.portfolio': ApiPortfolioPortfolio;
-      'api::private-by-design.private-by-design': ApiPrivateByDesignPrivateByDesign;
-      'api::service.service': ApiServiceService;
-      'api::step-into-future.step-into-future': ApiStepIntoFutureStepIntoFuture;
-      'api::team.team': ApiTeamTeam;
+      'api::work-list.work-list': ApiWorkListWorkList;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

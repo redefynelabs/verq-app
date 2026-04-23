@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_pages",
+  "info": {
+    "singularName": "about-page",
+    "pluralName": "about-pages",
+    "displayName": "AboutPage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Hero": {
+      "type": "component",
+      "component": "about.about-hero",
+      "repeatable": false
+    },
+    "HowWeWork": {
+      "type": "component",
+      "component": "about.how-we-work",
+      "repeatable": false
+    },
+    "Showreel": {
+      "type": "component",
+      "component": "about.showreel",
+      "repeatable": false
+    },
+    "FounderGrid": {
+      "type": "component",
+      "component": "about.founder-grid",
+      "repeatable": false
+    }
+  }
+}

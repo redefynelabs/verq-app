@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_about_founder_grids",
+  "info": {
+    "displayName": "FounderGrid"
+  },
+  "options": {},
+  "attributes": {
+    "Grids": {
+      "type": "component",
+      "component": "shared.title-desc-group",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

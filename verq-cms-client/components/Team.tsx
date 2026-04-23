@@ -1,13 +1,14 @@
 'use client'
 
 import ContainerLayout from '@/containerLayout/ContainerLayout'
-import { TeamData } from '@/service/fetchTeam'
+import { TeamSection } from '@/service/fetchHomePage'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
 const PARALLAX_SPEEDS = [-60, 45, -80, 55, -45, 70, -55, 40, -65]
 
-const Team = ({ data }: { data: TeamData }) => {
+const Team = ({ data }: { data: TeamSection | null }) => {
+    if (!data) return null;
     const containerRef = useRef<HTMLDivElement>(null)
     const cardRefs = useRef<(HTMLDivElement | null)[]>([])
     const rafRef = useRef<number>(0)
@@ -41,7 +42,7 @@ const Team = ({ data }: { data: TeamData }) => {
         }
     }, [])
 
-    const members = [...data.TeamCard, ...data.TeamCard,]
+    const members = [...data.TeamCards, ...data.TeamCards]
 
     return (
         <div className='bg-[#101010] rounded-t-[46px] sm:rounded-t-[28px] md:rounded-t-[39px] 2xl:rounded-t-[50px]'>
@@ -57,7 +58,7 @@ const Team = ({ data }: { data: TeamData }) => {
                             ^^^/'////------^^^^///
                         </h1>
                         <h1 className='text-[52px] sm:text-[72px] md:text-[96px] lg:text-[10vw] xl:text-[120px] 2xl:text-[143px] leading-[95%] text-start max-w-sm'>
-                            {data.sectionTitle}
+                            {data.Title}
                         </h1>
                     </div>
 

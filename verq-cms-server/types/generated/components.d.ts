@@ -1,5 +1,48 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AboutAboutHero extends Struct.ComponentSchema {
+  collectionName: 'components_about_about_heroes';
+  info: {
+    displayName: 'AboutHero';
+  };
+  attributes: {
+    Desc: Schema.Attribute.Text;
+    Title: Schema.Attribute.String;
+    Video: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
+export interface AboutFounderGrid extends Struct.ComponentSchema {
+  collectionName: 'components_about_founder_grids';
+  info: {
+    displayName: 'FounderGrid';
+  };
+  attributes: {
+    Grids: Schema.Attribute.Component<'shared.title-desc-group', true>;
+  };
+}
+
+export interface AboutHowWeWork extends Struct.ComponentSchema {
+  collectionName: 'components_about_how_we_works';
+  info: {
+    displayName: 'HowWeWork';
+  };
+  attributes: {
+    Points: Schema.Attribute.Component<'shared.title-desc-group', true>;
+    Title: Schema.Attribute.String;
+  };
+}
+
+export interface AboutShowreel extends Struct.ComponentSchema {
+  collectionName: 'components_about_showreels';
+  info: {
+    displayName: 'Showreel';
+  };
+  attributes: {
+    Video: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
 export interface GlobalIconLink extends Struct.ComponentSchema {
   collectionName: 'components_global_icon_links';
   info: {
@@ -22,6 +65,90 @@ export interface GlobalLabeledLink extends Struct.ComponentSchema {
   };
 }
 
+export interface HomeCta extends Struct.ComponentSchema {
+  collectionName: 'components_home_ctas';
+  info: {
+    displayName: 'CTA';
+  };
+  attributes: {
+    Desc: Schema.Attribute.Text;
+    Points: Schema.Attribute.Component<'shared.title-desc-group', true>;
+    Title: Schema.Attribute.String;
+    Video: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
+export interface HomeFaQs extends Struct.ComponentSchema {
+  collectionName: 'components_home_fa_qs';
+  info: {
+    displayName: 'FAQs';
+  };
+  attributes: {
+    FAQs: Schema.Attribute.Component<'shared.faq', true>;
+    Title: Schema.Attribute.String;
+  };
+}
+
+export interface HomeFloatingPoints extends Struct.ComponentSchema {
+  collectionName: 'components_home_floating_points';
+  info: {
+    displayName: 'FloatingPoints';
+  };
+  attributes: {
+    Points: Schema.Attribute.Component<'shared.points', true>;
+    Title: Schema.Attribute.String;
+  };
+}
+
+export interface HomeHomeAbout extends Struct.ComponentSchema {
+  collectionName: 'components_home_home_abouts';
+  info: {
+    displayName: 'HomeAbout';
+  };
+  attributes: {
+    Desc: Schema.Attribute.Text;
+    GroupImageIcon: Schema.Attribute.Component<
+      'shared.image-icon-info-group',
+      true
+    >;
+    Title: Schema.Attribute.String;
+  };
+}
+
+export interface HomeHomeStudio extends Struct.ComponentSchema {
+  collectionName: 'components_home_home_studios';
+  info: {
+    displayName: 'HomeStudio';
+  };
+  attributes: {
+    Desc: Schema.Attribute.Text;
+    Points: Schema.Attribute.Component<'shared.title-desc-group', true>;
+    Title: Schema.Attribute.String;
+    Video: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
+export interface HomeServiceList extends Struct.ComponentSchema {
+  collectionName: 'components_home_service_lists';
+  info: {
+    displayName: 'ServiceList';
+  };
+  attributes: {
+    List: Schema.Attribute.Component<'shared.title-desc-group', true>;
+  };
+}
+
+export interface HomeTeam extends Struct.ComponentSchema {
+  collectionName: 'components_home_teams';
+  info: {
+    displayName: 'Team';
+  };
+  attributes: {
+    TeamCards: Schema.Attribute.Component<'team.team-card', true>;
+    Title: Schema.Attribute.String;
+  };
+}
+
 export interface PortfolioPortfolioCard extends Struct.ComponentSchema {
   collectionName: 'components_portfolio_portfolio_cards';
   info: {
@@ -35,6 +162,27 @@ export interface PortfolioPortfolioCard extends Struct.ComponentSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+  };
+}
+
+export interface SharedClients extends Struct.ComponentSchema {
+  collectionName: 'components_shared_clients';
+  info: {
+    displayName: 'Clients';
+  };
+  attributes: {
+    Logos: Schema.Attribute.Component<'shared.media', true>;
+  };
+}
+
+export interface SharedFaq extends Struct.ComponentSchema {
+  collectionName: 'components_shared_faqs';
+  info: {
+    displayName: 'FAQ';
+  };
+  attributes: {
+    Answer: Schema.Attribute.Text;
+    Question: Schema.Attribute.Text;
   };
 }
 
@@ -145,12 +293,42 @@ export interface TeamTeamCard extends Struct.ComponentSchema {
   };
 }
 
+export interface WorkWorks extends Struct.ComponentSchema {
+  collectionName: 'components_work_works';
+  info: {
+    displayName: 'Works';
+  };
+  attributes: {
+    BannerImg: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Contents: Schema.Attribute.Component<'shared.rich-text', true>;
+    Desc: Schema.Attribute.Text;
+    Images: Schema.Attribute.Component<'shared.media', true>;
+    ProjectLink: Schema.Attribute.String;
+    Services: Schema.Attribute.Component<'shared.points', true>;
+    SmallDesc: Schema.Attribute.Text;
+    Title: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'about.about-hero': AboutAboutHero;
+      'about.founder-grid': AboutFounderGrid;
+      'about.how-we-work': AboutHowWeWork;
+      'about.showreel': AboutShowreel;
       'global.icon-link': GlobalIconLink;
       'global.labeled-link': GlobalLabeledLink;
+      'home.cta': HomeCta;
+      'home.fa-qs': HomeFaQs;
+      'home.floating-points': HomeFloatingPoints;
+      'home.home-about': HomeHomeAbout;
+      'home.home-studio': HomeHomeStudio;
+      'home.service-list': HomeServiceList;
+      'home.team': HomeTeam;
       'portfolio.portfolio-card': PortfolioPortfolioCard;
+      'shared.clients': SharedClients;
+      'shared.faq': SharedFaq;
       'shared.image-icon-info-group': SharedImageIconInfoGroup;
       'shared.media': SharedMedia;
       'shared.points': SharedPoints;
@@ -160,6 +338,7 @@ declare module '@strapi/strapi' {
       'shared.slider': SharedSlider;
       'shared.title-desc-group': SharedTitleDescGroup;
       'team.team-card': TeamTeamCard;
+      'work.works': WorkWorks;
     }
   }
 }

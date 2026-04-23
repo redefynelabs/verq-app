@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_service_lists",
+  "info": {
+    "displayName": "ServiceList"
+  },
+  "options": {},
+  "attributes": {
+    "List": {
+      "type": "component",
+      "component": "shared.title-desc-group",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

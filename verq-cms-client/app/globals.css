@@ -22,8 +22,10 @@ body {
 }
 
 
-.inter {
+.inter, .font-family-inter {
   font-family: var(--font-inter);
+  letter-spacing: -0.05em; /* tracking-tighter */
+  line-height: 1.25;       /* leading-tight */
 }
 
 

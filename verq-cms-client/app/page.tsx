@@ -1,85 +1,51 @@
 // app/page.tsx
-import About from "@/components/About";
-import Code from "@/components/Code";
-import Connect from "@/components/Connect";
-import Future from "@/components/Future";
-import HomeHero from "@/components/HomeHero";
-import TimeWaits from "@/components/TimeWaits";
-import Footer from "@/components/Navigation/Footer";
+import About from "@/components/Home/About";
+import Code from "@/components/Home/Code";
+import Connect from "@/components/Reusable/Connect";
+import HomeHero from "@/components/Home/HomeHero";
 import Team from "@/components/Team";
-import Portfoilo from "@/components/Portfoilo";
-import StandsOut from "@/components/StandsOut";
-import Services from "@/components/Services";
-import Design from "@/components/Design";
+import Studio from "@/components/Home/Studio";
+import Services from "@/components/Home/Services";
+import FloatingPoints from "@/components/Home/FloatingPoints";
 
-import { fetchAbout } from "@/service/fetchAbout";
-import { fetchTimeWaits } from "@/service/fetchTimeWaits";
+import { fetchHomePage } from "@/service/fetchHomePage";
 import { fetchConnect } from "@/service/fetchConnect";
-import { fetchFuture } from "@/service/fetchFuture";
-import { fetchTeam } from "@/service/fetchTeam";
-import { fetchStandsOut } from "@/service/fetchStandsOut";
-import { fetchJoinWaitlist } from "@/service/fetchJoinWaitlist";
-import { fetchDesign } from "@/service/fetchDesign";
-import { fetchPortfolio } from "@/service/fetchPortfolio";
-import { fetchHero } from "@/service/fetchHero";
-import { Clients } from "@/components/Clients";
-import FAQ from "@/components/FAQ";
+import { Clients } from "@/components/Reusable/Clients";
+import FAQ from "@/components/Reusable/FAQ";
 import Form from "@/components/Reusable/Form";
+import CTA from "@/components/Reusable/CTA";
 
 export default async function Home() {
   const [
-    heroData,
-    aboutData,
-    timeWaitsData,
+    homePageData,
+    
     connectData,
-    futureData,
-    teamData,
-    standsOutData,
-    joinWaitlistData,
-    designData,
-    portfolioData,
+    
   ] = await Promise.all([
-    fetchHero(),
-    fetchAbout(),
-    fetchTimeWaits(),
+    fetchHomePage(),
+  
     fetchConnect(),
-    fetchFuture(),
-    fetchTeam(),
-    fetchStandsOut(),
-    fetchJoinWaitlist(),
-    fetchDesign(),
-    fetchPortfolio(),
+   
   ]);
 
-  console.log('Fetched all data:', {
-    heroData,
-    aboutData,
-    timeWaitsData,
-    connectData,
-    futureData,
-    teamData,
-    standsOutData,
-    joinWaitlistData,
-    designData,
-    portfolioData,
-  });
+ 
 
   return (
     <div>
-      <HomeHero data={heroData} />
-      <About data={aboutData} />
-      <StandsOut data={standsOutData} />
-      <Services data={joinWaitlistData} />
-      <Clients />
-      <Design data={designData} />
-      <Portfoilo data={portfolioData} />
-      <Future data={futureData} />
+      <HomeHero />
+      <About data={homePageData?.About ?? null} />
+      <Studio data={homePageData?.Studio ?? null} />
+      <Services data={homePageData?.Services ?? null} />
+      <Clients data={homePageData?.Clients ?? null} />
+      <FloatingPoints data={homePageData?.FloatingPoints ?? null} />
+      {/* <Portfoilo data={portfolioData} /> */}
+      <CTA data={homePageData?.CTA ?? null} />
       <div className="bg-[#101010] rounded-t-[55px] relative z-50">
-        <Team data={teamData} />
+       <Team data={homePageData?.Team ?? null} />
         <Code />
         {/* <TimeWaits data={timeWaitsData} /> */}
         <Form />
-        <FAQ />
+        <FAQ data={homePageData?.FAQs ?? null} />
         <Connect data={connectData} />
       </div>
     </div>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
+import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/constants/Nav";
 import { useScrambleText } from "@/hooks/useScrambleText";
 
@@ -65,6 +66,8 @@ const ScrambleLink = ({
 };
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isWorkPage = /^\/works\/.+/.test(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const linkItemsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -116,6 +119,23 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, []);
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      const navbar = menuRef.current?.closest('[data-navbar]') as HTMLElement | null;
+      if (navbar && !navbar.contains(e.target as Node)) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("touchstart", handleOutsideClick);
+    };
+  }, [isMenuOpen, closeMenu]);
+
   const toggleMenu = useCallback(() => {
     if (!tlRef.current) return;
 
@@ -145,11 +165,11 @@ const Navbar = () => {
   const allLinks = [...NAV_LINKS, { href: "#contact", name: "CONTACT", isContact: true }];
 
   return (
-    <div className="z-[999] flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0">
+    <div data-navbar className={`z-[999] flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0 ${isWorkPage ? "fixed top-0 left-0 right-0 w-full" : "relative"}`}>
       {/* Top Bar */}
       <div className="flex flex-row items-center justify-between w-full lg:w-auto">
         {/* Logo */}
-        <div className="md:rounded-[20px] rounded-2xl px-5 py-3 border border-[#C8C8C8] flex items-center backdrop-blur-2xl bg-white/[0.04]" style={{ WebkitBackdropFilter: 'blur(32px)', backdropFilter: 'blur(32px)' }}>
+        <Link href={'/'} className="md:rounded-[20px] rounded-2xl px-5 py-3 border border-[#C8C8C8] flex items-center backdrop-blur-2xl bg-white/[0.04]" style={{ WebkitBackdropFilter: 'blur(32px)', backdropFilter: 'blur(32px)' }}>
           <Image
             src="/verq.png"
             alt="Verq"
@@ -157,7 +177,7 @@ const Navbar = () => {
             height={300}
             className="w-20 sm:w-24 lg:w-28 pt-1 sm:pt-2"
           />
-        </div>
+        </Link>
 
         {/* Mobile Menu Toggle */}
         <button
@@ -202,7 +222,7 @@ const Navbar = () => {
       {/* Mobile Menu — absolute, doesn't affect layout height */}
       <div
         ref={menuRef}
-        className="lg:hidden absolute top-[calc(100%+6px)] left-3 right-3 z-50 border border-[#C8C8C8] rounded-[20px] bg-[#0a0a0a]"
+        className="lg:hidden absolute top-[calc(100%+6px)] left-0 right-0 z-[1000] border border-[#C8C8C8] rounded-[20px] bg-[#0a0a0a] mx-3"
       >
         <div className="px-6 py-6 flex flex-col gap-5">
           {allLinks.map((item, index) => (

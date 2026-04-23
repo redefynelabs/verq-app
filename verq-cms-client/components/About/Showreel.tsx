@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import ContainerLayout from '@/containerLayout/ContainerLayout';
+import { AboutPageShowreel } from '@/service/fetchAboutPage';
 
 function formatTime(s: number) {
   const m = Math.floor(s / 60);
@@ -9,7 +10,8 @@ function formatTime(s: number) {
   return `${m}:${sec.toString().padStart(2, '0')}`;
 }
 
-export default function Showreel() {
+export default function Showreel({ data }: { data: AboutPageShowreel }) {
+  const videoSrc = data.Video.url;
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -129,7 +131,7 @@ export default function Showreel() {
         >
           <video
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
-            src="/showreel.mp4"
+            src={videoSrc}
             muted
             autoPlay
             loop
@@ -176,7 +178,7 @@ export default function Showreel() {
             <video
               ref={videoRef}
               className="w-full h-full object-cover cursor-pointer"
-              src="/showreel.mp4"
+              src={videoSrc}
               playsInline
               onClick={togglePlay}
               onTimeUpdate={handleTimeUpdate}

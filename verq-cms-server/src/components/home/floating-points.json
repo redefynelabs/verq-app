@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_home_floating_points",
+  "info": {
+    "displayName": "FloatingPoints"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Points": {
+      "type": "component",
+      "component": "shared.points",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

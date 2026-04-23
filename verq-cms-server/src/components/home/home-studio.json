@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_home_home_studios",
+  "info": {
+    "displayName": "HomeStudio"
+  },
+  "options": {},
+  "attributes": {
+    "Video": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Desc": {
+      "type": "text"
+    },
+    "Points": {
+      "type": "component",
+      "component": "shared.title-desc-group",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

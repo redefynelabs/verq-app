@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_home_fa_qs",
+  "info": {
+    "displayName": "FAQs"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "FAQs": {
+      "type": "component",
+      "component": "shared.faq",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "work_lists",
+  "info": {
+    "singularName": "work-list",
+    "pluralName": "work-lists",
+    "displayName": "WorkList"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Works": {
+      "type": "component",
+      "component": "work.works",
+      "repeatable": true
+    }
+  }
+}

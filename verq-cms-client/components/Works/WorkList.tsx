@@ -1,21 +1,23 @@
 import React from 'react'
-import { works } from './Works'
 import WorkCard from './WorkCard'
 import ContainerLayout from '@/containerLayout/ContainerLayout'
+import { WorkListData, workSlug } from '@/service/fetchWorkList'
 
-const WorkList = () => {
+const WorkList = ({ data }: { data: WorkListData | null }) => {
+  if (!data) return null;
+
   return (
     <ContainerLayout className="px-8! py-10">
       <div className="flex flex-col gap-10">
-        {works.map((work, index) => (
+        {data.Works.map((work, index) => (
           <WorkCard
-            key={work.slug + index}
+            key={work.id}
             index={index}
-            title={work.title}
-            shortDesc={work.shortDesc}
-            slug={work.slug}
-            bannerImg={work.bannerImg}
-            services={work.services}
+            title={work.Title}
+            shortDesc={work.SmallDesc}
+            slug={workSlug(work.Title)}
+            bannerImg={work.BannerImg.url}
+            services={work.Services.map(s => s.desc)}
           />
         ))}
       </div>

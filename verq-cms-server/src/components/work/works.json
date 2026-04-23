@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_work_works",
+  "info": {
+    "displayName": "Works"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "SmallDesc": {
+      "type": "text"
+    },
+    "Desc": {
+      "type": "text"
+    },
+    "ProjectLink": {
+      "type": "string"
+    },
+    "BannerImg": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Services": {
+      "type": "component",
+      "component": "shared.points",
+      "repeatable": true
+    },
+    "Images": {
+      "type": "component",
+      "component": "shared.media",
+      "repeatable": true
+    },
+    "Contents": {
+      "type": "component",
+      "component": "shared.rich-text",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

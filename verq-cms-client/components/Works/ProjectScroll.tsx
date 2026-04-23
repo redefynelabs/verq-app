@@ -11,7 +11,6 @@ interface Work {
   shortDesc: string;
   contentDesc: string;
   bannerImg: string;
-  accent: string;
   slug: string;
   projectLink: string;
   services: string[];
@@ -66,7 +65,7 @@ function ImageReveal({ src, alt, accent, isActive, counter, fullHeight }: {
   return (
     <div
       ref={wrapperRef}
-      className={`w-full overflow-hidden relative ${fullHeight ? 'h-screen' : 'h-[80vh] rounded-2xl'}`}
+      className={`w-full overflow-hidden relative ${fullHeight ? 'h-screen' : 'h-[70vh] rounded-2xl'}`}
       style={{ backgroundColor: accent, transformOrigin: 'center center', opacity: 0 }}
     >
       <img src={src} alt={alt} className="w-full h-full object-cover" />
@@ -266,10 +265,10 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
                 {/* Left — details */}
                 <div className="flex flex-col justify-center gap-5 md:gap-7 w-[38%] shrink-0 px-8 md:px-14 lg:px-20 py-12">
                   <h2 className="text-5xl md:text-7xl lg:text-8xl tracking-tighter text-primary leading-[0.9]">{work.title}</h2>
-                  <p className="text-white/70 text-base leading-relaxed max-w-sm font-family-inter">{work.shortDesc}</p>
+                  <p className="text-white/70 text-base leading-relaxed max-w-sm font-family-inter tracking-tighter leading-tight">{work.shortDesc}</p>
                   <div className="flex flex-col gap-1.5">
-                    <p className="text-primary text-[11px] tracking-widest uppercase">Services</p>
-                    <ul className="flex flex-col gap-1 font-family-inter">
+                    <p className="text-primary text-[18px] tracking-widest uppercase">Services</p>
+                    <ul className="flex flex-col gap-1 font-family-inter tracking-tighter leading-tight">
                       {work.services.map((s) => <li key={s} className="text-white/50 text-base">{s}</li>)}
                     </ul>
                   </div>
@@ -283,7 +282,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
                   </a>
                 </div>
                 {/* Right — image */}
-                <div className="flex-1 h-[85vh] self-center mr-8 rounded-2xl overflow-hidden" style={{ backgroundColor: work.accent }}>
+                <div className="flex-1 h-[70vh] self-center mr-8 rounded-2xl overflow-hidden">
                   <img src={work.bannerImg} alt={work.title} className="w-full h-full object-cover" />
                 </div>
               </div>
@@ -303,7 +302,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
                   <ImageReveal
                     src={slide.src}
                     alt={`${work.title} — ${i}`}
-                    accent={work.accent}
+                    accent="#101010"
                     isActive={activeIndex === i}
                     fullHeight={isFirst}
                     counter={`${String(i + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`}

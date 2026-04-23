@@ -42,7 +42,7 @@ export default function Form() {
   };
 
   return (
-    <ContainerLayout className=' px-10! py-10!'>
+    <ContainerLayout className=' md:px-10! py-10!'>
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[600px] font-family-inter tracking-tighter leading-tight">
 

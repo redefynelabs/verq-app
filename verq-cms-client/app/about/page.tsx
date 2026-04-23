@@ -1,31 +1,30 @@
 import FounderGrid from "@/components/About/FounderGrid";
 import HowWeWork from "@/components/About/HowWeWork";
 import Showreel from "@/components/About/Showreel";
-import { Clients } from "@/components/Clients";
-import Connect from "@/components/Connect";
-import Hero from "@/components/Hero";
+import { Clients } from "@/components/Reusable/Clients";
+import Connect from "@/components/Reusable/Connect";
+import Hero from "@/components/About/Hero";
 import Form from "@/components/Reusable/Form";
 import { fetchConnect } from "@/service/fetchConnect";
+import { fetchAboutPage } from "@/service/fetchAboutPage";
+import { fetchHomePage } from "@/service/fetchHomePage";
 
-const heroData = {
-  title: "Here We Come.",
-  subtitle:
-    "Interfaces, systems, and micro-interactions , crafted with clarity and intent.\n",
-  bgImage:
-    "https://res.cloudinary.com/dkuievjm4/video/upload/v1767592927/VERQ_Home_page_8mb_54e5986f2c.mp4",
-  inputPlaceholder: "Enter Your Email",
-  buttonText: "JOIN IN",
-};
 export default async function About() {
-  const [connectData] = await Promise.all([fetchConnect()]);
+  const [aboutData, homePageData, connectData] = await Promise.all([
+    fetchAboutPage(),
+    fetchHomePage(),
+    fetchConnect(),
+  ]);
+
+  if (!aboutData) return null;
 
   return (
-    <div >
-      <Hero data={heroData} />
-      <HowWeWork />
-      <Clients className=" min-h-0! py-0! mb-20" />
-      <Showreel />
-      <FounderGrid />
+    <div>
+      <Hero data={aboutData.Hero} />
+      <HowWeWork data={aboutData.HowWeWork} />
+      <Clients data={homePageData?.Clients ?? null} className=" min-h-0! py-0! mb-20" />
+      <Showreel data={aboutData.Showreel} />
+      <FounderGrid data={aboutData.FounderGrid} />
       <Form />
       <Connect data={connectData} />
     </div>
