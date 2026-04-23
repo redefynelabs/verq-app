@@ -48,7 +48,7 @@ export const fetchWorkList = async (): Promise<WorkListData | null> => {
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/work-list?${params}`,
-      { next: { revalidate: 3600 } }
+      { cache: 'no-store' }
     );
 
     if (!response.ok) {
