@@ -5,15 +5,13 @@ import { Clients } from "@/components/Reusable/Clients";
 import Connect from "@/components/Reusable/Connect";
 import Hero from "@/components/About/Hero";
 import Form from "@/components/Reusable/Form";
-import { fetchConnect } from "@/service/fetchConnect";
 import { fetchAboutPage } from "@/service/fetchAboutPage";
 import { fetchHomePage } from "@/service/fetchHomePage";
 
 export default async function About() {
-  const [aboutData, homePageData, connectData] = await Promise.all([
+  const [aboutData, homePageData] = await Promise.all([
     fetchAboutPage(),
     fetchHomePage(),
-    fetchConnect(),
   ]);
 
   if (!aboutData) return null;
@@ -26,7 +24,7 @@ export default async function About() {
       <Showreel data={aboutData.Showreel} />
       <FounderGrid data={aboutData.FounderGrid} />
       <Form />
-      <Connect data={connectData} />
+      <Connect />
     </div>
   );
 }

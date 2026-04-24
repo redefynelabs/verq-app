@@ -32,10 +32,10 @@ export const fetchWorkList = async (): Promise<WorkListData | null> => {
 
   try {
     const params = new URLSearchParams({
-      'populate[Works][populate][BannerImg]': '*',
-      'populate[Works][populate][Services]': '*',
-      'populate[Works][populate][Images][populate]': '*',
-      'populate[Works][populate][Contents]': '*',
+      'populate[Works][populate][BannerImg][fields][0]': 'url',
+      'populate[Works][populate][Services][populate]': '*',
+      'populate[Works][populate][Images][populate][file][fields][0]': 'url',
+      'populate[Works][populate][Contents][populate]': '*',
     });
 
     const url = `${baseUrl}/api/work-list?${params}`;

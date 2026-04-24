@@ -9,24 +9,13 @@ import Services from "@/components/Home/Services";
 import FloatingPoints from "@/components/Home/FloatingPoints";
 
 import { fetchHomePage } from "@/service/fetchHomePage";
-import { fetchConnect } from "@/service/fetchConnect";
 import { Clients } from "@/components/Reusable/Clients";
 import FAQ from "@/components/Reusable/FAQ";
 import Form from "@/components/Reusable/Form";
 import CTA from "@/components/Reusable/CTA";
 
 export default async function Home() {
-  const [
-    homePageData,
-    
-    connectData,
-    
-  ] = await Promise.all([
-    fetchHomePage(),
-  
-    fetchConnect(),
-   
-  ]);
+  const homePageData = await fetchHomePage();
 
  
 
@@ -46,7 +35,7 @@ export default async function Home() {
         {/* <TimeWaits data={timeWaitsData} /> */}
         <Form />
         <FAQ data={homePageData?.FAQs ?? null} />
-        <Connect data={connectData} />
+        <Connect />
       </div>
     </div>
   );

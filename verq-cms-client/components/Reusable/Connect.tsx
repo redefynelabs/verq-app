@@ -1,18 +1,26 @@
 "use client"
 import { motion } from "framer-motion";
-import Image from "next/image";
 import ContainerLayout from "@/containerLayout/ContainerLayout";
-import { ConnectData } from "@/service/fetchConnect";
+import { FaLinkedinIn, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { SiCalendly } from "react-icons/si";
 
-// Bento layout by position index — order in CMS controls which slot each icon gets
 const BENTO_LAYOUT: { col: string; row: string; iconSize: string }[] = [
-  { col: '1 / span 1', row: '1 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'   }, // small
-  { col: '2 / span 2', row: '1 / span 1', iconSize: 'w-8 h-8 md:w-10 md:h-10' }, // wide
-  { col: '4 / span 2', row: '1 / span 2', iconSize: 'w-10 h-10 md:w-14 md:h-14'}, // big featured
-  { col: '6 / span 1', row: '1 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'   }, // small
-  { col: '3 / span 1', row: '2 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'   }, // small
-  { col: '6 / span 1', row: '2 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'   }, // small
-  { col: '3 / span 4', row: '3 / span 1', iconSize: 'w-8 h-8 md:w-10 md:h-10' }, // wide bottom
+  { col: '1 / span 1', row: '1 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'    }, // small
+  { col: '2 / span 2', row: '1 / span 1', iconSize: 'w-8 h-8 md:w-10 md:h-10'  }, // wide
+  { col: '4 / span 2', row: '1 / span 2', iconSize: 'w-10 h-10 md:w-14 md:h-14' }, // big featured
+  { col: '6 / span 1', row: '1 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'    }, // small
+  { col: '3 / span 1', row: '2 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'    }, // small
+  { col: '6 / span 1', row: '2 / span 1', iconSize: 'w-6 h-6 md:w-8 md:h-8'    }, // small — empty
+  { col: '3 / span 4', row: '3 / span 1', iconSize: 'w-8 h-8 md:w-10 md:h-10'  }, // wide bottom — empty
+];
+
+const SOCIAL_LINKS = [
+  { href: '#', icon: FaLinkedinIn,  label: 'LinkedIn'   },
+  { href: '#', icon: FaInstagram,   label: 'Instagram'  },
+  { href: '#', icon: FaXTwitter,    label: 'X Twitter'  },
+  { href: '#', icon: FaWhatsapp,    label: 'WhatsApp'   },
+  { href: '#', icon: SiCalendly,    label: 'Calendly'   },
 ];
 
 const hoverAnim = {
@@ -24,9 +32,7 @@ const hoverAnim = {
   transition: { type: "spring" as const, stiffness: 400, damping: 25 },
 };
 
-type ConnectProps = { data: ConnectData };
-
-const Connect = ({ data: connectData }: ConnectProps) => {
+const Connect = () => {
   return (
     <ContainerLayout className="bg-[#101010] py-10">
       <section id="connect" className="text-white pt-5 md:pt-10 relative z-100 md:px-10">
@@ -35,7 +41,7 @@ const Connect = ({ data: connectData }: ConnectProps) => {
           {/* Left — Title */}
           <div className="flex-1 text-left w-full lg:w-auto">
             <h2 className="text-4xl md:text-[57px] font-light tracking-tight leading-[90%]">
-              {connectData.title}
+              Connect with us
             </h2>
           </div>
 
@@ -43,28 +49,34 @@ const Connect = ({ data: connectData }: ConnectProps) => {
           <div className="flex-1/5 w-full">
             <div className="grid grid-cols-6 gap-1 md:gap-3 grid-rows-[repeat(3,minmax(110px,1fr))] sm:grid-rows-[repeat(3,minmax(120px,1fr))]">
 
-              {/* Social link tiles — full box is the link */}
-              {connectData.socialLinks.map((link, index) => {
-                const layout = BENTO_LAYOUT[index];
-                if (!layout) return null;
+              {BENTO_LAYOUT.map((layout, index) => {
+                const social = SOCIAL_LINKS[index];
+
+                if (social) {
+                  const Icon = social.icon;
+                  return (
+                    <motion.a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      className="rounded-xl md:rounded-[28px] border border-[#C8C8C8] flex items-center justify-center backdrop-blur-xl cursor-pointer"
+                      style={{ gridColumn: layout.col, gridRow: layout.row }}
+                      {...hoverAnim}
+                    >
+                      <Icon className={`text-white ${layout.iconSize}`} />
+                    </motion.a>
+                  );
+                }
+
+                // Empty box — border only
                 return (
-                  <motion.a
-                    key={link.id}
-                    href={link.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-xl md:rounded-[28px] border border-[#C8C8C8] flex items-center justify-center backdrop-blur-xl cursor-pointer"
+                  <div
+                    key={index}
+                    className="rounded-xl md:rounded-[28px] border border-[#C8C8C8]"
                     style={{ gridColumn: layout.col, gridRow: layout.row }}
-                    {...hoverAnim}
-                  >
-                    <Image
-                      src={link.icon.url}
-                      alt={link.icon.alternativeText || link.icon.name}
-                      width={56}
-                      height={56}
-                      className={`object-contain ${layout.iconSize}`}
-                    />
-                  </motion.a>
+                  />
                 );
               })}
 

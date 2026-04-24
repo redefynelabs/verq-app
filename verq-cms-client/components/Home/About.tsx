@@ -145,7 +145,7 @@ const About = ({ data }: AboutProps) => {
                     <h1 className="text-[#FFDED3] text-[40px] leading-[42px] lg:text-[89px] lg:leading-[88px] max-w-xl mx-auto">
                         {data.Title}
                     </h1>
-                    <p className="text-[#C8C8C8] text-[14px] lg:text-[20px] max-w-2xl mt-2 mx-auto">
+                    <p className="text-[#C8C8C8] text-[14px] lg:text-[20px] max-w-2xl mt-2 mx-auto font-family-inter">
                         {data.Desc}
                     </p>
                 </div>
