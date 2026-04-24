@@ -14,14 +14,20 @@ export interface ConnectData {
 }
 
 export const fetchConnect = async (): Promise<ConnectData> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/connect-with-us?populate[SocialLinks][populate]=*`, {
-    next: { revalidate: 3600 },
-  });
-  
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
+  const url = `${baseUrl}/api/connect-with-us?populate[SocialLinks][populate]=*`;
+  console.log('[fetchConnect] Fetching:', url);
+
+  const response = await fetch(url, { cache: 'no-cache' });
+
+  console.log('[fetchConnect] Response status:', response.status, response.statusText);
+
   if (!response.ok) {
+    const body = await response.text();
+    console.error('[fetchConnect] Error body:', body);
     throw new Error(`Failed to fetch connect data: ${response.status}`);
   }
-  
+
   const result = await response.json();
   const data = result.data;
   

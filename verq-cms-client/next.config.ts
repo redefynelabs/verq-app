@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "api.verq.co",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
         hostname: "res.cloudinary.com",
       },
     ],

@@ -112,6 +112,9 @@ export interface HomePageData {
 // ── Fetch ─────────────────────────────────────────────────────────────────────
 
 export const fetchHomePage = async (): Promise<HomePageData | null> => {
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
+  console.log("[fetchHomePage] NEXT_PUBLIC_STRAPI_URL:", baseUrl);
+
   try {
     const params = new URLSearchParams({
       "populate[About][populate][GroupImageIcon][populate]": "*",
@@ -124,19 +127,24 @@ export const fetchHomePage = async (): Promise<HomePageData | null> => {
       "populate[FAQs][populate]": "*",
     });
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/home-page?${params}`,
-      { next: { revalidate: 3600 } }
-    );
+    const url = `${baseUrl}/api/home-page?${params}`;
+    console.log("[fetchHomePage] Fetching:", url);
+
+    const response = await fetch(url, { cache: 'no-cache' });
+
+    console.log("[fetchHomePage] Response status:", response.status, response.statusText);
 
     if (!response.ok) {
+      const body = await response.text();
+      console.error("[fetchHomePage] Error body:", body);
       throw new Error(`Failed to fetch home page data: ${response.status}`);
     }
 
     const result = await response.json();
+    console.log("[fetchHomePage] Data received, keys:", result.data ? Object.keys(result.data) : "null");
     return result.data as HomePageData;
   } catch (error) {
-    console.error("Error fetching home page:", error);
+    console.error("[fetchHomePage] Caught error:", error);
     return null;
   }
 };
