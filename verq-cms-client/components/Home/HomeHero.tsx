@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ContainerLayout from '@/containerLayout/ContainerLayout';
-import { HeroData } from '@/service/fetchHero';
 import ScrollSequence from '@/components/Reusable/ScrollSequence';
 import HeroParticles from '@/components/Reusable/HeroParticles';
 import LogoParticles from '@/components/Reusable/LogoParticles';
