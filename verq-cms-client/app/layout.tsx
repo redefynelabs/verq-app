@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import LenisProvider from "@/wrapper/ScrollWrapper";
-import { inter, orpix } from "@/fonts";
+import { EpicPro, inter, orpix } from "@/fonts";
 import Navbar from "@/components/Navigation/Navbar";
 import RipplePlane from "@/components/Reusable/FluidCursor";
 import ConditionalFooter from "@/components/Navigation/ConditionalFooter";
@@ -19,7 +19,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${orpix.variable} antialiased`}>
+      <body className={`${inter.variable} ${orpix.variable} ${EpicPro.variable} antialiased`}>
         {/* <LenisProvider> */}
         <RipplePlane />
 

@@ -33,24 +33,24 @@ const FRAME_CONTENT = [
   {
     from: 111,
     to: 220,
-    title: 'Research, design, and build',
+    title: 'ai-aCCELERATED  Full-cycle digital product studio.',
     position: 'inset-0 items-center justify-center mx-auto text-center',
-    titleStyle: 'text-white text-3xl sm:text-5xl md:text-6xl lg:text-8xl uppercase max-w-xl',
+    titleStyle: 'text-white text-3xl sm:text-5xl md:text-6xl  uppercase max-w-3xl',
   },
   {
     from: 221,
     to: 300,
     title: "united under one roof to ship digital products faster.",
-    position: 'top-10 md:top-16 left-5 md:left-10 items-start text-start max-w-xs md:max-w-md',
+    position: 'top-10 md:top-16 left-5 md:left-10 items-start text-start max-w-xs md:max-w-xl',
     titleStyle: 'text-primary uppercase text-2xl sm:text-3xl md:text-4xl lg:text-5xl',
     wordReveal: true,
   },
   {
     from: 301,
     to: 325,
-    title: "VIRTUAL EXPERIENCE +",
+    title: "BEYOND THE BRIEF",
     position: 'inset-0 items-center text-center justify-center',
-    titleStyle: 'text-[#515151] uppercase text-5xl sm:text-6xl md:text-8xl lg:text-9xl',
+    titleStyle: 'text-primary uppercase text-5xl sm:text-6xl md:text-8xl ',
   },
 ];
 

@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-family-inter: var(--font-inter);
   --font-family-orpix: var(--font-orpix);
+  --font-epicpro: var(--font-epicpro);
   --color-primary: #FF3D00;
   --color-secondary: #FFD0C1;
 }
@@ -18,7 +19,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-orpix);
+  font-family: var(--font-epicpro);
 }
 
 

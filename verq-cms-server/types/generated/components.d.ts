@@ -194,6 +194,7 @@ export interface SharedImageIconInfoGroup extends Struct.ComponentSchema {
   attributes: {
     desc: Schema.Attribute.Text;
     Image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
   };
 }
 

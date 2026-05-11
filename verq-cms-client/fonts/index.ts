@@ -13,6 +13,18 @@ export const orpix = localFont({
   display: "swap",
 });
 
+export const EpicPro = localFont({
+  src: [
+    {
+      path: "./epicpro.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-epicpro",
+  display: "swap",
+});
+
 
 
 export const inter = Inter({

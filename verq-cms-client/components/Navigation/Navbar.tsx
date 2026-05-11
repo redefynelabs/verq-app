@@ -54,7 +54,7 @@ const ScrambleLink = ({
     <Link
       href={href}
       ref={elementRef as React.RefObject<HTMLAnchorElement>}
-      className="text-lg sm:text-xl lg:text-[20px] xl:text-[22px] font-medium tracking-wider inline-block"
+      className="text-lg sm:text-xl lg:text-[20px] font-medium tracking-tighter inline-block"
       style={{ color: "#C8C8C8" }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -165,7 +165,7 @@ const Navbar = () => {
   const allLinks = [...NAV_LINKS, { href: "#contact", name: "CONTACT", isContact: true }];
 
   return (
-    <div data-navbar className={`z-[999] flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0 ${isWorkPage ? "fixed top-0 left-0 right-0 w-full" : "relative"}`}>
+    <div data-navbar className={`z-[999] font-family-inter flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0 ${isWorkPage ? "fixed top-0 left-0 right-0 w-full" : "relative"}`}>
       {/* Top Bar */}
       <div className="flex flex-row items-center justify-between w-full lg:w-auto">
         {/* Logo */}
@@ -213,7 +213,7 @@ const Navbar = () => {
           }}
           onMouseEnter={startContactScramble}
           onMouseLeave={resetContact}
-          className="bg-[#FF3D00] text-black rounded-full hover:bg-[#FF3D00]/90 transition-all duration-300 px-6 xl:px-10 py-2 text-[20px] xl:text-[22px] font-medium"
+          className="bg-[#FF3D00] text-black rounded-full hover:bg-[#FF3D00]/90 transition-all duration-300 px-6 xl:px-10 py-2 text-[20px]  font-medium"
         >
           CONTACT
         </Link>

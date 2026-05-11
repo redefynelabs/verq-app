@@ -13,6 +13,10 @@ import { Clients } from "@/components/Reusable/Clients";
 import FAQ from "@/components/Reusable/FAQ";
 import Form from "@/components/Reusable/Form";
 import CTA from "@/components/Reusable/CTA";
+import PinnedScrollReveal from "@/components/Home/PinnedScrollReveal";
+import FlippingClients from "@/components/Home/FlippingClients";
+import NewServices from "@/components/Home/NewServices";
+import Acceleration from "@/components/Home/Acceleration";
 
 export default async function Home() {
   const homePageData = await fetchHomePage();
@@ -22,6 +26,10 @@ export default async function Home() {
   return (
     <div>
       <HomeHero />
+      <PinnedScrollReveal />
+      <FlippingClients />
+      <NewServices />
+      <Acceleration />
       <About data={homePageData?.About ?? null} />
       <Studio data={homePageData?.Studio ?? null} />
       <Services data={homePageData?.Services ?? null} />
