@@ -530,13 +530,11 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
   attributes: {
     About: Schema.Attribute.Component<'home.home-about', false>;
-    Clients: Schema.Attribute.Component<'shared.clients', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     CTA: Schema.Attribute.Component<'home.cta', false>;
     FAQs: Schema.Attribute.Component<'home.fa-qs', false>;
-    FloatingPoints: Schema.Attribute.Component<'home.floating-points', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -544,9 +542,13 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     Portfolio: Schema.Attribute.Component<'home.portfolio', false>;
+    ProcessAcceleration: Schema.Attribute.Component<
+      'home.process-acceleration',
+      false
+    >;
     publishedAt: Schema.Attribute.DateTime;
     Services: Schema.Attribute.Component<'home.service-list', false>;
-    Studio: Schema.Attribute.Component<'home.home-studio', false>;
+    Statement: Schema.Attribute.Component<'home.statement', false>;
     Team: Schema.Attribute.Component<'home.team', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

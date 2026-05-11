@@ -140,13 +140,47 @@ export interface HomePortfolio extends Struct.ComponentSchema {
   };
 }
 
+export interface HomeProcess extends Struct.ComponentSchema {
+  collectionName: 'components_home_processes';
+  info: {
+    displayName: 'Process';
+  };
+  attributes: {
+    Desc: Schema.Attribute.String;
+    Process: Schema.Attribute.String;
+    Title: Schema.Attribute.String;
+  };
+}
+
+export interface HomeProcessAcceleration extends Struct.ComponentSchema {
+  collectionName: 'components_home_process_accelerations';
+  info: {
+    displayName: 'ProcessAcceleration';
+  };
+  attributes: {
+    ProcessList: Schema.Attribute.Component<'home.process', true>;
+  };
+}
+
 export interface HomeServiceList extends Struct.ComponentSchema {
   collectionName: 'components_home_service_lists';
   info: {
     displayName: 'ServiceList';
   };
   attributes: {
+    Desc: Schema.Attribute.Text;
     List: Schema.Attribute.Component<'shared.title-desc-group', true>;
+    Title: Schema.Attribute.String;
+  };
+}
+
+export interface HomeStatement extends Struct.ComponentSchema {
+  collectionName: 'components_home_statements';
+  info: {
+    displayName: 'Statement';
+  };
+  attributes: {
+    Text: Schema.Attribute.Text;
   };
 }
 
@@ -335,7 +369,10 @@ declare module '@strapi/strapi' {
       'home.home-about': HomeHomeAbout;
       'home.home-studio': HomeHomeStudio;
       'home.portfolio': HomePortfolio;
+      'home.process': HomeProcess;
+      'home.process-acceleration': HomeProcessAcceleration;
       'home.service-list': HomeServiceList;
+      'home.statement': HomeStatement;
       'home.team': HomeTeam;
       'portfolio.portfolio-card': PortfolioPortfolioCard;
       'shared.clients': SharedClients;

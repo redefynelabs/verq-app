@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_home_processes",
+  "info": {
+    "displayName": "Process"
+  },
+  "options": {},
+  "attributes": {
+    "Process": {
+      "type": "string"
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Desc": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

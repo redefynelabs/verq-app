@@ -5,6 +5,12 @@
   },
   "options": {},
   "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Desc": {
+      "type": "text"
+    },
     "List": {
       "type": "component",
       "component": "shared.title-desc-group",

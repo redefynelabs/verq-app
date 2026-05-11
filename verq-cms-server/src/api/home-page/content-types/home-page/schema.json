@@ -16,26 +16,6 @@
       "component": "home.home-about",
       "repeatable": false
     },
-    "Studio": {
-      "type": "component",
-      "component": "home.home-studio",
-      "repeatable": false
-    },
-    "Services": {
-      "type": "component",
-      "component": "home.service-list",
-      "repeatable": false
-    },
-    "Clients": {
-      "type": "component",
-      "component": "shared.clients",
-      "repeatable": false
-    },
-    "FloatingPoints": {
-      "type": "component",
-      "component": "home.floating-points",
-      "repeatable": false
-    },
     "CTA": {
       "type": "component",
       "component": "home.cta",
@@ -46,14 +26,29 @@
       "component": "home.team",
       "repeatable": false
     },
-    "FAQs": {
+    "Statement": {
       "type": "component",
-      "component": "home.fa-qs",
+      "component": "home.statement",
       "repeatable": false
     },
     "Portfolio": {
       "type": "component",
       "component": "home.portfolio",
+      "repeatable": false
+    },
+    "FAQs": {
+      "type": "component",
+      "component": "home.fa-qs",
+      "repeatable": false
+    },
+    "Services": {
+      "type": "component",
+      "component": "home.service-list",
+      "repeatable": false
+    },
+    "ProcessAcceleration": {
+      "type": "component",
+      "component": "home.process-acceleration",
       "repeatable": false
     }
   }

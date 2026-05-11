@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_process_accelerations",
+  "info": {
+    "displayName": "ProcessAcceleration"
+  },
+  "options": {},
+  "attributes": {
+    "ProcessList": {
+      "type": "component",
+      "component": "home.process",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

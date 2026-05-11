@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_home_statements",
+  "info": {
+    "displayName": "Statement"
+  },
+  "options": {},
+  "attributes": {
+    "Text": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}
