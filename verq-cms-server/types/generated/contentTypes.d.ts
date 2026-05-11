@@ -543,6 +543,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
       'api::home-page.home-page'
     > &
       Schema.Attribute.Private;
+    Portfolio: Schema.Attribute.Component<'home.portfolio', false>;
     publishedAt: Schema.Attribute.DateTime;
     Services: Schema.Attribute.Component<'home.service-list', false>;
     Studio: Schema.Attribute.Component<'home.home-studio', false>;

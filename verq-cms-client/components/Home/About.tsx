@@ -18,22 +18,18 @@ const About = ({ data }: AboutProps) => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const circleRef = useRef<HTMLDivElement>(null);
 
-    // Block parallax refs - Desktop
     const block1Ref = useRef<HTMLDivElement>(null);
     const block2Ref = useRef<HTMLDivElement>(null);
     const block3Ref = useRef<HTMLDivElement>(null);
 
-    // Block parallax refs - Mobile
     const mobileBlock1Ref = useRef<HTMLDivElement>(null);
     const mobileBlock2Ref = useRef<HTMLDivElement>(null);
     const mobileBlock3Ref = useRef<HTMLDivElement>(null);
 
-    // Image container parallax refs - Desktop
     const imgContainer1Ref = useRef<HTMLDivElement>(null);
     const imgContainer2Ref = useRef<HTMLDivElement>(null);
     const imgContainer3Ref = useRef<HTMLDivElement>(null);
 
-    // Image container parallax refs - Mobile
     const mobileImgContainer1Ref = useRef<HTMLDivElement>(null);
     const mobileImgContainer2Ref = useRef<HTMLDivElement>(null);
     const mobileImgContainer3Ref = useRef<HTMLDivElement>(null);
@@ -77,7 +73,6 @@ const About = ({ data }: AboutProps) => {
             invalidateOnRefresh: true,
         };
 
-        // Block-level parallax
         [
             { ref: block1Ref, speed: -30 },
             { ref: block2Ref, speed: -50 },
@@ -96,7 +91,6 @@ const About = ({ data }: AboutProps) => {
             gsap.to(ref.current, { yPercent: speed, ease: "none", scrollTrigger: triggerConfig });
         });
 
-        // Image container parallax — the div itself moves
         [
             { ref: imgContainer1Ref, speed: -20 },
             { ref: imgContainer2Ref, speed: -35 },
@@ -120,6 +114,29 @@ const About = ({ data }: AboutProps) => {
         };
     }, [data]);
 
+    const Card = ({ item }: { item: AboutSection["GroupImageIcon"][number] }) => (
+        <div className="bg-white rounded-2xl overflow-hidden flex flex-col aspect-[3/4] will-change-transform transform-gpu shadow-lg">
+            {/* Image — top portion */}
+            <div className="relative w-full flex-1">
+                <Image
+                    src={item.Image.url}
+                    alt={item.Image.alternativeText ?? item.title}
+                    fill
+                    className="object-cover"
+                />
+            </div>
+            {/* Content — bottom */}
+            <div className="px-5 py-4 flex flex-col gap-1 bg-white">
+                <h3 className="text-black font-medium text-base leading-tight">
+                    {item.title}
+                </h3>
+                <p className="text-[#6B6B6B] text-sm font-family-inter leading-snug">
+                    {item.desc}
+                </p>
+            </div>
+        </div>
+    );
+
     return (
         <ContainerLayout isMobileFullScreen={true} className=" px-0!">
             <div
@@ -142,7 +159,7 @@ const About = ({ data }: AboutProps) => {
                 </div>
 
                 <div className="z-10 text-center px-4">
-                    <h1 className="text-[#FFDED3] text-[40px] leading-[42px] lg:text-[70px] lg:leading-[88px] max-w-xl mx-auto">
+                    <h1 className="text-[#FFDED3] text-[40px] leading-[42px] lg:text-[70px] lg:leading-[88px] max-w-3xl mx-auto">
                         {data.Title}
                     </h1>
                     <p className="text-[#C8C8C8] text-[14px] lg:text-[20px] max-w-2xl mt-2 mx-auto font-family-inter">
@@ -155,22 +172,9 @@ const About = ({ data }: AboutProps) => {
                     {/* Desktop Layout */}
                     <div className="hidden lg:flex flex-1 flex-col gap-5">
                         {data.GroupImageIcon[0] && (
-                            <div ref={block1Ref} className="flex flex-col gap-5 will-change-transform transform-gpu">
-                                <div ref={imgContainer1Ref} className="relative overflow-hidden w-90 xl:w-90 2xl:w-[490px] h-[550px] xl:h-[550px] 2xl:h-[650px] rounded-t-full mx-auto will-change-transform transform-gpu">
-                                    <Image
-                                        src={data.GroupImageIcon[0].Image.url}
-                                        alt={data.GroupImageIcon[0].Image.alternativeText ?? ""}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-row gap-3 items-center justify-center">
-                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
-                                        <Image src='/Icons/pen.png' alt='pen' width={25} height={25} />
-                                    </div>
-                                    <p className="text-[#C8C8C8] text-[15px] inter max-w-xs leading-[16px] mx-0">
-                                        {data.GroupImageIcon[0].desc}
-                                    </p>
+                            <div ref={block1Ref} className="will-change-transform transform-gpu">
+                                <div ref={imgContainer1Ref} className="w-90 mx-auto will-change-transform transform-gpu">
+                                    <Card item={data.GroupImageIcon[0]} />
                                 </div>
                             </div>
                         )}
@@ -179,42 +183,16 @@ const About = ({ data }: AboutProps) => {
                     <div className="flex-1 flex flex-col md:gap-40 gap-5">
                         {data.GroupImageIcon[1] && (
                             <div ref={block2Ref} className="hidden lg:flex flex-col items-center gap-5 will-change-transform transform-gpu">
-                                <div ref={imgContainer2Ref} className="relative overflow-hidden w-[300px] h-[300px] xl:w-55 xl:h-55 2xl:w-70 2xl:h-70 rounded-full mx-auto lg:mx-0 will-change-transform transform-gpu">
-                                    <Image
-                                        src={data.GroupImageIcon[1].Image.url}
-                                        alt={data.GroupImageIcon[1].Image.alternativeText ?? ""}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-row gap-3 items-center justify-center">
-                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
-                                        <Image src='/Icons/settings.png' alt='settings' width={25} height={25} />
-                                    </div>
-                                    <p className="text-[#C8C8C8] text-[15px] inter max-w-sm leading-[16px]">
-                                        {data.GroupImageIcon[1].desc}
-                                    </p>
+                                <div ref={imgContainer2Ref} className="w-90 mx-auto lg:mx-0 will-change-transform transform-gpu">
+                                    <Card item={data.GroupImageIcon[1]} />
                                 </div>
                             </div>
                         )}
 
                         {data.GroupImageIcon[2] && (
                             <div ref={block3Ref} className="hidden lg:flex flex-col items-center gap-5 mt-5 lg:mt-10 will-change-transform transform-gpu">
-                                <div ref={imgContainer3Ref} className="relative overflow-hidden w-full max-w-none xl:max-w-md 2xl:max-w-none h-[180px] xl:h-[180px] 2xl:h-[230px] rounded-full mx-0 will-change-transform transform-gpu">
-                                    <Image
-                                        src={data.GroupImageIcon[2].Image.url}
-                                        alt={data.GroupImageIcon[2].Image.alternativeText ?? ""}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-row gap-3 items-center justify-center">
-                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
-                                        <Image src='/Icons/stopwatch.png' alt='stopwatch' width={20} height={20} />
-                                    </div>
-                                    <p className="text-[#C8C8C8] text-[15px] inter max-w-sm leading-[16px]">
-                                        {data.GroupImageIcon[2].desc}
-                                    </p>
+                                <div ref={imgContainer3Ref} className="w-90 mx-0 will-change-transform transform-gpu">
+                                    <Card item={data.GroupImageIcon[2]} />
                                 </div>
                             </div>
                         )}
@@ -224,63 +202,24 @@ const About = ({ data }: AboutProps) => {
                     <div className="flex lg:hidden flex-col gap-20 w-full">
                         {data.GroupImageIcon[1] && (
                             <div ref={mobileBlock1Ref} className="flex flex-col items-center gap-5 will-change-transform transform-gpu">
-                                <div ref={mobileImgContainer1Ref} className="relative overflow-hidden w-[300px] h-[300px] rounded-full mx-auto will-change-transform transform-gpu">
-                                    <Image
-                                        src={data.GroupImageIcon[1].Image.url}
-                                        alt={data.GroupImageIcon[1].Image.alternativeText ?? ""}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-row gap-3 items-center justify-center">
-                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
-                                        <Image src='/Icons/settings.png' alt='settings' width={25} height={25} />
-                                    </div>
-                                    <p className="text-[#C8C8C8] text-[12px] inter max-w-sm leading-[15px]">
-                                        {data.GroupImageIcon[1].desc}
-                                    </p>
+                                <div ref={mobileImgContainer1Ref} className="w-[300px] mx-auto will-change-transform transform-gpu">
+                                    <Card item={data.GroupImageIcon[1]} />
                                 </div>
                             </div>
                         )}
 
                         {data.GroupImageIcon[0] && (
                             <div ref={mobileBlock2Ref} className="flex flex-col gap-5 will-change-transform transform-gpu">
-                                <div ref={mobileImgContainer2Ref} className="relative overflow-hidden w-full h-[350px] rounded-t-full mx-auto will-change-transform transform-gpu">
-                                    <Image
-                                        src={data.GroupImageIcon[0].Image.url}
-                                        alt={data.GroupImageIcon[0].Image.alternativeText ?? ""}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-row gap-3 items-center justify-center">
-                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
-                                        <Image src='/Icons/pen.png' alt='pen' width={25} height={25} />
-                                    </div>
-                                    <p className="text-[#C8C8C8] text-[12px] inter max-w-xs leading-[15px] mx-auto">
-                                        {data.GroupImageIcon[0].desc}
-                                    </p>
+                                <div ref={mobileImgContainer2Ref} className="w-full mx-auto will-change-transform transform-gpu">
+                                    <Card item={data.GroupImageIcon[0]} />
                                 </div>
                             </div>
                         )}
 
                         {data.GroupImageIcon[2] && (
                             <div ref={mobileBlock3Ref} className="flex flex-col items-center gap-5 will-change-transform transform-gpu">
-                                <div ref={mobileImgContainer3Ref} className="relative overflow-hidden w-full h-[180px] rounded-full mx-auto will-change-transform transform-gpu">
-                                    <Image
-                                        src={data.GroupImageIcon[2].Image.url}
-                                        alt={data.GroupImageIcon[2].Image.alternativeText ?? ""}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-row gap-3 items-center justify-center">
-                                    <div className="p-4 bg-[#FFD0C1] rounded-full">
-                                        <Image src='/Icons/stopwatch.png' alt='stopwatch' width={20} height={20} />
-                                    </div>
-                                    <p className="text-[#C8C8C8] text-[12px] inter max-w-sm leading-[15px]">
-                                        {data.GroupImageIcon[2].desc}
-                                    </p>
+                                <div ref={mobileImgContainer3Ref} className="w-full mx-auto will-change-transform transform-gpu">
+                                    <Card item={data.GroupImageIcon[2]} />
                                 </div>
                             </div>
                         )}

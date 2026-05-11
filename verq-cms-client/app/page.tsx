@@ -31,20 +31,12 @@ export default async function Home() {
       <NewServices />
       <Acceleration />
       <About data={homePageData?.About ?? null} />
-      <Studio data={homePageData?.Studio ?? null} />
-      <Services data={homePageData?.Services ?? null} />
-      <Clients data={homePageData?.Clients ?? null} />
-      <FloatingPoints data={homePageData?.FloatingPoints ?? null} />
-      {/* <Portfoilo data={portfolioData} /> */}
       <CTA data={homePageData?.CTA ?? null} />
-      <div className="bg-[#101010] rounded-t-[55px] relative z-50">
-       <Team data={homePageData?.Team ?? null} />
         <Code />
         {/* <TimeWaits data={timeWaitsData} /> */}
         <Form />
         <FAQ data={homePageData?.FAQs ?? null} />
         <Connect />
-      </div>
     </div>
   );
 }

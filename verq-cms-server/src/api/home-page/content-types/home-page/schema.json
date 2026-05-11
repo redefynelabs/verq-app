@@ -50,6 +50,11 @@
       "type": "component",
       "component": "home.fa-qs",
       "repeatable": false
+    },
+    "Portfolio": {
+      "type": "component",
+      "component": "home.portfolio",
+      "repeatable": false
     }
   }
 }

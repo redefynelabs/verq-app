@@ -128,6 +128,18 @@ export interface HomeHomeStudio extends Struct.ComponentSchema {
   };
 }
 
+export interface HomePortfolio extends Struct.ComponentSchema {
+  collectionName: 'components_home_portfolios';
+  info: {
+    displayName: 'Portfolio';
+  };
+  attributes: {
+    card: Schema.Attribute.Component<'portfolio.portfolio-card', true>;
+    desc: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface HomeServiceList extends Struct.ComponentSchema {
   collectionName: 'components_home_service_lists';
   info: {
@@ -156,12 +168,9 @@ export interface PortfolioPortfolioCard extends Struct.ComponentSchema {
   };
   attributes: {
     desc: Schema.Attribute.String;
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
     type: Schema.Attribute.String;
-    WorkImages: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
   };
 }
 
@@ -325,6 +334,7 @@ declare module '@strapi/strapi' {
       'home.floating-points': HomeFloatingPoints;
       'home.home-about': HomeHomeAbout;
       'home.home-studio': HomeHomeStudio;
+      'home.portfolio': HomePortfolio;
       'home.service-list': HomeServiceList;
       'home.team': HomeTeam;
       'portfolio.portfolio-card': PortfolioPortfolioCard;

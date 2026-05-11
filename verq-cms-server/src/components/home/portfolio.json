@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_home_portfolios",
+  "info": {
+    "displayName": "Portfolio"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "card": {
+      "type": "component",
+      "component": "portfolio.portfolio-card",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

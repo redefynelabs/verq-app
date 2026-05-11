@@ -57,20 +57,20 @@ const CTA = ({ data }: { data: CTASection | null }) => {
                     Your browser does not support the video tag.
                 </video>
 
-                <div className='relative flex flex-col items-start h-screen justify-between w-full py-4 sm:py-5 gap-6 sm:gap-8 md:gap-0' style={{ zIndex: 1 }}>
-                    <div className='flex flex-col lg:flex-row items-start lg:items-center justify-between w-full gap-6 sm:gap-8 lg:gap-4'>
-                        <h1 className='text-[#FF3D00] text-[36px] sm:text-[48px] md:text-[64px] lg:text-[88px] leading-[1.1] sm:leading-[1.1] md:leading-[88px] tracking-tight max-w-full lg:max-w-lg'>
+                <div className='relative flex flex-col items-end justify-end h-screen justify-between w-full py-4 sm:py-5 gap-6 sm:gap-8 md:gap-0' style={{ zIndex: 1 }}>
+                    <div className='flex flex-col lg:flex-row items-end justify-between w-full gap-6 sm:gap-8 lg:gap-4'>
+                        <h1 className='text-[#FF3D00] text-[36px] sm:text-[48px] md:text-[64px]  leading-[1.1] sm:leading-[1.1] md:leading-[88px] tracking-tight max-w-full lg:max-w-lg'>
                             {data.Title}
                         </h1>
-                        <div className='flex flex-col gap-3 sm:gap-4 md:gap-2 w-full lg:w-auto'>
-                            <p className='inter max-w-full lg:max-w-xl text-[#7D7474] text-[14px] sm:text-[16px] md:text-[18px] lg:text-[21px] pointer-events-none'>
+                        <div className='flex flex-col items-end justify-end gap-3 sm:gap-4 md:gap-2 w-full lg:w-auto'>
+                            <p className='inter max-w-full lg:max-w-lg text-white text-[14px] sm:text-[16px] md:text-[18px] lg:text-[21px] text-right pointer-events-none'>
                                 {data.Desc}
                             </p>
                             <button
                                 onClick={handleScrollToSection}
                                 onMouseEnter={startScramble}
                                 onMouseLeave={resetScramble}
-                                className='relative cursor-pointer bg-[#FF3D00] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] uppercase text-black rounded-full px-6 sm:px-7 md:px-8 py-2 w-fit transition-all duration-300 hover:scale-105 pointer-events-auto'
+                                className='relative cursor-pointer bg-[#FF3D00] text-[16px] sm:text-[18px]  uppercase text-black rounded-full px-6 sm:px-7 md:px-8 py-2 w-fit transition-all duration-300 hover:scale-105 pointer-events-auto'
                                 style={{ zIndex: 10 }}
                             >
                                 <span ref={buttonTextRef as React.RefObject<HTMLSpanElement>}>
@@ -80,14 +80,7 @@ const CTA = ({ data }: { data: CTASection | null }) => {
                         </div>
                     </div>
 
-                    <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 w-full md:pb-0 pb-10'>
-                        {data.Points.map((item) => (
-                            <div key={item.id} className='bg-[#FF3D002B] px-5 sm:px-6 md:px-7 lg:px-8 py-4 sm:py-5 md:py-4 border border-[#FFFFFF63] backdrop-blur-[6.8px] text-center flex flex-col items-center justify-between h-full rounded-full gap-3 sm:gap-10 md:gap-16 lg:gap-16 xl:gap-16 2xl:gap-20'>
-                                <h1 className='text-[15px] sm:text-[17px] md:text-[18px] lg:text-[20px]'>{item.title}</h1>
-                                <p className='text-[11px] sm:text-[14px] md:text-[14px] lg:text-[15px] inter'>{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
+                   
                 </div>
             </div>
         </ContainerLayout>

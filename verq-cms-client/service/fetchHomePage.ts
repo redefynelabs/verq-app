@@ -25,6 +25,7 @@ export interface AboutSection {
   Desc: string;
   GroupImageIcon: {
     id: number;
+    title: string;
     desc: string;
     Image: StrapiMedia;
   }[];
