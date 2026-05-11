@@ -15,35 +15,16 @@ interface Work {
   title: string;
   shortDesc: string;
   contentDesc: string;
+  stat: string;
+  contentTitle: string;
   bannerImg: string;
+  mainMedia: MediaItem | null;
   slug: string;
   projectLink: string;
   services: string[];
   media: MediaItem[];
 }
 
-function WordReveal({ text, isActive }: { text: string; isActive: boolean }) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const hasPlayed = useRef(false);
-
-  useEffect(() => {
-    if (!isActive || hasPlayed.current || !ref.current) return;
-    hasPlayed.current = true;
-    const words = ref.current.querySelectorAll('span');
-    gsap.fromTo(words,
-      { opacity: 0.08, y: 12 },
-      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.04 }
-    );
-  }, [isActive]);
-
-  return (
-    <p ref={ref} className="text-2xl md:text-4xl lg:text-6xl tracking-tighter leading-[1.2] text-white max-w-4xl">
-      {text.split(' ').map((word, i) => (
-        <span key={i} className="inline-block mr-[0.28em] opacity-[0.08]">{word}</span>
-      ))}
-    </p>
-  );
-}
 
 function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight }: {
   url: string;
@@ -72,7 +53,7 @@ function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight }: 
   return (
     <div
       ref={wrapperRef}
-      className={`w-full overflow-hidden relative ${fullHeight ? 'h-screen' : 'h-[70vh] rounded-2xl'}`}
+      className={`w-full overflow-hidden relative ${fullHeight ? 'h-screen' : 'h-[80vh] rounded-2xl'}`}
       style={{ backgroundColor: accent, transformOrigin: 'center center', opacity: 0 }}
     >
       {isVideo ? (
@@ -96,7 +77,7 @@ function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight }: 
 
 type Slide =
   | { type: 'intro' }
-  | { type: 'content'; text: string }
+  | { type: 'content'; stat: string; title: string; desc: string }
   | { type: 'media'; url: string; mime: string }
   | { type: 'next'; title: string; slug: string; index: number };
 
@@ -154,12 +135,12 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
     return () => window.removeEventListener('popstate', handlePopState);
   }, [work.slug, work.bannerImg]);
 
+  const [firstMedia, ...restMedia] = work.media;
   const slides: Slide[] = [
     { type: 'intro' },
-    ...work.media.flatMap((item, i) => [
-      { type: 'content' as const, text: i === 0 ? work.contentDesc : work.shortDesc },
-      { type: 'media' as const, url: item.url, mime: item.mime },
-    ]),
+    ...(firstMedia ? [{ type: 'media' as const, url: firstMedia.url, mime: firstMedia.mime }] : []),
+    { type: 'content' as const, stat: work.stat, title: work.contentTitle, desc: work.contentDesc },
+    ...restMedia.map(item => ({ type: 'media' as const, url: item.url, mime: item.mime })),
     { type: 'next', title: nextWork.title, slug: nextWork.slug, index: nextIndex },
   ];
 
@@ -279,10 +260,10 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
           {(() => { let imgCount = 0; return slides.map((slide, i) => {
 
             if (slide.type === 'intro') return (
-              <div key={i} className="w-[130%] h-screen shrink-0 flex flex-row items-center bg-[#101010]">
+              <div key={i} className="w-[120%] h-screen shrink-0 flex flex-row gap-10 items-center bg-[#101010] mr-[10%]">
                 {/* Left — details */}
                 <div className="flex flex-col justify-center gap-5 md:gap-7 w-[38%] shrink-0 px-8 md:px-14 lg:px-20 py-12">
-                  <h2 className="text-5xl md:text-7xl lg:text-8xl tracking-tighter text-primary leading-[0.9]">{work.title}</h2>
+                  <h2 className="text-5xl md:text-7xl  tracking-tighter text-primary leading-[0.9]">{work.title}</h2>
                   <p className="text-white/70 text-base leading-relaxed max-w-sm font-family-inter tracking-tighter leading-tight">{work.shortDesc}</p>
                   <div className="flex flex-col gap-1.5">
                     <p className="text-primary text-[18px] tracking-widest uppercase">Services</p>
@@ -299,24 +280,57 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
                     View Project
                   </a>
                 </div>
-                {/* Right — image */}
-                <div className="flex-1 h-[70vh] self-center mr-8 rounded-2xl overflow-hidden">
-                  <img src={work.bannerImg} alt={work.title} className="w-full h-full object-cover" />
+                {/* Right — main media (video or image) */}
+                <div className="flex-1 h-[75vh] self-center mr-8 rounded-2xl overflow-hidden">
+                  {work.mainMedia?.mime.startsWith('video/') ? (
+                    <video
+                      src={work.mainMedia.url}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={work.mainMedia?.url ?? work.bannerImg}
+                      alt={work.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
               </div>
             );
 
             if (slide.type === 'content') return (
-              <div key={i} className="w-screen h-screen shrink-0 flex flex-col items-center justify-center bg-[#101010] px-6 md:px-16 lg:px-28 pt-6">
-                
-                <WordReveal text={slide.text} isActive={activeIndex === i} />
+              <div key={i} className="w-screen h-screen shrink-0 flex flex-col items-center justify-center bg-[#101010] px-8 md:px-20 lg:px-32">
+                <div className="flex flex-col gap-8 max-w-3xl w-full">
+                  <div className=' flex  gap-10'>
+
+                  {slide.stat && (
+                    <p className="text-6xl md:text-9xl text-[#FFD0C1] font-light tracking-tighter leading-none  pb-6">
+                      {slide.stat}
+                    </p>
+                  )}
+                  {slide.title && (
+                    <h2 className="text-3xl md:text-5xl text-white/50 max-w-sm">
+                      {slide.title}
+                    </h2>
+                  )}
+                  </div>
+                  {slide.desc && (
+                    <p className="text-white/50 text-lg md:text-xl font-family-inter tracking-tighter leading-relaxed max-w-xl">
+                      {slide.desc}
+                    </p>
+                  )}
+                </div>
               </div>
             );
 
             if (slide.type === 'media') {
               const isFirst = imgCount++ === 0;
               return (
-                <div key={i} className="w-screen h-screen shrink-0 flex items-center justify-center bg-[#101010] px-0">
+                <div key={i} className="w-screen h-screen shrink-0 flex items-center  justify-center bg-[#101010] px-10">
                   <MediaReveal
                     url={slide.url}
                     mime={slide.mime}
@@ -333,7 +347,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
             if (slide.type === 'next') return (
               <div
                 key={i}
-                className="w-[40%] h-screen shrink-0 relative overflow-hidden cursor-pointer ml-[10%]"
+                className="w-[40%] h-screen shrink-0 relative overflow-hidden cursor-pointer ml-[10%] font-family-orpix"
                 onClick={navigate}
               >
                 <img src="/works/next.png" alt="Next project" className="absolute inset-0 w-full h-full object-cover" />

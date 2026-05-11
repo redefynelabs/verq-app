@@ -8,10 +8,11 @@ export interface Work {
   SmallDesc: string;
   Desc: string;
   ProjectLink: string;
+  MainMedia: StrapiMedia;
   BannerImg: StrapiMedia;
   Services: { id: number; desc: string }[];
   Images: { id: number; file: StrapiMedia }[];
-  Contents: { id: number; body: string }[];
+  Contents: { id: number; stat: string, title: string, desc: string; };
 }
 
 export interface WorkListData {
@@ -33,6 +34,8 @@ export const fetchWorkList = async (): Promise<WorkListData | null> => {
   try {
     const params = new URLSearchParams({
       'populate[Works][populate][BannerImg][fields][0]': 'url',
+      'populate[Works][populate][MainMedia][fields][0]': 'url',
+      'populate[Works][populate][MainMedia][fields][1]': 'mime',
       'populate[Works][populate][Services][populate]': '*',
       'populate[Works][populate][Images][populate][file][fields][0]': 'url',
       'populate[Works][populate][Images][populate][file][fields][1]': 'mime',
@@ -40,7 +43,7 @@ export const fetchWorkList = async (): Promise<WorkListData | null> => {
     });
 
     const url = `${baseUrl}/api/work-list?${params}`;
-    const response = await fetch(url, { cache: 'force-cache' });
+    const response = await fetch(url, { cache: 'no-cache' });
 
     if (!response.ok) {
       throw new Error(`Failed to fetch work list: ${response.status}`);

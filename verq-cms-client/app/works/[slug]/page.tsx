@@ -22,8 +22,11 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const work = {
     title: w.Title,
     shortDesc: w.SmallDesc,
-    contentDesc: w.Contents[0]?.body ?? '',
+    contentDesc: w.Contents?.desc ?? '',
+    stat: w.Contents?.stat ?? '',
+    contentTitle: w.Contents?.title ?? '',
     bannerImg: w.BannerImg.url,
+    mainMedia: w.MainMedia ? { url: w.MainMedia.url, mime: w.MainMedia.mime } : null,
     slug: workSlug(w.Title),
     projectLink: w.ProjectLink,
     services: w.Services.map(s => s.desc),
