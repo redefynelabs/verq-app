@@ -1,14 +1,20 @@
 {
   "collectionName": "components_shared_rich_texts",
   "info": {
-    "displayName": "Rich text",
+    "displayName": "WorkContent",
     "icon": "align-justify",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "body": {
-      "type": "richtext"
+    "stat": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
     }
   }
 }

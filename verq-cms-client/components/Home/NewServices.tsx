@@ -3,47 +3,19 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ServicesSection } from "@/service/fetchHomePage";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const services = [
-  {
-    title: "Product Strategy & Discovery",
-    desc: "We define the problem before we design the solution. Clear direction, grounded in real users and real constraints.",
-    icon: "/Icons/svg/discovery.svg"
-  },
-  {
-    title: "UX Design & Research",
-    desc: "Structure, flows, and interactions that reflect how people actually use products — not how we assume they do.",
-    icon: "/Icons/svg/ux_pin.svg"
-
-  },
-  {
-    title: "UI Design &  Design Systems",
-    desc: "Interfaces built to perform and scale. Distinct, functional, and designed for the product — not pulled from patterns.",
-    icon: "/Icons/svg/ui_pin.svg"
-  },
-  {
-    title: "Full-Stack Development",
-    desc: "Websites and applications built to production standard. Fast, stable, and ready for real users from day one.",
-    icon: "/Icons/svg/fullstack.svg"
-  },
-  {
-    title: "QA, Launch & Handoff",
-    desc: "Nothing ships unfinished. Every product is tested, refined, and delivered ready to perform.",
-    icon: "/Icons/svg/rocket.svg"
-  },
-  {
-    title: "UX Audits",
-    desc: "When something isn’t working, we find out why. Clear diagnosis, prioritised fixes, and a path forward.",
-    icon: "/Icons/svg/audits.svg"
-  },
-];
 
 const CARD_GAP = 24; // px peek between stacked cards
 const SCROLL_PER_CARD = 700; // px scroll distance to animate each card in
 
-const NewServices = () => {
+interface Props {
+  data: ServicesSection | null;
+}
+
+const NewServices = ({ data }: Props) => {
+  const services = data?.List ?? [];
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -78,7 +50,7 @@ const NewServices = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="relative min-h-screen bg-[#101010] py-10">
+    <div ref={sectionRef} className="relative isolate min-h-screen bg-[#101010] py-10">
       {/* Top header — stays on top during pin */}
       <div className="absolute top-0 left-0 right-0 z-50 px-14 pt-6">
         <div className="w-full bg-white/20 h-px mb-3" />
@@ -95,13 +67,10 @@ const NewServices = () => {
             SERVICES
           </p>
           <h1 className="text-5xl leading-tight">
-            <span className="text-primary">Full-cycle digital</span>
-            <br />
-            design product studio.
+            {data?.Title ?? "Full-cycle digital design product studio."}
           </h1>
           <p className="text-base text-white/60 tracking-tighter font-family-inter">
-            From first question to live product. Strategy, design, and build in
-            one place, with nothing lost in between.
+            {data?.Desc ?? "From first question to live product. Strategy, design, and build in one place, with nothing lost in between."}
           </p>
         </div>
 
@@ -132,7 +101,9 @@ const NewServices = () => {
                     </p>
                   </div>
                   <div>
-                    <img src={service.icon} alt={service.title}  />
+                    {service.media?.url && (
+                      <img src={service.media.url} alt={service.title} />
+                    )}
                   </div>
                   
                   <div className="space-y-3">

@@ -1,3 +1,4 @@
+
 // ── Shared ───────────────────────────────────────────────────────────────────
 
 export interface StrapiMedia {
@@ -31,16 +32,25 @@ export interface AboutSection {
   }[];
 }
 
-export interface StudioSection {
+export interface PortfolioSection {
   id: number;
-  Title: string;
-  Desc: string;
-  Video: StrapiMedia;
-  Points: Point[];
+  title: string;
+  desc: string;
+  card: {
+    id: number;
+    title: string;
+    type: string;
+    desc: string;
+    media: StrapiMedia;
+  }[];
 }
+
+
 
 export interface ServicesSection {
   id: number;
+  Title: string;
+  Desc: string;
   List: {
     id: number;
     title: string;
@@ -49,22 +59,16 @@ export interface ServicesSection {
   }[];
 }
 
-export interface ClientsSection {
+export interface ProcessSection {
   id: number;
-  Logos: {
+  ProcessList: {
     id: number;
-    file: StrapiMedia;
+    Process: string;
+    Title: string;
+    Desc: string;
   }[];
 }
 
-export interface FloatingPointsSection {
-  id: number;
-  Title: string;
-  Points: {
-    id: number;
-    desc: string;
-  }[];
-}
 
 export interface CTASection {
   id: number;
@@ -95,19 +99,24 @@ export interface FAQsSection {
   }[];
 }
 
+export interface StatementSection {
+  id: number;
+  Text: string;
+}
+
 // ── Root type ─────────────────────────────────────────────────────────────────
 
 export interface HomePageData {
   id: number;
   documentId: string;
   About: AboutSection;
-  Studio: StudioSection;
   Services: ServicesSection;
-  Clients: ClientsSection;
-  FloatingPoints: FloatingPointsSection;
   CTA: CTASection;
   Team: TeamSection;
   FAQs: FAQsSection;
+  ProcessAcceleration: ProcessSection;
+  Portfolio: PortfolioSection;
+  Statement: StatementSection;
 }
 
 // ── Fetch ─────────────────────────────────────────────────────────────────────
@@ -119,13 +128,13 @@ export const fetchHomePage = async (): Promise<HomePageData | null> => {
   try {
     const params = new URLSearchParams({
       "populate[About][populate][GroupImageIcon][populate]": "*",
-      "populate[Studio][populate]": "*",
       "populate[Services][populate][List][populate]": "*",
-      "populate[Clients][populate][Logos][populate]": "*",
-      "populate[FloatingPoints][populate]": "*",
       "populate[CTA][populate]": "*",
       "populate[Team][populate][TeamCards][populate]": "*",
       "populate[FAQs][populate]": "*",
+      "populate[Portfolio][populate][card][populate]": "*",
+      "populate[ProcessAcceleration][populate]": "*",
+      "populate[Statement][populate]": "*",
     });
 
     const url = `${baseUrl}/api/home-page?${params}`;

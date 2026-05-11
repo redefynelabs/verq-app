@@ -6,6 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRouter } from 'next/navigation';
 gsap.registerPlugin(ScrollTrigger);
 
+interface MediaItem {
+  url: string;
+  mime: string;
+}
+
 interface Work {
   title: string;
   shortDesc: string;
@@ -14,7 +19,7 @@ interface Work {
   slug: string;
   projectLink: string;
   services: string[];
-  images: string[];
+  media: MediaItem[];
 }
 
 function WordReveal({ text, isActive }: { text: string; isActive: boolean }) {
@@ -40,8 +45,9 @@ function WordReveal({ text, isActive }: { text: string; isActive: boolean }) {
   );
 }
 
-function ImageReveal({ src, alt, accent, isActive, counter, fullHeight }: {
-  src: string;
+function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight }: {
+  url: string;
+  mime: string;
   alt: string;
   accent: string;
   isActive: boolean;
@@ -49,6 +55,7 @@ function ImageReveal({ src, alt, accent, isActive, counter, fullHeight }: {
   fullHeight?: boolean;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const isVideo = mime.startsWith('video/');
 
   useEffect(() => {
     if (!wrapperRef.current) return;
@@ -68,7 +75,18 @@ function ImageReveal({ src, alt, accent, isActive, counter, fullHeight }: {
       className={`w-full overflow-hidden relative ${fullHeight ? 'h-screen' : 'h-[70vh] rounded-2xl'}`}
       style={{ backgroundColor: accent, transformOrigin: 'center center', opacity: 0 }}
     >
-      <img src={src} alt={alt} className="w-full h-full object-cover" />
+      {isVideo ? (
+        <video
+          src={url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <img src={url} alt={alt} className="w-full h-full object-cover" />
+      )}
       <span className="absolute bottom-4 right-4 md:bottom-6 md:right-6 text-white/30 text-xs tracking-widest uppercase font-mono">
         {counter}
       </span>
@@ -79,7 +97,7 @@ function ImageReveal({ src, alt, accent, isActive, counter, fullHeight }: {
 type Slide =
   | { type: 'intro' }
   | { type: 'content'; text: string }
-  | { type: 'image'; src: string }
+  | { type: 'media'; url: string; mime: string }
   | { type: 'next'; title: string; slug: string; index: number };
 
 export default function ProjectScroll({ work, nextWork, nextIndex }: {
@@ -138,9 +156,9 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
 
   const slides: Slide[] = [
     { type: 'intro' },
-    ...work.images.flatMap((src, i) => [
+    ...work.media.flatMap((item, i) => [
       { type: 'content' as const, text: i === 0 ? work.contentDesc : work.shortDesc },
-      { type: 'image'   as const, src },
+      { type: 'media' as const, url: item.url, mime: item.mime },
     ]),
     { type: 'next', title: nextWork.title, slug: nextWork.slug, index: nextIndex },
   ];
@@ -295,12 +313,13 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
               </div>
             );
 
-            if (slide.type === 'image') {
+            if (slide.type === 'media') {
               const isFirst = imgCount++ === 0;
               return (
                 <div key={i} className="w-screen h-screen shrink-0 flex items-center justify-center bg-[#101010] px-0">
-                  <ImageReveal
-                    src={slide.src}
+                  <MediaReveal
+                    url={slide.url}
+                    mime={slide.mime}
                     alt={`${work.title} — ${i}`}
                     accent="#101010"
                     isActive={activeIndex === i}

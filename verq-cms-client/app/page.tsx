@@ -17,26 +17,25 @@ import PinnedScrollReveal from "@/components/Home/PinnedScrollReveal";
 import FlippingClients from "@/components/Home/FlippingClients";
 import NewServices from "@/components/Home/NewServices";
 import Acceleration from "@/components/Home/Acceleration";
+import Portfolio from "@/components/Home/Portfoilo";
 
 export default async function Home() {
   const homePageData = await fetchHomePage();
 
- 
-
   return (
     <div>
       <HomeHero />
-      <PinnedScrollReveal />
+      <PinnedScrollReveal data={homePageData?.Statement ?? null} />
       <FlippingClients />
-      <NewServices />
-      <Acceleration />
+      <NewServices data={homePageData?.Services ?? null} />
+      <Acceleration data={homePageData?.ProcessAcceleration ?? null} />
       <About data={homePageData?.About ?? null} />
       <CTA data={homePageData?.CTA ?? null} />
-        <Code />
-        {/* <TimeWaits data={timeWaitsData} /> */}
-        <Form />
-        <FAQ data={homePageData?.FAQs ?? null} />
-        <Connect />
+      <Portfolio data={homePageData?.Portfolio ?? null} />
+      <Code />
+      <Form />
+      <FAQ data={homePageData?.FAQs ?? null} />
+      <Connect />
     </div>
   );
 }

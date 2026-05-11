@@ -35,6 +35,7 @@ export const fetchWorkList = async (): Promise<WorkListData | null> => {
       'populate[Works][populate][BannerImg][fields][0]': 'url',
       'populate[Works][populate][Services][populate]': '*',
       'populate[Works][populate][Images][populate][file][fields][0]': 'url',
+      'populate[Works][populate][Images][populate][file][fields][1]': 'mime',
       'populate[Works][populate][Contents][populate]': '*',
     });
 

@@ -1,20 +1,14 @@
 'use client'
 
 import ContainerLayout from '@/containerLayout/ContainerLayout'
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CTASection } from '@/service/fetchHomePage'
 import { useScrambleText } from '@/hooks/useScrambleText'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const BUTTON_TEXT = 'Get Started';
 
 const CTA = ({ data }: { data: CTASection | null }) => {
     if (!data) return null;
 
-    const sectionRef = useRef<HTMLDivElement>(null)
     const { elementRef: buttonTextRef, startScramble, resetScramble } = useScrambleText(BUTTON_TEXT)
 
     const handleScrollToSection = () => {
@@ -24,26 +18,9 @@ const CTA = ({ data }: { data: CTASection | null }) => {
         }
     };
 
-    useEffect(() => {
-        if (!sectionRef.current) return
-
-        const ctx = gsap.context(() => {
-            ScrollTrigger.create({
-                trigger: sectionRef.current,
-                start: 'top top',
-                end: '+=2000%',
-                pin: true,
-                pinSpacing: false,
-                anticipatePin: 1,
-            })
-        }, sectionRef)
-
-        return () => ctx.revert()
-    }, [])
-
     return (
-        <ContainerLayout className='bg-[#101010] relative'>
-            <div ref={sectionRef} className='px-4 sm:px-6 md:px-8 lg:px-10 relative'>
+        <ContainerLayout  className='bg-[#101010] relative pb-32'>
+            <div className='px-4 sm:px-6 md:px-8 lg:px-10 relative'>
                 {/* Video Background */}
                 <video
                     autoPlay

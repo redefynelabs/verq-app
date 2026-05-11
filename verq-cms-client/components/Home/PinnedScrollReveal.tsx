@@ -3,13 +3,19 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { StatementSection } from "@/service/fetchHomePage";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const text =
+const FALLBACK_TEXT =
   "Blending strategy, design, and build into one continuous system, where AI accelerates and human judgment decides delivering work that ships and holds up.";
 
-const PinnedScrollReveal = () => {
+interface Props {
+  data: StatementSection | null;
+}
+
+const PinnedScrollReveal = ({ data }: Props) => {
+  const text = data?.Text ?? FALLBACK_TEXT;
   const containerRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<(HTMLSpanElement | null)[]>([]);
 
@@ -39,7 +45,7 @@ const PinnedScrollReveal = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-screen bg-white rounded-4xl flex flex-col justify-center p-8">
+    <div ref={containerRef} className="relative isolate w-full h-screen bg-white rounded-4xl flex flex-col justify-center p-8">
       <div className=" space-y-4 absolute top-8 left-8 right-8">
         <div className="w-full bg-black h-[1px]" />
         <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-black">

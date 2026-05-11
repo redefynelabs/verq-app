@@ -1,220 +1,132 @@
-'use client';
+"use client";
 
-import ContainerLayout from '@/containerLayout/ContainerLayout';
-import Image from 'next/image';
-import { useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from "next/image";
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PortfolioSection } from "@/service/fetchHomePage";
+import Link from "next/dist/client/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface WorkImage {
-  id: number;
-  url: string;
-  alternativeText: string | null;
-  width: number;
-  height: number;
-  formats?: {
-    large?: { url: string };
-    medium?: { url: string };
-    small?: { url: string };
-  };
-}
-
-interface Work {
-  id: number;
-  title: string;
-  type: string;
-  desc: string;
-  WorkImages: WorkImage[];
-}
-
-interface PortfolioData {
-  title: string;
-  desc: string;
-  Works: Work[];
-}
-
-const Portfolio = ({ data }: { data: PortfolioData | null }) => {
+const Portfolio = ({ data }: { data: PortfolioSection | null }) => {
   useEffect(() => {
-    const wrappers = document.querySelectorAll<HTMLElement>('.parallax-img-wrapper');
+    const wrappers = document.querySelectorAll<HTMLElement>(
+      ".parallax-img-wrapper",
+    );
 
     wrappers.forEach((wrapper) => {
-      const img = wrapper.querySelector('img');
+      const img = wrapper.querySelector("img");
       if (!img) return;
 
-      // Set initial scale via GSAP so it owns all transforms
       gsap.set(img, { scale: 1.2 });
 
-      // Parallax on scroll
       gsap.fromTo(
         img,
         { yPercent: -10 },
         {
           yPercent: 10,
-          ease: 'none',
+          ease: "none",
           scrollTrigger: {
             trigger: wrapper,
-            start: 'top bottom',
-            end: 'bottom top',
+            start: "top bottom",
+            end: "bottom top",
             scrub: true,
           },
-        }
+        },
       );
 
-      // Hover — GSAP owns scale so it composes with yPercent correctly
-      const onEnter = () => gsap.to(img, { scale: 1.32, duration: 0.6, ease: 'power2.out' });
-      const onLeave = () => gsap.to(img, { scale: 1.2,  duration: 0.6, ease: 'power2.out' });
+      const onEnter = () =>
+        gsap.to(img, { scale: 1.32, duration: 0.6, ease: "power2.out" });
+      const onLeave = () =>
+        gsap.to(img, { scale: 1.2, duration: 0.6, ease: "power2.out" });
 
-      wrapper.addEventListener('mouseenter', onEnter);
-      wrapper.addEventListener('mouseleave', onLeave);
-
-      return () => {
-        wrapper.removeEventListener('mouseenter', onEnter);
-        wrapper.removeEventListener('mouseleave', onLeave);
-      };
+      wrapper.addEventListener("mouseenter", onEnter);
+      wrapper.addEventListener("mouseleave", onLeave);
     });
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, []);
+  }, [data]);
 
   if (!data) return null;
 
-  const { title, desc, Works } = data;
-
-  // Robust URL resolver: works with Cloudinary + local uploads
-  const getImageUrl = (image: WorkImage): string => {
-    const candidate =
-      image.formats?.large?.url ||
-      image.formats?.medium?.url ||
-      image.formats?.small?.url ||
-      image.url;
-
-    if (!candidate) return '/placeholder.jpg'; // fallback
-
-    // If it's a relative path → prepend Strapi base URL
-    if (candidate.startsWith('/')) {
-      return `${process.env.NEXT_PUBLIC_STRAPI_URL || ''}${candidate}`;
-    }
-
-    return candidate; // already absolute (Cloudinary)
+  const getImageUrl = (url: string): string => {
+    if (!url) return "/placeholder.jpg";
+    if (url.startsWith("/"))
+      return `${process.env.NEXT_PUBLIC_STRAPI_URL || ""}${url}`;
+    return url;
   };
 
-  // Fixed grid positions for exactly 5 images
-  const imageGridClasses = [
-    'col-start-1 col-end-3 row-start-1 row-end-4',   // 0
-    'col-start-3 col-end-5 row-start-1 row-end-4',   // 1
-    'col-start-5 col-end-6 row-start-1 row-end-6',   // 2 (tall)
-    'col-start-1 col-end-2 row-start-4 row-end-6',   // 3
-    'col-start-2 col-end-5 row-start-4 row-end-6',   // 4 (wide)
-  ] as const;
+  const sluggify = (str: string): string => {
+    return str
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
 
   return (
-    <ContainerLayout>
-      <div id='works' className="min-h-screen flex flex-col bg-[#101010] py-6 md:py-12 w-full">
-        {/* Title + Description */}
-        <div className="pb-6 md:pb-12 flex flex-col lg:flex-row items-start md:items-center justify-between lg:px-8 w-full gap-6">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[88px]  text-[#FFDED3] leading-tight">
-            {title}
-          </h1>
-          <p className="text-gray-400 max-w-md text-xs md:text-sm">{desc}</p>
-        </div>
-
-        {/* Works Grid */}
-        <div className="xl:px-8 2xl:px-8 lg:px-8   ">
-          {Works.map((work) => {
-            // Always take first 5 images (or less if not enough)
-            const images = work.WorkImages.slice(0, 5);
-
-            return (
-              <div
-                key={work.id}
-                className="mb-20 md:mb-32 grid grid-cols-1 md:grid-cols-5 gap-4"
-              >
-                {/* Desktop: 5-image masonry layout */}
-                <div className="hidden md:grid grid-cols-5 gap-1 col-span-5 h-[800px] mt-10">
-                  {images.map((image, idx) => {
-                    const url = getImageUrl(image);
-                    return (
-                      <div
-                        key={image.id}
-                        className={`${imageGridClasses[idx]} parallax-img-wrapper relative rounded-lg overflow-hidden cursor-pointer`}
-                      >
-                        <Image
-                          src={url}
-                          alt={image.alternativeText || work.title}
-                          fill
-                          className="object-cover will-change-transform"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          unoptimized={url.includes('localhost') || url.includes('cloudinary')}
-                        />
-                      </div>
-                    );
-                  })}
-
-                  {/* Optional: fill empty slots with placeholders if <5 images */}
-                  {images.length < 5 &&
-                    Array.from({ length: 5 - images.length }).map((_, i) => (
-                      <div
-                        key={`placeholder-${i}`}
-                        className={`${imageGridClasses[images.length + i]} bg-gray-900`}
-                      />
-                    ))}
-                </div>
-
-                {/* Mobile: responsive 2-col grid */}
-                <div className="md:hidden grid grid-cols-2 gap-2 mt-4">
-                  {/* First image — full width, taller */}
-                  {images[0] && (
-                    <div className="col-span-2 relative h-48 sm:h-64 rounded-lg overflow-hidden">
-                      <Image
-                        src={getImageUrl(images[0])}
-                        alt={images[0].alternativeText || work.title}
-                        fill
-                        className="object-cover"
-                        sizes="100vw"
-                        unoptimized={getImageUrl(images[0]).includes('localhost') || getImageUrl(images[0]).includes('cloudinary')}
-                      />
-                    </div>
-                  )}
-                  {/* Remaining images — 2 per row */}
-                  {images.slice(1).map((image) => {
-                    const url = getImageUrl(image);
-                    return (
-                      <div key={image.id} className="relative h-36 sm:h-48 rounded-lg overflow-hidden">
-                        <Image
-                          src={url}
-                          alt={image.alternativeText || work.title}
-                          fill
-                          className="object-cover"
-                          sizes="50vw"
-                          unoptimized={url.includes('localhost') || url.includes('cloudinary')}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Title + Meta (below images on mobile, beside on desktop) */}
-                <div className="mt-6 md:mt-8 md:col-span-5 flex flex-col md:flex-row justify-between gap-6">
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-medium inter text-[#FBFBFB]">
-                      {work.title}
-                    </h2>
-                    <p className="text-[#FF3D00] text-sm uppercase inter tracking-wider mt-1">
-                      {work.type}
-                    </p>
-                  </div>
-                  <p className="text-gray-400 text-sm max-w-lg inter">{work.desc}</p>
-                </div>
-              </div>
-            );
-          })}
+    <div
+      id="works"
+      className="relative isolate min-h-screen flex flex-col bg-[#101010] px-14 py-10"
+    >
+      {/* Header */}
+      <div className="absolute top-0 left-0 right-0 z-10 px-14 pt-6">
+        <div className="w-full bg-white/20 h-px mb-3" />
+        <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
+          <p>{"{4}"}</p>
+          <p>{"{PORTFOLIO}"}</p>
         </div>
       </div>
-    </ContainerLayout>
+
+      <div className="py-20 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
+        <h1 className="text-7xl text-[#FFDED3] leading-tight">{data.title}</h1>
+        <p className="text-white/50 max-w-md text-sm font-family-inter">
+          {data.desc}
+        </p>
+      </div>
+
+      {/* Cards */}
+      <div className="flex flex-col gap-20">
+        {data.card.map((item) => {
+          const url = getImageUrl(item.media?.url);
+          return (
+            <div key={item.id} className=" relative">
+              {/* Image */}
+              <div className="parallax-img-wrapper relative w-full h-[80vh] rounded-3xl overflow-hidden cursor-pointer">
+                <Image
+                  src={url}
+                  alt={item.media?.alternativeText || item.title}
+                  fill
+                  className="object-cover will-change-transform"
+                  sizes="100vw"
+                  unoptimized
+                />
+              </div>
+
+              {/* Meta */}
+              <div className="mt-6 flex flex-col md:flex-row items-end justify-between w-[90%] gap-4 absolute bottom-10 left-10">
+                <div className=" space-y-4">
+                  <h2 className="text-3xl font-medium text-[#FBFBFB]">
+                    {item.title}
+                  </h2>
+                  <p className="text-white/50 text-lg max-w-lg font-family-inter">
+                    {item.desc}
+                  </p>
+                  <p className="text-primary text-sm uppercase font-family-inter tracking-wider mt-1">
+                    {item.type}
+                  </p>
+                </div>
+                <Link href={`/works/${sluggify(item.title)}`} className="text-black bg-primary rounded-full font-family-orpix px-4 py-2 text-xl hover:bg-primary/90 transition-colors">
+                  View Project
+                </Link>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

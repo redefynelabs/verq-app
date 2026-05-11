@@ -27,7 +27,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
     slug: workSlug(w.Title),
     projectLink: w.ProjectLink,
     services: w.Services.map(s => s.desc),
-    images: w.Images.map(img => img.file.url),
+    media: w.Images.map(img => ({ url: img.file.url, mime: img.file.mime })),
   };
 
   const nextWork = {

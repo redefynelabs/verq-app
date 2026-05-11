@@ -278,11 +278,13 @@ export interface SharedRichText extends Struct.ComponentSchema {
   collectionName: 'components_shared_rich_texts';
   info: {
     description: '';
-    displayName: 'Rich text';
+    displayName: 'WorkContent';
     icon: 'align-justify';
   };
   attributes: {
-    body: Schema.Attribute.RichText;
+    desc: Schema.Attribute.Text;
+    stat: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -344,9 +346,10 @@ export interface WorkWorks extends Struct.ComponentSchema {
   };
   attributes: {
     BannerImg: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Contents: Schema.Attribute.Component<'shared.rich-text', true>;
+    Contents: Schema.Attribute.Component<'shared.rich-text', false>;
     Desc: Schema.Attribute.Text;
     Images: Schema.Attribute.Component<'shared.media', true>;
+    MainMedia: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     ProjectLink: Schema.Attribute.String;
     Services: Schema.Attribute.Component<'shared.points', true>;
     SmallDesc: Schema.Attribute.Text;
