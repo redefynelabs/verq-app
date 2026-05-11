@@ -2,7 +2,7 @@
 
 import React, { useCallback } from 'react';
 import { LogoItem, LogoLoop } from './LogoLoop';
-import { ClientsSection } from '@/service/fetchHomePage';
+// import { ClientsSection } from '@/service/fetchHomePage';
 
 // Memoized sub-component to prevent unnecessary re-renders
 const CircleLogo = React.memo(({ item }: { item: LogoItem }) => {
@@ -38,8 +38,8 @@ const CircleLogo = React.memo(({ item }: { item: LogoItem }) => {
 
 CircleLogo.displayName = 'CircleLogo';
 
-export function Clients({ data, className }: { data: ClientsSection | null; className?: string }) {
-  const logos: LogoItem[] = (data?.Logos ?? []).map((item) => ({
+export function Clients({ data, className }: { data: any | null; className?: string }) {
+  const logos: LogoItem[] = (data?.Logos ?? []).map((item:any) => ({
     src: item.file.url,
     alt: item.file.alternativeText ?? item.file.name,
     width: item.file.width ?? undefined,
