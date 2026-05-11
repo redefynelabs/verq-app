@@ -2,24 +2,20 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-RUN corepack enable
-
 ENV NODE_ENV=production
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json package-lock.json* ./
 
-RUN pnpm install --frozen-lockfile
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN pnpm build
+RUN npm run build
 
 
 FROM node:22-alpine
 
 WORKDIR /app
-
-RUN corepack enable
 
 ENV NODE_ENV=production
 
@@ -27,4 +23,4 @@ COPY --from=builder /app /app
 
 EXPOSE 1337
 
-CMD ["pnpm", "start"]
+CMD ["npm", "run", "start"]
