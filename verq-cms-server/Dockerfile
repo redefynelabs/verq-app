@@ -8,9 +8,6 @@ ENV NODE_ENV=production
 
 COPY package.json pnpm-lock.yaml ./
 
-# Allow native package builds
-RUN pnpm config set ignore-scripts false
-
 RUN pnpm install --frozen-lockfile
 
 COPY . .
