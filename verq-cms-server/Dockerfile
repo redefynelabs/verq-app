@@ -2,21 +2,19 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Enable pnpm
 RUN corepack enable
 
 ENV NODE_ENV=production
 
-# Copy only lock + package
 COPY package.json pnpm-lock.yaml ./
 
-# Install deps using pnpm
+# Allow native package builds
+RUN pnpm config set ignore-scripts false
+
 RUN pnpm install --frozen-lockfile
 
-# Copy rest
 COPY . .
 
-# Build Strapi
 RUN pnpm build
 
 
