@@ -1,24 +1,22 @@
 'use client'
 
+import { useState } from 'react'
 import ContainerLayout from '@/containerLayout/ContainerLayout'
 import { CTASection } from '@/service/fetchHomePage'
 import { useScrambleText } from '@/hooks/useScrambleText'
+import ContactModal from '@/components/Navigation/ContactModal'
 
 const BUTTON_TEXT = 'Get Started';
 
 const CTA = ({ data }: { data: CTASection | null }) => {
     if (!data) return null;
 
+    const [isContactOpen, setIsContactOpen] = useState(false);
     const { elementRef: buttonTextRef, startScramble, resetScramble } = useScrambleText(BUTTON_TEXT)
 
-    const handleScrollToSection = () => {
-        const targetSection = document.getElementById('times');
-        if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    };
-
     return (
+        <>
+        <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
         <ContainerLayout  className='bg-[#101010] relative pb-32'>
             <div className='px-4 sm:px-6 md:px-8 lg:px-10 relative'>
                 {/* Video Background */}
@@ -44,7 +42,7 @@ const CTA = ({ data }: { data: CTASection | null }) => {
                                 {data.Desc}
                             </p>
                             <button
-                                onClick={handleScrollToSection}
+                                onClick={() => setIsContactOpen(true)}
                                 onMouseEnter={startScramble}
                                 onMouseLeave={resetScramble}
                                 className='relative cursor-pointer bg-[#FF3D00] text-[16px] sm:text-[18px]  uppercase text-black rounded-full px-6 sm:px-7 md:px-8 py-2 w-fit transition-all duration-300 hover:scale-105 pointer-events-auto'
@@ -57,10 +55,11 @@ const CTA = ({ data }: { data: CTASection | null }) => {
                         </div>
                     </div>
 
-                   
+
                 </div>
             </div>
         </ContainerLayout>
+        </>
     )
 }
 

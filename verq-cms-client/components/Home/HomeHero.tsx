@@ -9,6 +9,7 @@ import HeroParticles from '@/components/Reusable/HeroParticles';
 import LogoParticles from '@/components/Reusable/LogoParticles';
 import { HiBolt } from 'react-icons/hi2';
 import VerqParticleLogo from '../Reusable/VerqLogo';
+import ContactModal from '@/components/Navigation/ContactModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,7 +62,7 @@ function getContent(frame: number) {
 
 export default function HomeHero() {
   const [currentFrame, setCurrentFrame] = useState(0);
-  const [debug, setDebug] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const prevContentKey = useRef<string>('');
 
@@ -86,6 +87,8 @@ export default function HomeHero() {
   }, []);
 
   return (
+    <>
+    <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     <ContainerLayout>
       <section
         id="home"
@@ -130,17 +133,13 @@ export default function HomeHero() {
 
         {/* Book a Call — always pinned bottom right */}
         <div className="absolute z-30 bottom-8 right-8">
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="flex items-center gap-2 bg-primary text-black font-medium px-6 py-3 rounded-full hover:bg-primary/90 transition-colors"
+          <button
+            onClick={() => setIsContactOpen(true)}
+            className="flex items-center gap-2 bg-primary text-black font-medium px-6 py-3 rounded-full hover:bg-primary/90 transition-colors cursor-pointer"
           >
             Book a Call
             <HiBolt className="text-lg" />
-          </a>
+          </button>
         </div>
 
         {/* Frame debugger — toggle with D key */}
@@ -153,6 +152,7 @@ export default function HomeHero() {
         /> */}
       </section>
     </ContainerLayout>
+    </>
   );
 }
 
