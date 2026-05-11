@@ -20,7 +20,7 @@ export default async function About() {
     <div>
       <Hero data={aboutData.Hero} />
       <HowWeWork data={aboutData.HowWeWork} />
-      <Clients data={homePageData?.Clients ?? null} className=" min-h-0! py-0! mb-20" />
+      {/* <Clients data={homePageData?.Clients ?? null} className=" min-h-0! py-0! mb-20" /> */}
       <Showreel data={aboutData.Showreel} />
       <FounderGrid data={aboutData.FounderGrid} />
       <Form />
