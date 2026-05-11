@@ -22,7 +22,10 @@ export default async function Home() {
     <div>
       <HomeHero />
       <PinnedScrollReveal data={homePageData?.Statement ?? null} />
+      <div className=" py-[10%]">
+
       <FlippingClients />
+      </div>
       <NewServices data={homePageData?.Services ?? null} />
       <Acceleration data={homePageData?.ProcessAcceleration ?? null} />
       <About data={homePageData?.About ?? null} />
@@ -30,8 +33,8 @@ export default async function Home() {
       <Portfolio data={homePageData?.Portfolio ?? null} />
       <Team data={homePageData?.Team ?? null} />
       <Code />
-      <Form />
       <FAQ data={homePageData?.FAQs ?? null} />
+      <Form />
       <Connect />
     </div>
   );

@@ -187,7 +187,7 @@ const WorkCard = ({ index, title, shortDesc, slug, bannerImg }: WorkCardProps) =
         <div className="flex flex-col justify-between p-6 md:p-10 flex-1">
           <div className="flex flex-col gap-3 md:gap-4">
             {/* <span className="text-black/30 text-xs tracking-widest uppercase font-mono">{num}</span> */}
-            <h2 className="text-3xl md:text-5xl lg:text-6xl tracking-tighter text-black leading-[0.95]">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl  text-black leading-[0.95]">
               {title}
             </h2>
             <p className="text-black/50 text-sm tracking-1 leading-tight font-family-inter max-w-sm mt-1">

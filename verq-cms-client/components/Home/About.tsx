@@ -144,6 +144,15 @@ const About = ({ data }: AboutProps) => {
                 ref={sectionRef}
                 className="About-section relative z-10 flex flex-col items-center justify-center min-h-screen pt-10 lg:pt-30 gap-1 px-5 lg:px-0 rounded-xl overflow-hidden"
             >
+                {/* Section label */}
+                <div className="absolute top-0 left-0 right-0 z-20 px-5 lg:px-10 pt-6">
+                    <div className="w-full bg-white/20 h-px mb-3" />
+                    <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
+                        <p>{"{4}"}</p>
+                        <p>{"{ABOUT}"}</p>
+                    </div>
+                </div>
+
                 <div
                     ref={circleRef}
                     className="absolute w-[150px] h-[150px] lg:w-[300px] lg:h-[300px] bg-[radial-gradient(ellipse_900px_700px_at_25%_25%,#e07a5f_0%,#101010_20%,#000000_45%,#4a2a0d_75%,#000000_100%)] rounded-full top-20 -right-10 lg:top-40 lg:-right-10 z-5"

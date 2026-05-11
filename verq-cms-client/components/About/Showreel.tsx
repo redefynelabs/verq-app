@@ -139,14 +139,6 @@ export default function Showreel({ data }: { data: AboutPageShowreel }) {
             preload="auto"
           />
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-5">
-            <div className="w-20 h-20 rounded-full border-2 border-white/80 flex items-center justify-center bg-white/10 backdrop-blur-sm group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">
-              <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-            <span className="text-white/70 text-sm tracking-widest uppercase font-light">Play Showreel</span>
-          </div>
         </div>
       </ContainerLayout>
 

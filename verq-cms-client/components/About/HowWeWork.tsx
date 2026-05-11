@@ -3,10 +3,10 @@ import { AboutPageHowWeWork } from "@/service/fetchAboutPage";
 
 const HowWeWork = ({ data }: { data: AboutPageHowWeWork }) => {
   return (
-    <ContainerLayout className=" px-10! min-h-[80dvh] py-20">
+    <ContainerLayout className=" px-10! min-h-[50dvh] py-20">
       <div className=" space-y-5">
-        <div className=" max-w-md">
-          <h2 className=" text-6xl md:text-8xl text-secondary  mb-6">
+        <div className=" max-w-lg">
+          <h2 className=" text-5xl md:text-7xl text-secondary  mb-6">
             {data.Title}
           </h2>
         </div>

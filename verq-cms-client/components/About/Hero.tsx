@@ -142,11 +142,11 @@ export default function Hero({ data }: { data: AboutPageHero }) {
         <div className="relative z-20 h-full flex flex-col justify-end lg:pb-5 md:pb-30 pb-19 px-4 lg:px-8">
           <h1
             ref={titleRef}
-            className="text-7xl md:text-8xl lg:text-[100px]  xl:text-[100px] 2xl:text-[120px] 2xl:leading-[95px] xl:leading-[75px] lg:leading-[80px] md:leading-[65px] leading-[55px] font-regular text-[#FFD0C1] tracking-tighter"
+            className="text-7xl md:text-8xl lg:text-[100px]  2xl:leading-[95px] xl:leading-[75px] lg:leading-[80px] md:leading-[65px] leading-[55px] font-regular text-[#FFD0C1] tracking-tighter"
           >
-            {data.Title.split(" ").slice(0, 1).join(" ")}
+            {data.Title.split(" ").slice(0, 2).join(" ")}
             <br />
-            {data.Title.split(" ").slice(1).join(" ")}
+            {data.Title.split(" ").slice(2).join(" ")}
           </h1>
 
           <p

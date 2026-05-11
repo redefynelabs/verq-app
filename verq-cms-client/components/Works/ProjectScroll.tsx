@@ -263,7 +263,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
               <div key={i} className="w-[120%] h-screen shrink-0 flex flex-row gap-10 items-center bg-[#101010] mr-[10%]">
                 {/* Left — details */}
                 <div className="flex flex-col justify-center gap-5 md:gap-7 w-[38%] shrink-0 px-8 md:px-14 lg:px-20 py-12">
-                  <h2 className="text-5xl md:text-7xl  tracking-tighter text-primary leading-[0.9]">{work.title}</h2>
+                  <h2 className="text-5xl md:text-7xl  text-primary leading-[0.9]">{work.title}</h2>
                   <p className="text-white/70 text-base leading-relaxed max-w-sm font-family-inter tracking-tighter leading-tight">{work.shortDesc}</p>
                   <div className="flex flex-col gap-1.5">
                     <p className="text-primary text-[18px] tracking-widest uppercase">Services</p>

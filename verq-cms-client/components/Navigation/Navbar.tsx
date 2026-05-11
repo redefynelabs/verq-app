@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/constants/Nav";
 import { useScrambleText } from "@/hooks/useScrambleText";
+import ContactModal from "./ContactModal";
 
 const ScrambleLink = ({
   text,
@@ -69,6 +70,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const isWorkPage = /^\/works\/.+/.test(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const linkItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
@@ -165,6 +167,7 @@ const Navbar = () => {
   const allLinks = [...NAV_LINKS, { href: "#contact", name: "CONTACT", isContact: true }];
 
   return (
+    <>
     <div data-navbar className={`z-[999] font-family-inter flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] pb-[7px] md:pb-0 gap-[7px] lg:gap-0 ${isWorkPage ? "fixed top-0 left-0 right-0 w-full" : "relative"}`}>
       {/* Top Bar */}
       <div className="flex flex-row items-center justify-between w-full lg:w-auto">
@@ -204,19 +207,15 @@ const Navbar = () => {
         {NAV_LINKS.map((item, index) => (
           <ScrambleLink key={index} text={item.name} href={item.href} />
         ))}
-        <Link
-          ref={contactRef as React.RefObject<HTMLAnchorElement>}
-          href="#contact"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }}
+        <button
+          ref={contactRef as React.RefObject<HTMLButtonElement>}
+          onClick={() => setIsContactOpen(true)}
           onMouseEnter={startContactScramble}
           onMouseLeave={resetContact}
-          className="bg-[#FF3D00] text-black rounded-full hover:bg-[#FF3D00]/90 transition-all duration-300 px-6 xl:px-10 py-2 text-[20px]  font-medium"
+          className="bg-[#FF3D00] text-black rounded-full hover:bg-[#FF3D00]/90 transition-all duration-300 px-6 xl:px-10 py-2 text-[20px] font-medium cursor-pointer"
         >
           CONTACT
-        </Link>
+        </button>
       </div>
 
       {/* Mobile Menu — absolute, doesn't affect layout height */}
@@ -231,19 +230,12 @@ const Navbar = () => {
               ref={(el) => { linkItemsRef.current[index] = el; }}
             >
               {(item as any).isContact ? (
-                <Link
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    closeMenu();
-                    setTimeout(() => {
-                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }, 400);
-                  }}
-                  className="block w-full text-center bg-[#FF3D00] text-black rounded-full py-3 text-lg font-medium"
+                <button
+                  onClick={() => { closeMenu(); setTimeout(() => setIsContactOpen(true), 400); }}
+                  className="block w-full text-center bg-[#FF3D00] text-black rounded-full py-3 text-lg font-medium cursor-pointer"
                 >
                   CONTACT
-                </Link>
+                </button>
               ) : (
                 <ScrambleLink text={item.name} href={item.href} onClose={closeMenu} />
               )}
@@ -252,6 +244,9 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+
+    <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import Hero from "@/components/About/Hero";
 import Form from "@/components/Reusable/Form";
 import { fetchAboutPage } from "@/service/fetchAboutPage";
 import { fetchHomePage } from "@/service/fetchHomePage";
+import FlippingClients from "@/components/Home/FlippingClients";
 
 export default async function About() {
   const [aboutData, homePageData] = await Promise.all([
@@ -20,6 +21,7 @@ export default async function About() {
     <div>
       <Hero data={aboutData.Hero} />
       <HowWeWork data={aboutData.HowWeWork} />
+      <FlippingClients />
       {/* <Clients data={homePageData?.Clients ?? null} className=" min-h-0! py-0! mb-20" /> */}
       <Showreel data={aboutData.Showreel} />
       <FounderGrid data={aboutData.FounderGrid} />

@@ -75,7 +75,7 @@ const Portfolio = ({ data }: { data: PortfolioSection | null }) => {
       <div className="absolute top-0 left-0 right-0 z-10 px-14 pt-6">
         <div className="w-full bg-white/20 h-px mb-3" />
         <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
-          <p>{"{4}"}</p>
+          <p>{"{5}"}</p>
           <p>{"{PORTFOLIO}"}</p>
         </div>
       </div>
