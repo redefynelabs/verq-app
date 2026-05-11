@@ -52,7 +52,7 @@ const NewServices = ({ data }: Props) => {
   return (
     <div ref={sectionRef} className="relative isolate min-h-screen bg-[#101010] py-10">
       {/* Top header — stays on top during pin */}
-      <div className="absolute top-0 left-0 right-0 z-50 px-14 pt-6">
+      <div className="absolute top-0 left-0 right-0 z-50 px-4 sm:px-8 md:px-14 pt-6">
         <div className="w-full bg-white/20 h-px mb-3" />
         <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
           <p>{"{2}"}</p>
@@ -60,13 +60,13 @@ const NewServices = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="flex items-start gap-8 px-14 pt-20 h-full">
+      <div className="flex flex-col lg:flex-row items-start gap-8 px-4 sm:px-8 md:px-14 pt-6 md:pt-20 h-full">
         {/* Left */}
-        <div className="w-[45%] space-y-5 text-white pt-6">
+        <div className="w-full lg:w-[45%] space-y-5 text-white pt-6">
           <p className="font-family-inter text-sm uppercase tracking-widest text-white/50">
             SERVICES
           </p>
-          <h1 className="text-5xl leading-tight">
+          <h1 className="text-3xl md:text-5xl leading-tight">
             {data?.Title ?? "Full-cycle digital design product studio."}
           </h1>
           <p className="text-base text-white/60 tracking-tighter font-family-inter">
@@ -75,7 +75,7 @@ const NewServices = ({ data }: Props) => {
         </div>
 
         {/* Right — absolutely stacked cards */}
-        <div className="w-[50%] relative h-[70vh]">
+        <div className="w-full lg:w-[50%] relative h-[60vh] md:h-[70vh]">
           {services.map((service, i) => {
             const isOdd = i % 2 === 0;
             const bg = isOdd
@@ -93,10 +93,10 @@ const NewServices = ({ data }: Props) => {
                 style={{ zIndex: i + 1 }}
               >
                 <div
-                  className={`rounded-3xl px-14 py-12 h-[70vh] flex flex-col justify-between ${bg}`}
+                  className={`rounded-3xl px-6 md:px-14 py-8 md:py-12 h-[60vh] md:h-[70vh] flex flex-col justify-between ${bg}`}
                 >
                   <div>
-                     <p className={`text-xl leading-relaxed font-family-inter ${muted}`}>
+                     <p className={`text-base md:text-xl leading-relaxed font-family-inter ${muted}`}>
                       {service.desc}
                     </p>
                   </div>
@@ -105,9 +105,9 @@ const NewServices = ({ data }: Props) => {
                       <img src={service.media.url} alt={service.title} />
                     )}
                   </div>
-                  
+
                   <div className="space-y-3">
-                    <h2 className={`text-5xl font-medium ${text}`}>
+                    <h2 className={`text-3xl md:text-5xl font-medium ${text}`}>
                       {service.title}
                     </h2>
                    

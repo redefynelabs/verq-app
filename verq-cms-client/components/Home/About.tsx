@@ -142,7 +142,7 @@ const About = ({ data }: AboutProps) => {
             <div
                 id="about"
                 ref={sectionRef}
-                className="About-section relative z-10 flex flex-col items-center justify-center min-h-screen pt-10 lg:pt-30 gap-1 px-5 lg:px-0 rounded-xl overflow-hidden"
+                className="About-section relative z-10 flex flex-col items-center justify-center min-h-screen pt-20 lg:pt-30 gap-1 px-5 lg:px-0 rounded-xl overflow-hidden"
             >
                 {/* Section label */}
                 <div className="absolute top-0 left-0 right-0 z-20 px-5 lg:px-10 pt-6">
@@ -155,7 +155,7 @@ const About = ({ data }: AboutProps) => {
 
                 <div
                     ref={circleRef}
-                    className="absolute w-[150px] h-[150px] lg:w-[300px] lg:h-[300px] bg-[radial-gradient(ellipse_900px_700px_at_25%_25%,#e07a5f_0%,#101010_20%,#000000_45%,#4a2a0d_75%,#000000_100%)] rounded-full top-20 -right-10 lg:top-40 lg:-right-10 z-5"
+                    className="absolute w-[150px]  h-[150px] lg:w-[300px] lg:h-[300px] bg-[radial-gradient(ellipse_900px_700px_at_25%_25%,#e07a5f_0%,#101010_20%,#000000_45%,#4a2a0d_75%,#000000_100%)] rounded-full top-30 -right-10 lg:top-40 lg:-right-10 z-5"
                 />
 
                 <div className="absolute hidden lg:flex flex-row justify-between w-full 2xl:max-w-7xl xl:max-w-6xl left-1/2 -translate-x-1/2 2xl:top-90 xl:top-60 gap-10 z-20">

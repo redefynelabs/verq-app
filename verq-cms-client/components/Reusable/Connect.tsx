@@ -45,10 +45,36 @@ const Connect = () => {
             </h2>
           </div>
 
-          {/* Right — Bento Grid */}
+          {/* Right — Bento Grid (desktop) */}
           <div className="flex-1/5 w-full">
-            <div className="grid grid-cols-6 gap-1 md:gap-3 grid-rows-[repeat(3,minmax(110px,1fr))] sm:grid-rows-[repeat(3,minmax(120px,1fr))]">
+            {/* Mobile: simple icon grid */}
+            <div className="grid grid-cols-3 gap-2 md:hidden">
+              {SOCIAL_LINKS.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="rounded-xl border border-[#C8C8C8] flex items-center justify-center h-[80px] backdrop-blur-xl cursor-pointer"
+                    {...hoverAnim}
+                  >
+                    <Icon className="text-white w-7 h-7" />
+                  </motion.a>
+                );
+              })}
+              <motion.div
+                className="col-span-3 rounded-xl border border-[#C8C8C8] flex items-center justify-start p-5 backdrop-blur-xl"
+                {...hoverAnim}
+              >
+                <p className="text-sm text-white inter">Connect all your essential apps.</p>
+              </motion.div>
+            </div>
 
+            {/* Desktop: bento grid */}
+            <div className="hidden md:grid grid-cols-6 gap-3 grid-rows-[repeat(3,minmax(120px,1fr))]">
               {BENTO_LAYOUT.map((layout, index) => {
                 const social = SOCIAL_LINKS[index];
 
@@ -61,7 +87,7 @@ const Connect = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.label}
-                      className="rounded-xl md:rounded-[28px] border border-[#C8C8C8] flex items-center justify-center backdrop-blur-xl cursor-pointer"
+                      className="rounded-[28px] border border-[#C8C8C8] flex items-center justify-center backdrop-blur-xl cursor-pointer"
                       style={{ gridColumn: layout.col, gridRow: layout.row }}
                       {...hoverAnim}
                     >
@@ -74,7 +100,7 @@ const Connect = () => {
                 return (
                   <div
                     key={index}
-                    className="rounded-xl md:rounded-[28px] border border-[#C8C8C8]"
+                    className="rounded-[28px] border border-[#C8C8C8]"
                     style={{ gridColumn: layout.col, gridRow: layout.row }}
                   />
                 );
@@ -82,15 +108,14 @@ const Connect = () => {
 
               {/* Static text tile — bottom-left */}
               <motion.div
-                className="rounded-xl md:rounded-[28px] border border-[#C8C8C8] flex items-end justify-start p-6 md:p-8 backdrop-blur-xl"
+                className="rounded-[28px] border border-[#C8C8C8] flex items-end justify-start p-8 backdrop-blur-xl"
                 style={{ gridColumn: '1 / span 2', gridRow: '2 / span 2' }}
                 {...hoverAnim}
               >
-                <p className="text-sm md:text-[15px] text-white inter">
+                <p className="text-[15px] text-white inter">
                   Connect all your<br />essential apps.
                 </p>
               </motion.div>
-
             </div>
           </div>
 

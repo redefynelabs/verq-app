@@ -44,7 +44,7 @@ const Acceleration = ({ data }: Props) => {
   return (
     <div ref={sectionRef} className="relative isolate min-h-screen bg-[#101010] py-10">
       {/* Top header — stays on top during pin */}
-      <div className="absolute top-0 left-0 right-0 z-50 px-14 pt-6">
+      <div className="absolute top-0 left-0 right-0 z-50 px-4 sm:px-8 md:px-14 pt-6">
         <div className="w-full bg-white/20 h-px mb-3" />
         <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
           <p>{"{3}"}</p>
@@ -52,15 +52,15 @@ const Acceleration = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 pt-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 pt-20">
         {processData.map((item, i) => (
           <div
             key={i}
             ref={(el) => { cardRefs.current[i] = el; }}
-            className="flex items-start gap-8 px-14 pt-20 h-full"
+            className="flex items-start gap-8 px-4 sm:px-8 md:px-14 pt-10 md:pt-20 h-full"
           >
-            <div className="w-[75%] space-y-5 text-white pt-6">
-              <p className="text-5xl uppercase tracking-widest text-[#FFD0C1] border-b">
+            <div className="w-full md:w-[75%] space-y-5 text-white pt-6">
+              <p className="text-3xl md:text-5xl uppercase tracking-widest text-[#FFD0C1] border-b">
                 {item.Process}
               </p>
               <h1 className="text-xl leading-tight">

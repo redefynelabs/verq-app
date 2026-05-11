@@ -84,7 +84,7 @@ export default function FlippingClients() {
   }, []);
 
   return (
-    <div className="grid grid-cols-5 gap-2 px-14 ">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 px-4 sm:px-8 md:px-14">
       {Array.from({ length: 10 }, (_, slot) => {
         if (slot === TEXT_SLOT) {
           return (

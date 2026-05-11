@@ -69,10 +69,10 @@ const Portfolio = ({ data }: { data: PortfolioSection | null }) => {
   return (
     <div
       id="works"
-      className="relative isolate min-h-screen flex flex-col bg-[#101010] px-14 py-10"
+      className="relative isolate min-h-screen flex flex-col bg-[#101010] px-4 sm:px-8 md:px-14 py-10"
     >
       {/* Header */}
-      <div className="absolute top-0 left-0 right-0 z-10 px-14 pt-6">
+      <div className="absolute top-0 left-0 right-0 z-10 px-4 sm:px-8 md:px-14 pt-6">
         <div className="w-full bg-white/20 h-px mb-3" />
         <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
           <p>{"{5}"}</p>
@@ -81,7 +81,7 @@ const Portfolio = ({ data }: { data: PortfolioSection | null }) => {
       </div>
 
       <div className="py-20 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
-        <h1 className="text-7xl text-[#FFDED3] leading-tight">{data.title}</h1>
+        <h1 className="text-4xl sm:text-5xl md:text-7xl text-[#FFDED3] leading-tight">{data.title}</h1>
         <p className="text-white/50 max-w-md text-sm font-family-inter">
           {data.desc}
         </p>
@@ -106,12 +106,12 @@ const Portfolio = ({ data }: { data: PortfolioSection | null }) => {
               </div>
 
               {/* Meta */}
-              <div className="mt-6 flex flex-col md:flex-row items-end justify-between w-[90%] gap-4 absolute bottom-10 left-10">
-                <div className=" space-y-4">
-                  <h2 className="text-3xl font-medium text-[#FBFBFB]">
+              <div className="mt-6 flex flex-col md:flex-row items-end justify-between w-[90%] gap-4 absolute bottom-4 sm:bottom-6 md:bottom-10 left-4 sm:left-6 md:left-10">
+                <div className="space-y-2 md:space-y-4">
+                  <h2 className="text-xl md:text-3xl font-medium text-[#FBFBFB]">
                     {item.title}
                   </h2>
-                  <p className="text-white/50 text-lg max-w-lg font-family-inter">
+                  <p className="text-white/50 text-sm md:text-lg max-w-lg font-family-inter">
                     {item.desc}
                   </p>
                   <p className="text-primary text-sm uppercase font-family-inter tracking-wider mt-1">
