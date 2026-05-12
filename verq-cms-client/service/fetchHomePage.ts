@@ -104,6 +104,34 @@ export interface StatementSection {
   Text: string;
 }
 
+export interface SocialLink {
+  id: number;
+  label: string;
+  link: string;
+  icon: StrapiMedia;
+}
+
+export interface ConnectSection {
+  id: number;
+  title: string;
+  socialLinks: SocialLink[];
+}
+
+// ── Connect fetch (used by reusable Connect component) ────────────────────────
+
+export const fetchConnect = async (): Promise<ConnectSection | null> => {
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
+  try {
+    const url = `${baseUrl}/api/home-page?populate[Connect][populate][socialLinks][populate]=*`;
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json?.data?.Connect ?? null;
+  } catch {
+    return null;
+  }
+};
+
 // ── Root type ─────────────────────────────────────────────────────────────────
 
 export interface HomePageData {
@@ -117,6 +145,7 @@ export interface HomePageData {
   ProcessAcceleration: ProcessSection;
   Portfolio: PortfolioSection;
   Statement: StatementSection;
+  Connect: ConnectSection;
 }
 
 // ── Fetch ─────────────────────────────────────────────────────────────────────
@@ -135,10 +164,13 @@ export const fetchHomePage = async (): Promise<HomePageData | null> => {
       "populate[Portfolio][populate][card][populate]": "*",
       "populate[ProcessAcceleration][populate]": "*",
       "populate[Statement][populate]": "*",
+      "populate[Connect][populate][socialLinks][populate]": "*",
     });
 
     const url = `${baseUrl}/api/home-page?${params}`;
     console.log("[fetchHomePage] Fetching:", url);
+
+    const connectUrl = `${baseUrl}/api/home-page?populate[Connect][populate][socialLinks][populate]`
 
     const response = await fetch(url, { cache: 'no-cache' });
 

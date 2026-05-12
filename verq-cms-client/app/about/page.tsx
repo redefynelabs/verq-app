@@ -6,13 +6,11 @@ import Connect from "@/components/Reusable/Connect";
 import Hero from "@/components/About/Hero";
 import Form from "@/components/Reusable/Form";
 import { fetchAboutPage } from "@/service/fetchAboutPage";
-import { fetchHomePage } from "@/service/fetchHomePage";
 import FlippingClients from "@/components/Home/FlippingClients";
 
 export default async function About() {
-  const [aboutData, homePageData] = await Promise.all([
+  const [aboutData] = await Promise.all([
     fetchAboutPage(),
-    fetchHomePage(),
   ]);
 
   if (!aboutData) return null;
