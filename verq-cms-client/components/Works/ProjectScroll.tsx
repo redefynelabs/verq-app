@@ -26,7 +26,7 @@ interface Work {
 }
 
 
-function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight }: {
+function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight, isMobile }: {
   url: string;
   mime: string;
   alt: string;
@@ -34,12 +34,13 @@ function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight }: 
   isActive: boolean;
   counter: string;
   fullHeight?: boolean;
+  isMobile?: boolean;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const isVideo = mime.startsWith('video/');
 
   useEffect(() => {
-    if (!wrapperRef.current) return;
+    if (isMobile || !wrapperRef.current) return;
     if (isActive) {
       gsap.killTweensOf(wrapperRef.current);
       gsap.fromTo(
@@ -48,13 +49,13 @@ function MediaReveal({ url, mime, alt, accent, isActive, counter, fullHeight }: 
         { scale: 1, opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }
       );
     }
-  }, [isActive]);
+  }, [isActive, isMobile]);
 
   return (
     <div
       ref={wrapperRef}
-      className={`w-full overflow-hidden relative ${fullHeight ? 'h-screen' : 'h-[80vh] rounded-2xl'}`}
-      style={{ backgroundColor: accent, transformOrigin: 'center center', opacity: 0 }}
+      className={`w-full overflow-hidden relative ${fullHeight ? 'h-[60vw] md:h-screen' : 'h-[60vw] md:h-[80vh] rounded-2xl'}`}
+      style={{ backgroundColor: accent, transformOrigin: 'center center', opacity: isMobile ? 1 : 0 }}
     >
       {isVideo ? (
         <video
@@ -94,6 +95,14 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
   const router      = useRouter();
   const navigating  = useRef(false);
   const progressRef = useRef(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   // ── Entrance: fade out the zoom overlay left by WorkCard ──────────────────
   useEffect(() => {
@@ -162,6 +171,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
 
   // ── Momentum skew: scroll velocity → fluid lean left/right ──────────────
   useEffect(() => {
+    if (isMobile) return;
     let lastY   = window.scrollY;
     let target  = 0;
     let current = 0;
@@ -196,18 +206,20 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
       window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [isMobile]);
 
   // Desktop: wheel-to-navigate when at end
   useEffect(() => {
+    if (isMobile) return;
     const onWheel = (e: WheelEvent) => {
       if (e.deltaY > 0 && progressRef.current >= 0.999) navigate();
     };
     window.addEventListener('wheel', onWheel, { passive: true });
     return () => window.removeEventListener('wheel', onWheel);
-  }, [navigate]);
+  }, [navigate, isMobile]);
 
   useEffect(() => {
+    if (isMobile) return;
     const section = sectionRef.current;
     const track   = trackRef.current;
     if (!section || !track) return;
@@ -235,7 +247,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
     }, section);
 
     return () => ctx.revert();
-  }, [total]);
+  }, [total, isMobile]);
 
   return (
     <>
@@ -248,24 +260,32 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
           <p className="text-white/40 text-[10px] tracking-widest uppercase font-mono">
             Project {String(nextIndex + 1).padStart(2, '0')}
           </p>
-          <h2 className="text-8xl md:text-9xl tracking-tighter text-primary leading-[0.9]">
+          <h2 className="text-5xl md:text-9xl tracking-tighter text-primary leading-[0.9]">
             {nextWork.title}
           </h2>
         </div>
       </div>
 
-      <div ref={sectionRef} className="overflow-hidden">
+      <div ref={sectionRef} className="overflow-hidden pt-[30%] md:pt-0">
         <div ref={skewWrapperRef} className="will-change-transform" style={{ transformOrigin: 'center center' }}>
-        <div ref={trackRef} className="flex will-change-transform">
+        <div ref={trackRef} className="flex flex-col md:flex-row will-change-transform">
           {(() => { let imgCount = 0; return slides.map((slide, i) => {
 
             if (slide.type === 'intro') return (
-              <div key={i} className="w-[120%] h-screen shrink-0 flex flex-row gap-10 items-center bg-[#101010] mr-[10%]">
+              <div key={i} className="w-screen md:w-[120%] h-auto md:h-screen shrink-0 flex flex-col md:flex-row md:gap-10 md:items-center bg-[#101010] md:mr-[10%]">
+                {/* Mobile-only: media on top */}
+                <div className="block md:hidden w-full h-[55vw] overflow-hidden px-4 rounded-2xl">
+                  {work.mainMedia?.mime.startsWith('video/') ? (
+                    <video src={work.mainMedia.url} autoPlay loop muted playsInline className="w-full h-full object-cover rounded-xl" />
+                  ) : (
+                    <img src={work.mainMedia?.url ?? work.bannerImg} alt={work.title} className="w-full h-full object-cover rounded-xl" />
+                  )}
+                </div>
                 {/* Left — details */}
-                <div className="flex flex-col justify-center gap-5 md:gap-7 w-[38%] shrink-0 px-8 md:px-14 lg:px-20 py-12">
-                  <h2 className="text-5xl md:text-7xl  text-primary leading-[0.9]">{work.title}</h2>
-                  <p className="text-white/70 text-base leading-relaxed max-w-sm font-family-inter tracking-tighter leading-tight">{work.shortDesc}</p>
-                  <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col justify-center gap-5 md:gap-7 w-full md:w-[38%] shrink-0 px-6 md:px-14 lg:px-20 py-6 md:py-12">
+                  <h2 className="text-4xl md:text-7xl text-primary leading-[0.9]">{work.title}</h2>
+                  <p className="text-white/70 text-base leading-snug max-w-sm font-family-inter tracking-tighter">{work.shortDesc}</p>
+                  <div className="flex flex-col gap-1.5"> 
                     <p className="text-primary text-[18px] tracking-widest uppercase">Services</p>
                     <ul className="flex flex-col gap-1 font-family-inter tracking-tighter leading-tight">
                       {work.services.map((s) => <li key={s} className="text-white/50 text-base">{s}</li>)}
@@ -280,8 +300,8 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
                     View Project
                   </a>
                 </div>
-                {/* Right — main media (video or image) */}
-                <div className="flex-1 h-[75vh] self-center mr-8 rounded-2xl overflow-hidden">
+                {/* Right — main media (desktop only) */}
+                <div className="hidden md:block flex-1 h-[75vh] self-center mr-8 rounded-2xl overflow-hidden">
                   {work.mainMedia?.mime.startsWith('video/') ? (
                     <video
                       src={work.mainMedia.url}
@@ -303,23 +323,22 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
             );
 
             if (slide.type === 'content') return (
-              <div key={i} className="w-screen h-screen shrink-0 flex flex-col items-center justify-center bg-[#101010] px-8 md:px-20 lg:px-32">
+              <div key={i} className="w-screen h-auto md:h-screen shrink-0 flex flex-col items-center justify-center bg-[#101010] px-6 md:px-20 lg:px-32 py-10 md:py-0">
                 <div className="flex flex-col gap-8 max-w-3xl w-full">
-                  <div className=' flex  gap-10'>
-
+                  <div className='flex flex-col md:flex-row md:gap-10'>
                   {slide.stat && (
-                    <p className="text-6xl md:text-9xl text-[#FFD0C1] font-light tracking-tighter leading-none  pb-6">
+                    <p className="text-7xl md:text-9xl text-secondary font-light tracking-tighter leading-none pb-4 md:pb-6">
                       {slide.stat}
                     </p>
                   )}
                   {slide.title && (
-                    <h2 className="text-3xl md:text-5xl text-white/50 max-w-sm">
+                    <h2 className="text-2xl md:text-5xl text-white/50 max-w-sm">
                       {slide.title}
                     </h2>
                   )}
                   </div>
                   {slide.desc && (
-                    <p className="text-white/50 text-lg md:text-xl font-family-inter tracking-tighter leading-relaxed max-w-xl">
+                    <p className="text-white/50 text-base md:text-xl font-family-inter tracking-tighter leading-relaxed max-w-xl">
                       {slide.desc}
                     </p>
                   )}
@@ -330,7 +349,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
             if (slide.type === 'media') {
               const isFirst = imgCount++ === 0;
               return (
-                <div key={i} className="w-screen h-screen shrink-0 flex items-center  justify-center bg-[#101010] px-10">
+                <div key={i} className="w-screen h-auto md:h-screen shrink-0 flex items-center justify-center bg-[#101010] px-4 md:px-10 py-6 md:py-0">
                   <MediaReveal
                     url={slide.url}
                     mime={slide.mime}
@@ -338,6 +357,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
                     accent="#101010"
                     isActive={activeIndex === i}
                     fullHeight={isFirst}
+                    isMobile={isMobile}
                     counter={`${String(i + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`}
                   />
                 </div>
@@ -347,7 +367,7 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
             if (slide.type === 'next') return (
               <div
                 key={i}
-                className="w-[40%] h-screen shrink-0 relative overflow-hidden cursor-pointer ml-[10%] font-family-orpix"
+                className="w-screen md:w-[40%] h-[60vw] md:h-screen shrink-0 relative overflow-hidden cursor-pointer md:ml-[10%] font-family-orpix"
                 onClick={navigate}
               >
                 <img src="/works/next.png" alt="Next project" className="absolute inset-0 w-full h-full object-cover" />
@@ -356,12 +376,12 @@ export default function ProjectScroll({ work, nextWork, nextIndex }: {
                     <p className="text-black/50 text-[10px] tracking-widest uppercase font-mono">
                       Project {String(slide.index + 1).padStart(2, '0')}
                     </p>
-                    <h3 className="text-5xl md:text-7xl lg:text-8xl tracking-tighter italic text-primary leading-[0.9]">{slide.title}</h3>
+                    <h3 className="text-4xl md:text-7xl lg:text-8xl tracking-tighter italic text-primary leading-[0.9]">{slide.title}</h3>
                     <div className="flex items-center gap-2 w-full mt-1">
                       <div className="flex-1 h-px bg-primary/50" />
                       <span className="text-primary text-xl">›</span>
                     </div>
-                    <p className="text-black/50 text-xs tracking-wide">Scroll to view next project</p>
+                    <p className="text-black/50 text-xs tracking-wide">Tap to view next project</p>
                   </div>
                 </div>
               </div>

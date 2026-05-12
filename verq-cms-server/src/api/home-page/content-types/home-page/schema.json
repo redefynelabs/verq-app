@@ -50,6 +50,11 @@
       "type": "component",
       "component": "home.process-acceleration",
       "repeatable": false
+    },
+    "Connect": {
+      "type": "component",
+      "component": "home.connect",
+      "repeatable": false
     }
   }
 }

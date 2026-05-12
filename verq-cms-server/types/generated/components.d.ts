@@ -65,6 +65,17 @@ export interface GlobalLabeledLink extends Struct.ComponentSchema {
   };
 }
 
+export interface HomeConnect extends Struct.ComponentSchema {
+  collectionName: 'components_home_connects';
+  info: {
+    displayName: 'Connect';
+  };
+  attributes: {
+    socialLinks: Schema.Attribute.Component<'global.icon-link', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface HomeCta extends Struct.ComponentSchema {
   collectionName: 'components_home_ctas';
   info: {
@@ -366,6 +377,7 @@ declare module '@strapi/strapi' {
       'about.showreel': AboutShowreel;
       'global.icon-link': GlobalIconLink;
       'global.labeled-link': GlobalLabeledLink;
+      'home.connect': HomeConnect;
       'home.cta': HomeCta;
       'home.fa-qs': HomeFaQs;
       'home.floating-points': HomeFloatingPoints;

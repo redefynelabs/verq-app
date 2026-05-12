@@ -195,7 +195,7 @@ const WorkCard = ({ index, title, shortDesc, slug, bannerImg }: WorkCardProps) =
             </p>
           </div>
           <div className="flex items-center gap-3 mt-6 md:mt-8">
-            <span className="text-base text-black bg-primary rounded-full px-8 py-4 tracking-widest uppercase">View Project</span>
+            <span className="text-sm text-black bg-primary rounded-full px-6 py-3 uppercase">View Project</span>
             <span className="w-10 h-10 rounded-full border border-primary/60 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:animate-spin group-hover:text-black">
               <HiArrowUpRight className="w-5 h-5" />
             </span>

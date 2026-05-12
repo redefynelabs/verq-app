@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_home_connects",
+  "info": {
+    "displayName": "Connect"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "socialLinks": {
+      "type": "component",
+      "component": "global.icon-link",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

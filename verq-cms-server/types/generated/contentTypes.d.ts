@@ -530,6 +530,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
   attributes: {
     About: Schema.Attribute.Component<'home.home-about', false>;
+    Connect: Schema.Attribute.Component<'home.connect', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
