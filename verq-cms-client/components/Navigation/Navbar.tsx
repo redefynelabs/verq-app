@@ -22,19 +22,24 @@ const ScrambleLink = ({
   const { elementRef, startScramble, resetScramble } = useScrambleText(text);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!href.startsWith("#")) {
+    const isHashLink = href.startsWith("#");
+    const isHomeHash = href.startsWith("/#");
+    const isOnHome = window.location.pathname === "/";
+
+    if (isHashLink || (isHomeHash && isOnHome)) {
+      e.preventDefault();
       onClose?.();
+      const targetId = href.replace(/^\/?#/, "");
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        setTimeout(() => {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, onClose ? 400 : 0);
+      }
       return;
     }
-    e.preventDefault();
+
     onClose?.();
-    const targetId = href.replace("#", "");
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      setTimeout(() => {
-        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, onClose ? 400 : 0);
-    }
   };
 
   const handleMouseEnter = () => {

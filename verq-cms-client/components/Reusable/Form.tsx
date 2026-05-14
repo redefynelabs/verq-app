@@ -1,69 +1,87 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { HiBolt } from 'react-icons/hi2';
-import { BsTwitterX, BsCalendar2Date } from 'react-icons/bs';
-import { RiInstagramFill } from 'react-icons/ri';
-import { BsLinkedin } from 'react-icons/bs';
-import Link from 'next/link';
-import ContainerLayout from '@/containerLayout/ContainerLayout';
+import { useState } from "react";
+import { HiBolt } from "react-icons/hi2";
+import { BsTwitterX, BsCalendar2Date } from "react-icons/bs";
+import { RiInstagramFill } from "react-icons/ri";
+import { BsLinkedin } from "react-icons/bs";
+import Link from "next/link";
+import ContainerLayout from "@/containerLayout/ContainerLayout";
 
 const socialLinks = [
-  { name: 'Calendly',  href: 'https://calendly.com/verqapp',              icon: <BsCalendar2Date className="w-5 h-5" /> },
-  { name: 'X',         href: 'https://x.com/verqapp',                    icon: <BsTwitterX className="w-5 h-5" /> },
-  { name: 'Instagram', href: 'https://www.instagram.com/verqapp/',        icon: <RiInstagramFill className="w-5 h-5" /> },
-  { name: 'LinkedIn',  href: 'https://www.linkedin.com/company/verqapp/', icon: <BsLinkedin className="w-5 h-5" /> },
+  {
+    name: "Calendly",
+    href: "https://cal.com/joe-deepan-wmbjvo",
+    icon: <BsCalendar2Date className="w-5 h-5" />,
+  },
+  {
+    name: "X",
+    href: "https://x.com/VerqDigital",
+    icon: <BsTwitterX className="w-5 h-5" />,
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/verqdigital/",
+    icon: <RiInstagramFill className="w-5 h-5" />,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/verq-digital/",
+    icon: <BsLinkedin className="w-5 h-5" />,
+  },
 ];
 
 const INPUT_BASE =
-  'w-full border-b border-white/10 px-5 py-4 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/50 transition-colors duration-200 font-family-inter tracking-tighter leading-tighter';
+  "w-full border-b border-white/10 px-5 py-4 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/50 transition-colors duration-200 font-family-inter tracking-tighter leading-tighter";
 
 export default function Form() {
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    contact: '',
-    website: '',
-    message: '',
+    name: "",
+    email: "",
+    contact: "",
+    website: "",
+    message: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((prev) => ({ ...prev, [k]: e.target.value }));
+  const set =
+    (k: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm((prev) => ({ ...prev, [k]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwovkSUtHvAK5lzKNhURlh0t40ZGjaKNYwNysr6qwOba6htIMuJ14uDtPS010Dy5xwP/exec";
+    const SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbwovkSUtHvAK5lzKNhURlh0t40ZGjaKNYwNysr6qwOba6htIMuJ14uDtPS010Dy5xwP/exec";
 
     try {
       // Using fetch with no-cors as Google Apps Script redirects usually trigger CORS preflight issues
       await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: "POST",
+        mode: "no-cors",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(form),
       });
 
-      // Since 'no-cors' doesn't return a readable response body, 
+      // Since 'no-cors' doesn't return a readable response body,
       // we assume success if the fetch doesn't throw.
       setSent(true);
     } catch (error) {
-      console.error('Submission error:', error);
-      alert('There was an error sending your message. Please try again.');
+      console.error("Submission error:", error);
+      alert("There was an error sending your message. Please try again.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <ContainerLayout className=' md:px-10! py-10!'>
+    <ContainerLayout className=" md:px-10! py-10!">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[600px] font-family-inter tracking-tighter leading-tight">
-        
         {/* Left — video + socials */}
         <div className="relative overflow-hidden rounded-xl min-h-[300px] lg:min-h-auto">
           <video
@@ -84,10 +102,23 @@ export default function Form() {
               <span className="w-14 h-14 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center">
                 <HiBolt className="text-primary text-2xl" />
               </span>
-              <h3 className="text-2xl text-secondary tracking-tighter">Message sent!</h3>
-              <p className="text-white/40 text-sm max-w-xs">We'll get back to you within 48 hours.</p>
+              <h3 className="text-2xl text-secondary tracking-tighter">
+                Message sent!
+              </h3>
+              <p className="text-white/40 text-sm max-w-xs">
+                We'll get back to you within 48 hours.
+              </p>
               <button
-                onClick={() => { setSent(false); setForm({ name: '', email: '', contact: '', website: '', message: '' }); }}
+                onClick={() => {
+                  setSent(false);
+                  setForm({
+                    name: "",
+                    email: "",
+                    contact: "",
+                    website: "",
+                    message: "",
+                  });
+                }}
                 className="text-primary text-xs tracking-widest uppercase hover:underline mt-2"
               >
                 Send another
@@ -97,22 +128,26 @@ export default function Form() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white text-xs tracking-widest uppercase">Name</label>
+                  <label className="text-white text-xs tracking-widest uppercase">
+                    Name
+                  </label>
                   <input
                     type="text"
                     required
                     value={form.name}
-                    onChange={set('name')}
+                    onChange={set("name")}
                     className={INPUT_BASE}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white text-xs tracking-widest uppercase">Email</label>
+                  <label className="text-white text-xs tracking-widest uppercase">
+                    Email
+                  </label>
                   <input
                     type="email"
                     required
                     value={form.email}
-                    onChange={set('email')}
+                    onChange={set("email")}
                     className={INPUT_BASE}
                   />
                 </div>
@@ -120,35 +155,42 @@ export default function Form() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white text-xs tracking-widest uppercase">Contact Number</label>
+                  <label className="text-white text-xs tracking-widest uppercase">
+                    Contact Number
+                  </label>
                   <input
                     type="tel"
                     required
                     value={form.contact}
-                    onChange={set('contact')}
+                    onChange={set("contact")}
                     className={INPUT_BASE}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-white text-xs tracking-widest uppercase">
-                    Website <span className="text-white/20 normal-case tracking-normal">(optional)</span>
+                    Website{" "}
+                    <span className="text-white/20 normal-case tracking-normal">
+                      (optional)
+                    </span>
                   </label>
                   <input
-                    type="url"
+                    type="text"
                     value={form.website}
-                    onChange={set('website')}
+                    onChange={set("website")}
                     className={INPUT_BASE}
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-xs tracking-widest uppercase">Message</label>
+                <label className="text-white text-xs tracking-widest uppercase">
+                  Message
+                </label>
                 <textarea
                   required
                   rows={4}
                   value={form.message}
-                  onChange={set('message')}
+                  onChange={set("message")}
                   className={`${INPUT_BASE} resize-none`}
                 />
               </div>
@@ -158,7 +200,7 @@ export default function Form() {
                 disabled={submitting}
                 className="mt-2 flex items-center justify-center gap-2 bg-primary text-black font-medium px-6 py-4 rounded-2xl hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                {submitting ? 'Sending...' : 'Send Message'}
+                {submitting ? "Booking..." : "Book a Call"}
                 <HiBolt className="text-lg" />
               </button>
             </form>
@@ -166,7 +208,7 @@ export default function Form() {
         </div>
       </div>
 
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-2 justify-end mt-6 md:mt-10 w-full md:w-auto self-end'>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 justify-end mt-6 md:mt-10 w-full md:w-auto self-end">
         {socialLinks.map((link) => (
           <Link
             key={link.name}
@@ -174,7 +216,7 @@ export default function Form() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={link.name}
-            className='bg-primary text-black py-6 rounded-full px-2 md:px-3 flex items-center justify-center transition-colors duration-200'
+            className="bg-primary text-black py-6 rounded-full px-2 md:px-3 flex items-center justify-center transition-colors duration-200"
           >
             {link.icon}
           </Link>

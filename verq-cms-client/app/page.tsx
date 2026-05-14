@@ -14,12 +14,14 @@ import NewServices from "@/components/Home/NewServices";
 import Acceleration from "@/components/Home/Acceleration";
 import Portfolio from "@/components/Home/Portfoilo";
 import Team from "@/components/Team";
+import HashScrollHandler from "@/components/Reusable/HashScrollHandler";
 
 export default async function Home() {
   const homePageData = await fetchHomePage();
 
   return (
     <div>
+      <HashScrollHandler />
       <HomeHero />
       <PinnedScrollReveal data={homePageData?.Statement ?? null} />
       <div className=" py-[10%]">

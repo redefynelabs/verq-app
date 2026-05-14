@@ -67,7 +67,7 @@ const NewServices = ({ data }: Props) => {
   };
 
   return (
-    <div ref={sectionRef} className="relative isolate lg:min-h-screen bg-[#101010] py-10">
+    <div id="services" ref={sectionRef} className="relative isolate lg:min-h-screen bg-[#101010] py-10">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-50 px-4 sm:px-8 md:px-14 pt-6">
         <div className="w-full bg-white/20 h-px mb-3" />
