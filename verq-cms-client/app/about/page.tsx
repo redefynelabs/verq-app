@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import FounderGrid from "@/components/About/FounderGrid";
 import HowWeWork from "@/components/About/HowWeWork";
 import Showreel from "@/components/About/Showreel";
@@ -7,6 +8,21 @@ import Hero from "@/components/About/Hero";
 import Form from "@/components/Reusable/Form";
 import { fetchAboutPage } from "@/service/fetchAboutPage";
 import FlippingClients from "@/components/Home/FlippingClients";
+
+export const metadata: Metadata = {
+  title: "About Verq",
+  description:
+    "User Experience Design Studio Built on Strategy and Execution",
+  openGraph: {
+    title: "About Verq",
+    description: "User Experience Design Studio Built on Strategy and Execution",
+    url: "https://verq.co/about",
+  },
+  twitter: {
+    title: "About Verq",
+    description: "User Experience Design Studio Built on Strategy and Execution",
+  },
+};
 
 export default async function About() {
   const [aboutData] = await Promise.all([
