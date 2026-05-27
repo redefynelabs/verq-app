@@ -6,6 +6,7 @@ import { EpicPro, inter, orpix } from "@/fonts";
 import Navbar from "@/components/Navigation/Navbar";
 import RipplePlane from "@/components/Reusable/FluidCursor";
 import ConditionalFooter from "@/components/Navigation/ConditionalFooter";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://verq.co"),
@@ -42,6 +43,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "OKRI-_rayxmlxhVxDNWAN7eb9AP0-Vg0hcY--ReRVr4",
+  },
 };
 
 export default async function RootLayout({
@@ -51,6 +55,20 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-1D7SXE1R51"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-1D7SXE1R51');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.variable} ${orpix.variable} ${EpicPro.variable} antialiased`}>
         {/* <LenisProvider> */}
         <RipplePlane />
