@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { fetchWorkList, workSlug } from "@/service/fetchWorkList";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: "https://verq.co",
       lastModified: new Date(),
@@ -21,4 +22,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
+
+  const data = await fetchWorkList();
+  const workRoutes: MetadataRoute.Sitemap = data
+    ? data.Works.map((w) => ({
+        url: `https://verq.co/works/${workSlug(w.Title)}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      }))
+    : [];
+
+  return [...staticRoutes, ...workRoutes];
 }
