@@ -6,16 +6,21 @@ import Image from 'next/image'
 const Team = ({ data }: { data: TeamSection | null }) => {
     if (!data) return null;
 
+    const hasTeamCards = data.TeamCards?.length > 0;
+
     return (
         <div className="relative isolate bg-[#101010] py-10 px-4 sm:px-8 md:px-14">
             {/* Header */}
-            <div className="absolute top-0 left-0 right-0 z-10 px-4 sm:px-8 md:px-14 pt-6">
-                <div className="w-full bg-white/20 h-px mb-3" />
-                <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
-                    <p>{"{6}"}</p>
-                    <p>{"{TEAM}"}</p>
+            {hasTeamCards && (
+                <div className="absolute top-0 left-0 right-0 z-10 px-4 sm:px-8 md:px-14 pt-6">
+                    <div className="w-full bg-white/20 h-px mb-3" />
+                    <div className="font-family-inter tracking-tighter flex justify-between items-center w-full text-white">
+                        <p>{"{6}"}</p>
+                        <p>{"{TEAM}"}</p>
+                    </div>
                 </div>
-            </div>
+            )}
+           
 
             {/* Cards row */}
             <div className="flex flex-row gap-4 pt-16 overflow-x-auto scrollbar-none">
